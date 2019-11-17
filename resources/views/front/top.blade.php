@@ -1,7 +1,19 @@
-@extends('../layouts.index')
-
-@section('content')
-<div>
-    hello
-</div>
-@endsection
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    @include('common.head')
+</head>
+<body>
+    <div id="app">
+        <header>
+            <header-component />
+        </header>
+        <main>
+            <router-view />
+        </main>
+        <footer>
+            <footer-component />
+        </footer>   
+    </div>
+</body>
+</html>

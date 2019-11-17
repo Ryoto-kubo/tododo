@@ -14,20 +14,20 @@ const mix = require('laravel-mix');
 // mix.js('resources/js/app.js', 'public/js')
 //    .sass('resources/sass/app.scss', 'public/css');
 
-mix.js('resources/js/app.js', 'public/js') // ただのmixだな
-   .sass('resources/sass/app.scss', 'public/css') // ただのmixだな
-   .browserSync({ // ここから
-     proxy: {
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    .browserSync({ // ここから
+      proxy: {
         target: "localhost" // 最後に/は不要
-     },
-     browser: "google chrome",
-     files: [ // チェックするファイルは下記で十分ではないかな。
-       './resources/**/*',
-       './app/**/*',
-       './config/**/*',
-       './routes/**/*',
-       './public/**/*.*'
-     ],
-     open: true,
-     reloadOnRestart: true //BrowserSync起動時にブラウザにリロード命令おくる
+      },
+      browser: "google chrome",
+      files: [ // チェックするファイルは下記で十分ではないかな。
+        './resources/**/*',
+        './app/**/*',
+        './config/**/*',
+        './routes/**/*',
+        './public/**/*.*'
+      ],
+      open: true,
+      reloadOnRestart: true //BrowserSync起動時にブラウザにリロード命令おくる
 });

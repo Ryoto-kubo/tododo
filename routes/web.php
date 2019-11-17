@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('front/top');
+// });
+Route::get('/{any}', function () {
     return view('front/top');
-});
+})->where('any', '.*');
 
 Auth::routes();
 

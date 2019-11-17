@@ -5,10 +5,11 @@
 </head>
 <body>
     <div id="app">
-        @include('common.header')
+        <header-component />
         <main>
             @yield('content')
         </main>
+        <footer-component />
     </div>
 </body>
 </html>
