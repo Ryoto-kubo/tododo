@@ -3,17 +3,19 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import WeeklyCardComponent from '../components/parts/WeeklyCardComponent.vue'
+import App from    '../App.vue'
+import Weekly from '../components/parts/WeeklyCardComponent.vue'
 
 const routes = [
     {
-      path: '/',
-      component: WeeklyCardComponent,
+        path: '/',
+        component: App,
     },
     {
-      path: '/test',
-      component: WeeklyCardComponent,
-    },
+        path: '/:path',
+        name: 'week',
+        component: Weekly
+    }
 ]
 
 const router = new VueRouter({
