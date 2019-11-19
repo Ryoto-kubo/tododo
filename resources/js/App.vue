@@ -1,7 +1,8 @@
 <template>
     <div class="body_container">
         <div v-for="(week, index) in weeks" :key="index">
-          <router-link v-bind:to="{ name : 'week', params : { path: week.path }}">{{week.week}}</router-link>
+          <input v-model="name">
+          <router-link :to="{ name : 'week', params : { path: week.path }}">{{week.week}}</router-link>
         </div>
     </div>
 </template>
@@ -19,7 +20,18 @@ export default {
         {path: 'fri', week: '金'},
         {path: 'sat', week: '土'},
         {path: 'sun', week: '日'}
-      ]
+      ],
+      name: null,
+    }
+  },
+  mounted() {
+    if (localStorage.name) {
+      this.name = localStorage.name;
+    }
+  },
+  watch: {
+    name(newName) {
+      localStorage.name = newName;
     }
   }
 }
