@@ -43,7 +43,7 @@ export default {
     display: block;
     text-decoration: none;
     text-align: center;
-    background: #EBECF0;
+    background: $todo_card_bg;
     border: 1px solid  #707070;
     border-radius: 10px;
     // font-size: calc(2rem + ((1.5vw - 0.64rem) * 0.7143)); // 20px~24pxで可変

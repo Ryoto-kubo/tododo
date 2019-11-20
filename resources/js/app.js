@@ -25,8 +25,8 @@ window.Vue = require('vue');
 Vue.component('header-component',      require('./components/globals/HeaderComponent.vue').default);
 Vue.component('footer-component',      require('./components/globals/FooterComponent.vue').default);
 
-
 Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
+Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
 
 /**s
  * Next, we will create a fresh Vue application instance and attach it to
