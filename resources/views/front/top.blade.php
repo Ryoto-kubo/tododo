@@ -11,9 +11,9 @@
         <main>
             <router-view />
         </main>
-        <footer>
+        <!-- <footer>
             <footer-component />
-        </footer>   
+        </footer>    -->
     </div>
 </body>
 </html>

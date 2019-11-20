@@ -26,7 +26,7 @@ Vue.component('header-component',      require('./components/globals/HeaderCompo
 Vue.component('footer-component',      require('./components/globals/FooterComponent.vue').default);
 
 
-Vue.component('weekly-card-component', require('./components/parts/WeeklyCardComponent.vue').default);
+Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
 
 /**s
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1,8 +1,11 @@
 <template>
-    <div class="body_container">
+    <div class="weeklycard_container">
         <div v-for="(week, index) in weeks" :key="index">
-          <input v-model="name">
-          <router-link :to="{ name : 'week', params : { path: week.path }}">{{week.week}}</router-link>
+          <router-link class="weeklycard" :to="{ name : 'week', params : { path: week.path }}">
+            <div class="weeklytext">
+              {{week.week}}曜日
+            </div>
+          </router-link>
         </div>
     </div>
 </template>
@@ -21,18 +24,44 @@ export default {
         {path: 'sat', week: '土'},
         {path: 'sun', week: '日'}
       ],
-      name: null,
     }
   },
-  mounted() {
-    if (localStorage.name) {
-      this.name = localStorage.name;
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../sass/variables';
+.weeklycard_container{
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+  .weeklycard{
+    margin-top: 10px;
+    width: 180px;
+    padding: 30px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    background: #EBECF0;
+    border: 1px solid  #707070;
+    border-radius: 10px;
+    // font-size: calc(2rem + ((1.5vw - 0.64rem) * 0.7143)); // 20px~24pxで可変
+    font-size: 2.5rem;
+    font-weight: bold;
+    transition: .5s all;
+    &:hover{
+      background: $base_bg;
+      box-shadow:0px 7px 10px 0px #707070;
+      transform: translate(0, -5px);
+      .weeklytext{
+        color: $white;
+      }
     }
-  },
-  watch: {
-    name(newName) {
-      localStorage.name = newName;
+    .weeklytext{
+      color: $text_color;
+      transition: .5s all;
     }
   }
 }
-</script>
+</style>
