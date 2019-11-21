@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        TODOdo?
+        <a href="/">TODOdo?</a>
     </div>
 </template>
 
@@ -10,6 +10,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import '../../../sass/variables';
+
+a{
+    color: $white;
+    display: block;
+    text-decoration: none;
+}
 
 </style>
