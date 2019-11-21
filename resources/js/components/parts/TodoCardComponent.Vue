@@ -3,20 +3,21 @@
         <p class="todo_card_title">
             {{title}}
         </p>
+        <div class="todo_card_add_container">
+            <font-awesome-icon class="plus_icon" icon="plus"/>
+            <p>{{addTodoCard}}st</p>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     props: {
-        title: String
+        title: String,
+        addTodoCard: String
     }
 }
 </script>
-
-<style lang="scss">
-
-</style>
 
 <style lang="scss" scoped>
 @import '../../../sass/variables';
@@ -35,6 +36,10 @@ export default {
     }
     .todo_card_title{
         font-size: 2.0rem;
+    }
+    .plus_icon{
+        width: 25px;
+        height: 25px;
     }
 }
 </style>

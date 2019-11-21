@@ -6,12 +6,15 @@
         <div class="todo_card_container">
             <todo-card-component
                 title="するべきこと"
+                add-todo-card="するべきことを追加"
             />
             <todo-card-component
                 title="作業中"
+                add-todo-card="作業中を追加"
             />
             <todo-card-component
                 title="完了"
+                add-todo-card="完了を追加"
             />
         </div>
     </div>

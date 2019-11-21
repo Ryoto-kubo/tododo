@@ -6,7 +6,7 @@
 <body>
     <div id="app">
         <header>
-            <header-component />
+            <the-header-component />
         </header>
         <main>
             <router-view />
