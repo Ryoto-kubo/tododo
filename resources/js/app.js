@@ -11,8 +11,11 @@ import router from './router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueLocalStorage from 'vue-localstorage'
+
 
 library.add(fas)
+Vue.use(VueLocalStorage)
 window.Vue = require('vue');
 
 /**
