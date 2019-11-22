@@ -9,7 +9,7 @@
             </div>
         </template>
         <input v-if="isDisplay" type="text" v-model="taskValue">
-        <button v-if="isDisplay" @click="addTask()">
+        <button v-if="isDisplay" @click="addTask(objectKey)">
             <font-awesome-icon class="plus_icon" icon="plus"/>
         </button>
         <div class="todo_card_add_container" @click="showTaskInput">
@@ -27,27 +27,42 @@ export default {
             isDisplay: false,
             isShowTask: false,
             taskValue: null,
-            tasks: [
-            ]
+            todoArray: [],
+            tasks: []
         }
     },
     props: {
         title: String,
+        objectKey: String,
+        weeklyKey: String
     },
     // computed: {
     //     taskValue() {
     //         return this.taskValue = this.taskValue
     //     }
     // },
+    mounted() {
+        // this.todoArray.push(this.objectKey)
+    },
     methods: {
         showTaskInput() {
             this.isDisplay = true
         },
-        addTask() {
-            this.tasks.push({taskTitle: this.taskValue})
+        addTask(objectKey) {
+            let jsonData
             this.isDisplay  = false
             this.isShowTask = true
+
+            this.tasks.push({taskTitle: this.taskValue})
             this.height = this.height + 45
+
+            // this.$set(this.todoArray, objectKey, this.taskValue)           
+            this.todoArray.push({[objectKey]: {name: this.taskValue}})
+            console.log(this.todoArray.keys());
+            
+            jsonData = JSON.stringify(this.todoArray)
+            this.$localStorage.set(this.weeklyKey, jsonData)
+
             this.taskValueInit()
         },
         taskValueInit() {

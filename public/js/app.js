@@ -11651,9 +11651,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      todoTitleObjects: [{
+        todoTitle: 'するべきこと'
+      }, {
+        todoTitle: '作業中'
+      }, {
+        todoTitle: '完了'
+      }],
+      localList: {
+        todoList: {}
+      }
+    };
+  },
+  mounted: function mounted() {
+    var weeklyKey = this.$route.params.path;
+    var isWeeklyKey = this.$localStorage.get(weeklyKey); // localStorageに指定した曜日のkeyが登録されてないければweekをkeyに登録
+
+    if (!isWeeklyKey) {
+      var jsonList = JSON.stringify(this.localList);
+      this.$localStorage.set(weeklyKey, jsonList);
+    }
+  },
   computed: {
     path: function path() {
       var week = this.$route.params.path;
@@ -11702,6 +11723,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -11730,28 +11753,41 @@ __webpack_require__.r(__webpack_exports__);
       isDisplay: false,
       isShowTask: false,
       taskValue: null,
+      todoArray: [],
       tasks: []
     };
   },
   props: {
-    title: String
+    title: String,
+    objectKey: String,
+    weeklyKey: String
   },
   // computed: {
   //     taskValue() {
   //         return this.taskValue = this.taskValue
   //     }
   // },
+  mounted: function mounted() {// this.todoArray.push(this.objectKey)
+  },
   methods: {
     showTaskInput: function showTaskInput() {
       this.isDisplay = true;
     },
-    addTask: function addTask() {
+    addTask: function addTask(objectKey) {
+      var jsonData;
+      this.isDisplay = false;
+      this.isShowTask = true;
       this.tasks.push({
         taskTitle: this.taskValue
       });
-      this.isDisplay = false;
-      this.isShowTask = true;
-      this.height = this.height + 45;
+      this.height = this.height + 45; // this.$set(this.todoArray, objectKey, this.taskValue)           
+
+      this.todoArray.push(_defineProperty({}, objectKey, {
+        name: this.taskValue
+      }));
+      console.log(this.todoArray.keys());
+      jsonData = JSON.stringify(this.todoArray);
+      this.$localStorage.set(this.weeklyKey, jsonData);
       this.taskValueInit();
     },
     taskValueInit: function taskValueInit() {
@@ -47974,14 +48010,23 @@ var render = function() {
     _c(
       "div",
       { staticClass: "todo_card_container" },
-      [
-        _c("todo-card-component", { attrs: { title: "するべきこと" } }),
-        _vm._v(" "),
-        _c("todo-card-component", { attrs: { title: "作業中" } }),
-        _vm._v(" "),
-        _c("todo-card-component", { attrs: { title: "完了" } })
-      ],
-      1
+      _vm._l(_vm.todoTitleObjects, function(todoTitleObject, index) {
+        return _c(
+          "div",
+          { key: index },
+          [
+            _c("todo-card-component", {
+              attrs: {
+                title: todoTitleObject.todoTitle,
+                objectKey: "list_" + index,
+                weeklyKey: _vm.$route.params.path
+              }
+            })
+          ],
+          1
+        )
+      }),
+      0
     )
   ])
 }
@@ -48052,7 +48097,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.addTask()
+                  return _vm.addTask(_vm.objectKey)
                 }
               }
             },
@@ -63584,7 +63629,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('todo-card-component', __we
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
+  localStorage: {//   list_0: {
+    //         name: null
+    //   },
+    //   list_1: {
+    //         name: null
+    //   },
+    //   list_2: {
+    //         name: null
+  }
 });
 
 /***/ }),

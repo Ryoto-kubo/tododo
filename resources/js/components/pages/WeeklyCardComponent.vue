@@ -4,21 +4,41 @@
             {{path}}
         </p>
         <div class="todo_card_container">
-            <todo-card-component
-                title="するべきこと"
-            />
-            <todo-card-component
-                title="作業中"
-            />
-            <todo-card-component
-                title="完了"
-            />
+            <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index">
+                <todo-card-component
+                    :title    ="todoTitleObject.todoTitle"
+                    :objectKey="'list_' + index"
+                    :weeklyKey="$route.params.path"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            todoTitleObjects: [
+                {todoTitle: 'するべきこと'},
+                {todoTitle: '作業中'},
+                {todoTitle: '完了'},
+            ],
+            localList: {
+                todoList: {}
+            }
+        }
+    },
+    mounted() {
+        let weeklyKey = this.$route.params.path
+        let isWeeklyKey = this.$localStorage.get(weeklyKey)
+        
+        // localStorageに指定した曜日のkeyが登録されてないければweekをkeyに登録
+        if(!isWeeklyKey) {
+            let jsonList = JSON.stringify(this.localList)
+            this.$localStorage.set(weeklyKey, jsonList)
+        }
+    },
     computed: {
         path() {
             const week = this.$route.params.path;
