@@ -11108,6 +11108,10 @@ body {
   line-height: 2;
 }
 
+input {
+  outline: none;
+}
+
 main {
   width: 90%;
   margin: auto;

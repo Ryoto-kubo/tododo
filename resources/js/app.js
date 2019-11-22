@@ -29,7 +29,7 @@ Vue.component('font-awesome-icon',     FontAwesomeIcon);
 Vue.component('the-header-component',  require('./components/globals/TheHeaderComponent.vue').default);
 Vue.component('the-footer-component',  require('./components/globals/TheFooterComponent.vue').default);
 
-Vue.component('weekly-card-component', require('./components/parts/WeeklyCardComponent.vue').default);
+Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
 Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
 
 /**s

@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from    '../App.vue'
-import Weekly from '../components/parts/WeeklyCardComponent.vue'
+import Weekly from '../components/pages/WeeklyCardComponent.vue'
 
 const routes = [
     {
