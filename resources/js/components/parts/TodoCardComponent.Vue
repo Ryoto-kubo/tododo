@@ -9,7 +9,7 @@
             </div>
         </template>
         <input v-if="isDisplay" type="text" v-model="taskValue">
-        <button v-if="isDisplay" @click="addTask(objectKey)">
+        <button v-if="isDisplay" @click="addTask(todoCardListKey)">
             <font-awesome-icon class="plus_icon" icon="plus"/>
         </button>
         <div class="todo_card_add_container" @click="showTaskInput">
@@ -27,47 +27,60 @@ export default {
             isDisplay: false,
             isShowTask: false,
             taskValue: null,
-            todoArray: [],
+            todoObject: {},
             tasks: []
         }
     },
     props: {
         title: String,
-        objectKey: String,
-        weeklyKey: String
+        weeklyKey: String,
+        todoCardListKey: String,
     },
-    // computed: {
-    //     taskValue() {
-    //         return this.taskValue = this.taskValue
-    //     }
-    // },
     mounted() {
-        // this.todoArray.push(this.objectKey)
+        let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+        if (weeklyObjects) {
+            let reslut = weeklyObjects['todoCardList'][this.todoCardListKey]
+            if(reslut) {
+                let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]
+                weeklyObject.forEach((element) => {
+                    this.tasks.push(element)
+                });
+            }
+        }
     },
     methods: {
         showTaskInput() {
             this.isDisplay = true
         },
-        addTask(objectKey) {
-            let jsonData
+        addTask(todoCardListKey) {
             this.isDisplay  = false
             this.isShowTask = true
 
+            // dataにpush
             this.tasks.push({taskTitle: this.taskValue})
-            this.height = this.height + 45
+            this.$set(this.todoObject, 'name', this.taskValue)
 
-            // this.$set(this.todoArray, objectKey, this.taskValue)           
-            this.todoArray.push({[objectKey]: {name: this.taskValue}})
-            console.log(this.todoArray.keys());
+            // taskがt増えるたびにtodoCardのheightを増やす
+            this.height = this.height + 45
             
-            jsonData = JSON.stringify(this.todoArray)
-            this.$localStorage.set(this.weeklyKey, jsonData)
+            // localStorageのdataを取得し、todoCardListKeyが無ければ追加
+            let weeklyJson   = JSON.parse(this.$localStorage.get(this.weeklyKey))
+            const key        = Object.keys(weeklyJson.todoCardList)             
+            const result     = key.find(target => target === todoCardListKey)
+            if(!result) {
+                weeklyJson.todoCardList[todoCardListKey] = []
+            }
+
+            // localStorageに保存
+            const object = {taskTitle: this.taskValue}
+            weeklyJson['todoCardList'][todoCardListKey].push(object)
+            this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson))
 
             this.taskValueInit()
         },
         taskValueInit() {
             this.taskValue = null
-        }
+        },
     },
 }
 </script>

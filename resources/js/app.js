@@ -44,15 +44,6 @@ Vue.component('todo-card-component',   require('./components/parts/TodoCardCompo
 const app = new Vue({
     el: '#app',
     router: router,
-    localStorage: {
-        //   list_0: {
-        //         name: null
-        //   },
-        //   list_1: {
-        //         name: null
-        //   },
-        //   list_2: {
-        //         name: null
-        
+    localStorage: {        
     },
 });

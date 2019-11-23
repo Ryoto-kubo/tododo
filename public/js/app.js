@@ -11661,17 +11661,17 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         todoTitle: '完了'
       }],
-      localList: {
-        todoList: {}
+      localStorageList: {
+        todoCardList: {}
       }
     };
   },
   mounted: function mounted() {
     var weeklyKey = this.$route.params.path;
-    var isWeeklyKey = this.$localStorage.get(weeklyKey); // localStorageに指定した曜日のkeyが登録されてないければweekをkeyに登録
+    var isWeeklyKey = JSON.parse(this.$localStorage.get(weeklyKey)); // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
 
     if (!isWeeklyKey) {
-      var jsonList = JSON.stringify(this.localList);
+      var jsonList = JSON.stringify(this.localStorageList);
       this.$localStorage.set(weeklyKey, jsonList);
     }
   },
@@ -11723,8 +11723,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -11753,41 +11751,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isDisplay: false,
       isShowTask: false,
       taskValue: null,
-      todoArray: [],
+      todoObject: {},
       tasks: []
     };
   },
   props: {
     title: String,
-    objectKey: String,
-    weeklyKey: String
+    weeklyKey: String,
+    todoCardListKey: String
   },
-  // computed: {
-  //     taskValue() {
-  //         return this.taskValue = this.taskValue
-  //     }
-  // },
-  mounted: function mounted() {// this.todoArray.push(this.objectKey)
+  mounted: function mounted() {
+    var _this = this;
+
+    var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
+
+    if (weeklyObjects) {
+      var reslut = weeklyObjects['todoCardList'][this.todoCardListKey];
+
+      if (reslut) {
+        var weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey];
+        weeklyObject.forEach(function (element) {
+          _this.tasks.push(element);
+        });
+      }
+    }
   },
   methods: {
     showTaskInput: function showTaskInput() {
       this.isDisplay = true;
     },
-    addTask: function addTask(objectKey) {
-      var jsonData;
+    addTask: function addTask(todoCardListKey) {
       this.isDisplay = false;
-      this.isShowTask = true;
+      this.isShowTask = true; // dataにpush
+
       this.tasks.push({
         taskTitle: this.taskValue
       });
-      this.height = this.height + 45; // this.$set(this.todoArray, objectKey, this.taskValue)           
+      this.$set(this.todoObject, 'name', this.taskValue); // taskがt増えるたびにtodoCardのheightを増やす
 
-      this.todoArray.push(_defineProperty({}, objectKey, {
-        name: this.taskValue
-      }));
-      console.log(this.todoArray.keys());
-      jsonData = JSON.stringify(this.todoArray);
-      this.$localStorage.set(this.weeklyKey, jsonData);
+      this.height = this.height + 45; // localStorageのdataを取得し、todoCardListKeyが無ければ追加
+
+      var weeklyJson = JSON.parse(this.$localStorage.get(this.weeklyKey));
+      var key = Object.keys(weeklyJson.todoCardList);
+      var result = key.find(function (target) {
+        return target === todoCardListKey;
+      });
+
+      if (!result) {
+        weeklyJson.todoCardList[todoCardListKey] = [];
+      } // localStorageに保存
+
+
+      var object = {
+        taskTitle: this.taskValue
+      };
+      weeklyJson['todoCardList'][todoCardListKey].push(object);
+      this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson));
       this.taskValueInit();
     },
     taskValueInit: function taskValueInit() {
@@ -48018,8 +48037,8 @@ var render = function() {
             _c("todo-card-component", {
               attrs: {
                 title: todoTitleObject.todoTitle,
-                objectKey: "list_" + index,
-                weeklyKey: _vm.$route.params.path
+                weeklyKey: _vm.$route.params.path,
+                todoCardListKey: "list_" + index
               }
             })
           ],
@@ -48097,7 +48116,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.addTask(_vm.objectKey)
+                  return _vm.addTask(_vm.todoCardListKey)
                 }
               }
             },
@@ -63630,15 +63649,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('todo-card-component', __we
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
-  localStorage: {//   list_0: {
-    //         name: null
-    //   },
-    //   list_1: {
-    //         name: null
-    //   },
-    //   list_2: {
-    //         name: null
-  }
+  localStorage: {}
 });
 
 /***/ }),

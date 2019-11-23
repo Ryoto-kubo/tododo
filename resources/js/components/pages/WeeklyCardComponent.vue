@@ -7,8 +7,8 @@
             <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index">
                 <todo-card-component
                     :title    ="todoTitleObject.todoTitle"
-                    :objectKey="'list_' + index"
                     :weeklyKey="$route.params.path"
+                    :todoCardListKey="'list_' + index"
                 />
             </div>
         </div>
@@ -24,18 +24,18 @@ export default {
                 {todoTitle: '作業中'},
                 {todoTitle: '完了'},
             ],
-            localList: {
-                todoList: {}
+            localStorageList: {
+                todoCardList: {}
             }
         }
     },
     mounted() {
-        let weeklyKey = this.$route.params.path
-        let isWeeklyKey = this.$localStorage.get(weeklyKey)
+        const weeklyKey   = this.$route.params.path
+        const isWeeklyKey = JSON.parse(this.$localStorage.get(weeklyKey))
         
-        // localStorageに指定した曜日のkeyが登録されてないければweekをkeyに登録
+        // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
         if(!isWeeklyKey) {
-            let jsonList = JSON.stringify(this.localList)
+            const jsonList = JSON.stringify(this.localStorageList)
             this.$localStorage.set(weeklyKey, jsonList)
         }
     },
