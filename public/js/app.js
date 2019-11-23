@@ -11760,7 +11760,7 @@ __webpack_require__.r(__webpack_exports__);
     weeklyKey: String,
     todoCardListKey: String
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
@@ -11771,6 +11771,9 @@ __webpack_require__.r(__webpack_exports__);
       if (reslut) {
         var weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey];
         weeklyObject.forEach(function (element) {
+          _this.isShowTask = true;
+          _this.height = _this.height + 45;
+
           _this.tasks.push(element);
         });
       }
@@ -16331,7 +16334,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  position: relative;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  position: absolute;\n  top: 82%;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .plus_icon[data-v-71697f1d] {\n  width: 25px;\n  height: 25px;\n}\n.todo_card_body .todo_card_add_container p[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
+exports.push([module.i, ".todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  position: relative;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body input[data-v-71697f1d] {\n  width: 200px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  position: absolute;\n  top: 82%;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .plus_icon[data-v-71697f1d] {\n  width: 25px;\n  height: 25px;\n}\n.todo_card_body .todo_card_add_container p[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
 
 // exports
 

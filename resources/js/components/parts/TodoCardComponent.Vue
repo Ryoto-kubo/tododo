@@ -36,14 +36,17 @@ export default {
         weeklyKey: String,
         todoCardListKey: String,
     },
-    mounted() {
+    created() {
         let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
         if (weeklyObjects) {
             let reslut = weeklyObjects['todoCardList'][this.todoCardListKey]
             if(reslut) {
                 let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]
                 weeklyObject.forEach((element) => {
+                    this.isShowTask = true
+                    this.height = this.height + 45
                     this.tasks.push(element)
+
                 });
             }
         }
@@ -114,6 +117,11 @@ export default {
             transform: translate(0, -2px);
             box-shadow: 0px 4px 10px 0px #707070;
         }
+    }
+    input{
+        width: 200px;
+        padding: 5px 10px;
+        font-size: 1.6rem;
     }
     .todo_card_add_container{
         display: flex;
