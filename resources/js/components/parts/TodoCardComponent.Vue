@@ -4,9 +4,11 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
-                {{task.taskTitle}}
-            </div>
+            <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="onEnd">
+                <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
+                    {{task.taskTitle}}
+                </div>
+            </draggable>
         </template>
         <template v-if="isDisplay">
             <div class="todo_card_input_container">
@@ -14,8 +16,7 @@
                     :id="todoCardListKey"
                     :class="validAnimation" 
                     v-model="taskValue" 
-                    @keydown.enter="addTask(todoCardListKey, $event.keyCode)"
-                >
+                    @keydown.enter="addTask(todoCardListKey, $event.keyCode)">
                 <div class="btn_area">
                     <div>
                         <button class="done_btn" @click="addTask(todoCardListKey)">
@@ -30,7 +31,7 @@
                 </div>
             </div>
         </template>
-        <div v-if="isAddTask" class="todo_card_add_container" @click="showTaskInput">
+        <div v-if="isAddTask" class="todo_card_add_container" @click="showTaskInput(todoCardListKey)">
             <font-awesome-icon class="plus_icon" icon="plus"/>
             <div class="add_text">タスクを追加</div>
         </div>
@@ -38,9 +39,15 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 export default {
+    components: { draggable },
     data() {
         return {
+            options: {
+                group: "myGroup",
+                animation: 200
+            },
             isDisplay: false,
             isShowTask: true,
             isAddTask: true,
@@ -62,17 +69,36 @@ export default {
             if(reslut) {
                 let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]
                 weeklyObject.forEach((element) => {
-                    this.height = this.height + 55
                     this.tasks.push(element)
-
                 });
             }
         }
     },
     methods: {
-        showTaskInput() {
+        onEnd(originalEvent) {
+            // listを持ったが動かさなかった場合
+
+            // listを持って動かした場合
+
+            // listの親IDがkeyとしてlocalStorageに保存されている場合
+
+            // 保存されていない場合
+
+
+            let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+            // console.log(weeklyObjects['todoCardList'][this.todoCardListKey])
+            console.log(originalEvent.item.innerText)
+            console.log(originalEvent.item.parentNode.id)
+
+            // const taskTitle   = originalEvent.item.innerText
+            // const index       = this.tasks.findIndex((v) => v.taskTitle === taskTitle)
+            // const removedUser = this.tasks.splice(index, 1)
+            // this.tasks.push({taskTitle: originalEvent.item.innerText})
+        },
+        showTaskInput(todoCardListKey) {
             this.isDisplay = true
             this.isAddTask = false
+            this.$nextTick(() => document.getElementById(todoCardListKey).focus());
         },
         cancelTask(){
             this.isDisplay = false
@@ -106,7 +132,7 @@ export default {
                 }
 
                 // localStorageに保存
-                const object = {taskTitle: this.taskValue}
+                const object = {listId: todoCardListKey, taskTitle: this.taskValue}
                 weeklyJson['todoCardList'][todoCardListKey].push(object)
                 this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson))
 
@@ -192,10 +218,15 @@ export default {
         background: #fff;
         font-size: 16px;
         border-radius: 10px;
-        transition: .5s all;
+        transition: .2s all;
         &:hover{
+            cursor: grab;
             transform: translate(0, -2px);
             box-shadow: 0px 4px 10px 0px #707070;
+        }
+        &:active {
+            cursor: grabbing;
+            // transform: rotate(5deg);
         }
     }
     .todo_card_input_container{
