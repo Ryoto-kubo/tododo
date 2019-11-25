@@ -11110,6 +11110,7 @@ body {
 
 input {
   outline: none;
+  border: none;
 }
 
 main {

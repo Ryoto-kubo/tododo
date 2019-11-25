@@ -11744,13 +11744,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      height: 200,
       isDisplay: false,
-      isShowTask: false,
+      isShowTask: true,
+      isAddTask: true,
       taskValue: null,
+      validAnimation: null,
       todoObject: {},
       tasks: []
     };
@@ -11771,8 +11790,7 @@ __webpack_require__.r(__webpack_exports__);
       if (reslut) {
         var weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey];
         weeklyObject.forEach(function (element) {
-          _this.isShowTask = true;
-          _this.height = _this.height + 45;
+          _this.height = _this.height + 55;
 
           _this.tasks.push(element);
         });
@@ -11782,35 +11800,55 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showTaskInput: function showTaskInput() {
       this.isDisplay = true;
+      this.isAddTask = false;
     },
-    addTask: function addTask(todoCardListKey) {
+    cancelTask: function cancelTask() {
       this.isDisplay = false;
-      this.isShowTask = true; // dataにpush
+      this.isAddTask = true;
+    },
+    addTask: function addTask(todoCardListKey, keyCode) {
+      var _this2 = this;
 
-      this.tasks.push({
-        taskTitle: this.taskValue
-      });
-      this.$set(this.todoObject, 'name', this.taskValue); // taskがt増えるたびにtodoCardのheightを増やす
+      if (keyCode !== 13) return;
 
-      this.height = this.height + 45; // localStorageのdataを取得し、todoCardListKeyが無ければ追加
+      if (!this.taskValue) {
+        var removeClassDuration = 500;
+        this.isDisplay = true;
+        this.validAnimation = 'valid_shake';
+        setTimeout(function () {
+          _this2.validAnimation = null;
+        }, removeClassDuration);
+      } else {
+        this.isAddTask = true;
+        this.isShowTask = true; // dataにpush
 
-      var weeklyJson = JSON.parse(this.$localStorage.get(this.weeklyKey));
-      var key = Object.keys(weeklyJson.todoCardList);
-      var result = key.find(function (target) {
-        return target === todoCardListKey;
-      });
+        this.tasks.push({
+          taskTitle: this.taskValue
+        });
+        this.$set(this.todoObject, 'name', this.taskValue); // localStorageのdataを取得し、todoCardListKeyが無ければ追加
 
-      if (!result) {
-        weeklyJson.todoCardList[todoCardListKey] = [];
-      } // localStorageに保存
+        var weeklyJson = JSON.parse(this.$localStorage.get(this.weeklyKey));
+        var key = Object.keys(weeklyJson.todoCardList);
+        var result = key.find(function (target) {
+          return target === todoCardListKey;
+        });
+
+        if (!result) {
+          weeklyJson.todoCardList[todoCardListKey] = [];
+        } // localStorageに保存
 
 
-      var object = {
-        taskTitle: this.taskValue
-      };
-      weeklyJson['todoCardList'][todoCardListKey].push(object);
-      this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson));
-      this.taskValueInit();
+        var object = {
+          taskTitle: this.taskValue
+        };
+        weeklyJson['todoCardList'][todoCardListKey].push(object);
+        this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson)); // 次のinputタグにautofocousする
+
+        this.$nextTick(function () {
+          return document.getElementById(todoCardListKey).focus();
+        });
+        this.taskValueInit();
+      }
     },
     taskValueInit: function taskValueInit() {
       this.taskValue = null;
@@ -16334,7 +16372,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  position: relative;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body input[data-v-71697f1d] {\n  width: 200px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  position: absolute;\n  top: 82%;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .plus_icon[data-v-71697f1d] {\n  width: 25px;\n  height: 25px;\n}\n.todo_card_body .todo_card_add_container p[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
+exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 25px;\n  vertical-align: 0;\n}\n.valid_shake[data-v-71697f1d] {\n  -webkit-animation: shake-data-v-71697f1d 1.5s 1;\n          animation: shake-data-v-71697f1d 1.5s 1;\n}\n@-webkit-keyframes shake-data-v-71697f1d {\n0% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n2% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n4% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n6% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n8% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n10% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n12% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n14% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n16% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n18% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n100% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n}\n@keyframes shake-data-v-71697f1d {\n0% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n2% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n4% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n6% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n8% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n10% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n12% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n14% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n16% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n18% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n100% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -48076,7 +48114,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "todo_card_body", style: { height: _vm.height + "px" } },
+    { staticClass: "todo_card_body" },
     [
       _c("p", { staticClass: "todo_card_title" }, [
         _vm._v("\n        " + _vm._s(_vm.title) + "\n    ")
@@ -48091,64 +48129,102 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm.isDisplay
-        ? _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.taskValue,
-                expression: "taskValue"
-              }
-            ],
-            attrs: { type: "text" },
-            domProps: { value: _vm.taskValue },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+        ? [
+            _c("div", { staticClass: "todo_card_input_container" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.taskValue,
+                    expression: "taskValue"
+                  }
+                ],
+                class: _vm.validAnimation,
+                attrs: { autofocus: "", type: "text", id: _vm.todoCardListKey },
+                domProps: { value: _vm.taskValue },
+                on: {
+                  keydown: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.addTask(_vm.todoCardListKey, $event.keyCode)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.taskValue = $event.target.value
+                  }
                 }
-                _vm.taskValue = $event.target.value
-              }
-            }
-          })
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn_area" }, [
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "done_btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.addTask(_vm.todoCardListKey)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        追加\n                    "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cancel_btn",
+                      on: {
+                        click: function($event) {
+                          return _vm.cancelTask()
+                        }
+                      }
+                    },
+                    [
+                      _c("font-awesome-icon", {
+                        staticClass: "cancel_icon",
+                        attrs: { icon: "times" }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ])
+          ]
         : _vm._e(),
       _vm._v(" "),
-      _vm.isDisplay
+      _vm.isAddTask
         ? _c(
-            "button",
+            "div",
             {
-              on: {
-                click: function($event) {
-                  return _vm.addTask(_vm.todoCardListKey)
-                }
-              }
+              staticClass: "todo_card_add_container",
+              on: { click: _vm.showTaskInput }
             },
             [
               _c("font-awesome-icon", {
                 staticClass: "plus_icon",
                 attrs: { icon: "plus" }
-              })
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "add_text" }, [_vm._v("タスクを追加")])
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "todo_card_add_container",
-          on: { click: _vm.showTaskInput }
-        },
-        [
-          _c("font-awesome-icon", {
-            staticClass: "plus_icon",
-            attrs: { icon: "plus" }
-          }),
-          _vm._v(" "),
-          _c("p", [_vm._v("タスクを追加")])
-        ],
-        1
-      )
+        : _vm._e()
     ],
     2
   )
