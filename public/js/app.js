@@ -11659,6 +11659,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11674,7 +11675,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         todoTitle: '完了'
       }],
-      hoge: {
+      localStorageList: {
         todoCardList: {
           list_0: {
             listId: 'list_0',
@@ -11692,24 +11693,26 @@ __webpack_require__.r(__webpack_exports__);
             taskList: []
           }
         }
-      },
-      localStorageList: {
-        todoCardList: {
-          list_0: [],
-          list_1: [],
-          list_2: []
-        }
-      }
+      } // localStorageList: {
+      //     todoCardList: {
+      //         list_0: [],
+      //         list_1: [],
+      //         list_2: [],
+      //     }
+      // }
+
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     var weeklyKey = this.$route.params.path;
-    var isWeeklyKey = JSON.parse(this.$localStorage.get(weeklyKey)); // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
+    var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey)); // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
 
-    if (!isWeeklyKey) {
-      var jsonList = JSON.stringify(this.localStorageList);
-      this.$localStorage.set(weeklyKey, jsonList);
+    if (weeklyObjects) {
+      this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
     }
+
+    var jsonList = JSON.stringify(this.localStorageList);
+    this.$localStorage.set(weeklyKey, jsonList);
   },
   computed: {
     path: function path() {
@@ -11748,7 +11751,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addTodo: function addTodo() {
-      console.log('hello');
+      var weeklyKey = this.$route.params.path;
+      var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey));
+      var list = this.localStorageList.todoCardList;
+      var newKey = "list_" + Object.keys(list).length;
+      weeklyObjects.todoCardList[newKey] = {
+        listId: newKey,
+        todoTitle: 'test',
+        taskList: []
+      };
+      this.$set(this.localStorageList.todoCardList, newKey, {
+        listId: newKey,
+        todoTitle: 'test',
+        taskList: []
+      });
+      console.log(weeklyObjects);
+      this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects));
     }
   }
 });
@@ -11840,11 +11858,12 @@ __webpack_require__.r(__webpack_exports__);
     var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
 
     if (weeklyObjects) {
-      var reslut = weeklyObjects['todoCardList'][this.todoCardListKey];
+      var result = weeklyObjects['todoCardList'][this.todoCardListKey];
 
-      if (reslut) {
+      if (result) {
         var weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey];
-        weeklyObject.forEach(function (element) {
+        weeklyObject['taskList'].forEach(function (element) {
+          // console.log(element)
           _this.tasks.push(element);
         });
       }
@@ -11864,12 +11883,14 @@ __webpack_require__.r(__webpack_exports__);
       if (moveBeforeParentId !== moveAfterParentId) {
         var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey)); // localStorageから移動させた要素を削除
 
-        var getArray = weeklyObjects['todoCardList'][moveBeforeParentId];
+        var getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'];
+        console.log(getArray);
         var index = getArray.findIndex(function (array) {
           return array.taskTitle === originalEvent.item.innerText;
         });
         getArray.splice(index, 1);
-        var key = weeklyObjects['todoCardList'][moveAfterParentId]; // listの親IDがkeyとしてlocalStorageに保存されている場合
+        var key = weeklyObjects['todoCardList'][moveAfterParentId]['listId'];
+        console.log(key); // listの親IDがkeyとしてlocalStorageに保存されている場合
 
         if (key) {
           // listの親IDをkeyとしてlocalStorageに保存
@@ -11877,12 +11898,13 @@ __webpack_require__.r(__webpack_exports__);
             listId: moveAfterParentId,
             taskTitle: originalEvent.item.innerText
           };
-          weeklyObjects['todoCardList'][moveAfterParentId].push(object); // localStorageに保存
+          weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object); // localStorageに保存
 
           this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
         } else {
-          // listの親IDをkeyとしたオブジェクトを作成
-          weeklyObjects['todoCardList'][moveAfterParentId] = []; //　作成したオブジェクトに移動させた要素を追加
+          console.log('jello'); // listの親IDをkeyとしたオブジェクトを作成
+
+          weeklyObjects['todoCardList'][moveAfterParentId] = []; // 作成したオブジェクトに移動させた要素を追加
 
           var _object = {
             listId: moveAfterParentId,
@@ -11931,7 +11953,7 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         if (!result) {
-          weeklyJson.todoCardList[todoCardListKey] = [];
+          weeklyJson.todoCardList[todoCardListKey] = {};
         } // localStorageに保存
 
 
@@ -11939,7 +11961,7 @@ __webpack_require__.r(__webpack_exports__);
           listId: todoCardListKey,
           taskTitle: this.taskValue
         };
-        weeklyJson['todoCardList'][todoCardListKey].push(object);
+        weeklyJson['todoCardList'][todoCardListKey]['taskList'].push(object);
         this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson)); // 次のinputタグにautofocousする
 
         this.$nextTick(function () {
@@ -52654,7 +52676,10 @@ var render = function() {
     _c(
       "div",
       { staticClass: "todo_card_container" },
-      _vm._l(_vm.todoTitleObjects, function(todoTitleObject, index) {
+      _vm._l(_vm.localStorageList.todoCardList, function(
+        todoTitleObject,
+        index
+      ) {
         return _c(
           "div",
           { key: index },
@@ -52663,8 +52688,8 @@ var render = function() {
               attrs: {
                 title: todoTitleObject.todoTitle,
                 weeklyKey: _vm.$route.params.path,
-                inputId: "list_input" + index,
-                todoCardListKey: "list_" + index
+                inputId: index + "_input",
+                todoCardListKey: index
               }
             })
           ],

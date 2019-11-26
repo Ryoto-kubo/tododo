@@ -64,12 +64,14 @@ export default {
         todoCardListKey: String,
     },
     created() {
-        let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))        
+        let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+              
         if (weeklyObjects) {
-            let reslut = weeklyObjects['todoCardList'][this.todoCardListKey]
-            if(reslut) {
-                let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]
-                weeklyObject.forEach((element) => {
+            let result = weeklyObjects['todoCardList'][this.todoCardListKey]
+            if(result) {
+                let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]                
+                weeklyObject['taskList'].forEach((element) => {
+                    // console.log(element)
                     this.tasks.push(element)
                 });
             }
@@ -89,28 +91,32 @@ export default {
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
                 // localStorageから移動させた要素を削除
-                let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]
+                let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']
+                console.log(getArray);
+                
                 const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
                 getArray.splice(index, 1)
 
-                const key = weeklyObjects['todoCardList'][moveAfterParentId]
-
+                const key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']
+                console.log(key);
+                
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
                 if(key) {
 
                     // listの親IDをkeyとしてlocalStorageに保存
                     const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    weeklyObjects['todoCardList'][moveAfterParentId].push(object)
+                    weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object)
 
                     // localStorageに保存
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
 
                 } else {
+                    console.log('jello');
                     
                     // listの親IDをkeyとしたオブジェクトを作成
                     weeklyObjects['todoCardList'][moveAfterParentId] = []
                     
-                    //　作成したオブジェクトに移動させた要素を追加
+                    // 作成したオブジェクトに移動させた要素を追加
                     const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
                     weeklyObjects['todoCardList'][moveAfterParentId].push(object)
 
@@ -149,15 +155,15 @@ export default {
     
                 // localStorageのdataを取得し、todoCardListKeyが無ければ追加
                 let weeklyJson   = JSON.parse(this.$localStorage.get(this.weeklyKey))
-                const key        = Object.keys(weeklyJson.todoCardList)             
+                const key        = Object.keys(weeklyJson.todoCardList)                           
                 const result     = key.find(target => target === todoCardListKey)
                 if(!result) {
-                    weeklyJson.todoCardList[todoCardListKey] = []
+                    weeklyJson.todoCardList[todoCardListKey] = {}
                 }
 
                 // localStorageに保存
-                const object = {listId: todoCardListKey, taskTitle: this.taskValue}
-                weeklyJson['todoCardList'][todoCardListKey].push(object)
+                const object = {listId: todoCardListKey, taskTitle: this.taskValue}                
+                weeklyJson['todoCardList'][todoCardListKey]['taskList'].push(object)
                 this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson))
 
                 // 次のinputタグにautofocousする

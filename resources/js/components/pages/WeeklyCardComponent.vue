@@ -7,12 +7,13 @@
             追加
         </button>
         <div class="todo_card_container">
-            <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index">
+            <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
+            <!-- <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index"> -->
                 <todo-card-component
                     :title    ="todoTitleObject.todoTitle"
                     :weeklyKey="$route.params.path"
-                    :inputId="'list_input' + index"
-                    :todoCardListKey="'list_' + index"
+                    :inputId="index + '_input'"
+                    :todoCardListKey="index"
                 />
             </div>
         </div>
@@ -31,31 +32,33 @@ export default {
                 {todoTitle: '作業中'},
                 {todoTitle: '完了'},
             ],
-            hoge: {
+            localStorageList: {
                 todoCardList: {
                     list_0: { listId: 'list_0', todoTitle: 'するべきこと',  taskList: [] },
                     list_1: { listId: 'list_1', todoTitle: '作業中',  taskList: [] },
                     list_2: { listId: 'list_2', todoTitle: '完了',  taskList: [] },
                 }
             },
-            localStorageList: {
-                todoCardList: {
-                    list_0: [],
-                    list_1: [],
-                    list_2: [],
-                }
-            }
+            // localStorageList: {
+            //     todoCardList: {
+            //         list_0: [],
+            //         list_1: [],
+            //         list_2: [],
+            //     }
+            // }
         }
     },
-    mounted() {
-        const weeklyKey   = this.$route.params.path
-        const isWeeklyKey = JSON.parse(this.$localStorage.get(weeklyKey))
+    created() {
+        const weeklyKey     = this.$route.params.path
+        const weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
         
         // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
-        if(!isWeeklyKey) {
-            const jsonList = JSON.stringify(this.localStorageList)
-            this.$localStorage.set(weeklyKey, jsonList)
+        if(weeklyObjects) {
+            this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
         }
+        const jsonList = JSON.stringify(this.localStorageList)
+        this.$localStorage.set(weeklyKey, jsonList)
+
     },
     computed: {
         path() {
@@ -87,8 +90,17 @@ export default {
     },
     methods: {
         addTodo() {
-            console.log('hello');
+            const weeklyKey   = this.$route.params.path
+            let weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
+
+            let list = this.localStorageList.todoCardList
+            const newKey = "list_" + Object.keys(list).length
+            weeklyObjects.todoCardList[newKey] = { listId: newKey, todoTitle: 'test',  taskList: [] }
+            this.$set(this.localStorageList.todoCardList, newKey, { listId: newKey, todoTitle: 'test',  taskList: [] },)
+
+            console.log(weeklyObjects);
             
+            this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects))
         }
     }
 }
