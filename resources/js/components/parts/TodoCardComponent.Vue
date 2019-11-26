@@ -183,48 +183,10 @@ export default {
 @import '../../../sass/variables';
 .plus_icon{
     width: 20px;
-    height: 25px;
+    height: 20px;
     vertical-align: 0;
 }
 
-.valid_shake{
-    animation: shake 1.5s 1;
-}
-@keyframes shake {
-    0% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    2% {
-        transform: translate(2px, 2px) rotateZ(2deg)
-    }
-    4% {
-        transform: translate(0px, 2px) rotateZ(0deg)
-    }
-    6% {
-        transform: translate(2px, 0px) rotateZ(-2deg)
-    }
-    8% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    10% {
-        transform: translate(2px, 2px) rotateZ(2deg)
-    }
-    12% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    14% {
-        transform: translate(2px, 0px) rotateZ(-2deg)
-    }
-    16% {
-        transform: translate(0px, 2px) rotateZ(0deg)
-    }
-    18% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    100% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-}
 .todo_card_body{
     width: 280px;
     height: auto;

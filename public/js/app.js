@@ -11660,6 +11660,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11668,6 +11696,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      isAddTodo: false,
+      todoValue: null,
+      validAnimation: null,
       todoTitleObjects: [{
         todoTitle: 'するべきこと'
       }, {
@@ -11750,23 +11781,38 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    addTodo: function addTodo() {
+    showTodo: function showTodo() {
+      this.isAddTodo = true;
+      this.$nextTick(function () {
+        return document.getElementById('test').focus();
+      });
+    },
+    addTodo: function addTodo(keyCode) {
+      if (keyCode !== 13) return;
       var weeklyKey = this.$route.params.path;
       var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey));
       var list = this.localStorageList.todoCardList;
       var newKey = "list_" + Object.keys(list).length;
       weeklyObjects.todoCardList[newKey] = {
         listId: newKey,
-        todoTitle: 'test',
+        todoTitle: this.todoValue,
         taskList: []
       };
       this.$set(this.localStorageList.todoCardList, newKey, {
         listId: newKey,
-        todoTitle: 'test',
+        todoTitle: this.todoValue,
         taskList: []
       });
       console.log(weeklyObjects);
       this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects));
+      this.isAddTodo = false;
+      this.todoValueInit();
+    },
+    cancelTodo: function cancelTodo() {
+      this.isAddTodo = false;
+    },
+    todoValueInit: function todoValueInit() {
+      this.todoValue = null;
     }
   }
 });
@@ -16473,7 +16519,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}", ""]);
+exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.add_todo_btn_container[data-v-c260a4b4] {\n  margin-bottom: 20px;\n  font-size: 1.6rem;\n}\n.add_todo_btn_container button[data-v-c260a4b4] {\n  width: 210px;\n  color: #ffffff;\n  padding: 5px 15px;\n  background: #60BD4F;\n  outline: none;\n  border: none;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.add_todo_btn_container button .plus_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n}\n.todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
 
 // exports
 
@@ -16492,7 +16538,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 25px;\n  vertical-align: 0;\n}\n.valid_shake[data-v-71697f1d] {\n  -webkit-animation: shake-data-v-71697f1d 1.5s 1;\n          animation: shake-data-v-71697f1d 1.5s 1;\n}\n@-webkit-keyframes shake-data-v-71697f1d {\n0% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n2% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n4% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n6% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n8% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n10% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n12% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n14% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n16% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n18% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n100% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n}\n@keyframes shake-data-v-71697f1d {\n0% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n2% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n4% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n6% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n8% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n10% {\n    -webkit-transform: translate(2px, 2px) rotateZ(2deg);\n            transform: translate(2px, 2px) rotateZ(2deg);\n}\n12% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n14% {\n    -webkit-transform: translate(2px, 0px) rotateZ(-2deg);\n            transform: translate(2px, 0px) rotateZ(-2deg);\n}\n16% {\n    -webkit-transform: translate(0px, 2px) rotateZ(0deg);\n            transform: translate(0px, 2px) rotateZ(0deg);\n}\n18% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n100% {\n    -webkit-transform: translate(0px, 0px) rotateZ(0deg);\n            transform: translate(0px, 0px) rotateZ(0deg);\n}\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
+exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 20px;\n  vertical-align: 0;\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  border-radius: 10px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -52661,42 +52707,142 @@ var render = function() {
       _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
     ]),
     _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            return _vm.addTodo()
+    _c("div", { staticClass: "add_todo_btn_container" }, [
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              return _vm.showTodo()
+            }
           }
-        }
-      },
-      [_vm._v("\n        追加\n    ")]
-    ),
+        },
+        [
+          _c("font-awesome-icon", {
+            staticClass: "plus_icon",
+            attrs: { icon: "plus" }
+          }),
+          _vm._v("新しくリストを作る\n        ")
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "todo_card_container" },
-      _vm._l(_vm.localStorageList.todoCardList, function(
-        todoTitleObject,
-        index
-      ) {
-        return _c(
+      { staticClass: "todo_container" },
+      [
+        _c(
           "div",
-          { key: index },
-          [
-            _c("todo-card-component", {
-              attrs: {
-                title: todoTitleObject.todoTitle,
-                weeklyKey: _vm.$route.params.path,
-                inputId: index + "_input",
-                todoCardListKey: index
-              }
-            })
-          ],
-          1
-        )
-      }),
-      0
+          { staticClass: "todo_card_container" },
+          _vm._l(_vm.localStorageList.todoCardList, function(
+            todoTitleObject,
+            index
+          ) {
+            return _c(
+              "div",
+              { key: index },
+              [
+                _c("todo-card-component", {
+                  attrs: {
+                    title: todoTitleObject.todoTitle,
+                    weeklyKey: _vm.$route.params.path,
+                    inputId: index + "_input",
+                    todoCardListKey: index
+                  }
+                })
+              ],
+              1
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm.isAddTodo
+          ? [
+              _c("div", { staticClass: "add_todo_card_container" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.todoValue,
+                      expression: "todoValue"
+                    }
+                  ],
+                  class: _vm.validAnimation,
+                  attrs: {
+                    autofocus: "",
+                    type: "text",
+                    placeholder: "リストのタイトルを入力",
+                    id: "test"
+                  },
+                  domProps: { value: _vm.todoValue },
+                  on: {
+                    keydown: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.addTodo($event.keyCode)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.todoValue = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "btn_area" }, [
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "done_btn",
+                        on: {
+                          click: function($event) {
+                            return _vm.addTodo()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            追加\n                        "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cancel_btn",
+                        on: {
+                          click: function($event) {
+                            return _vm.cancelTodo()
+                          }
+                        }
+                      },
+                      [
+                        _c("font-awesome-icon", {
+                          staticClass: "cancel_icon",
+                          attrs: { icon: "times" }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ]
+          : _vm._e()
+      ],
+      2
     )
   ])
 }

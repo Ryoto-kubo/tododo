@@ -3,19 +3,47 @@
         <p class="weekly">
             {{path}}
         </p>
-        <button @click="addTodo()">
-            追加
-        </button>
-        <div class="todo_card_container">
-            <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
-            <!-- <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index"> -->
-                <todo-card-component
-                    :title    ="todoTitleObject.todoTitle"
-                    :weeklyKey="$route.params.path"
-                    :inputId="index + '_input'"
-                    :todoCardListKey="index"
-                />
+        <div class="add_todo_btn_container">
+            <button @click="showTodo()">
+                <font-awesome-icon class="plus_icon" icon="plus"/>新しくリストを作る
+            </button>
+        </div>
+        <div class="todo_container">
+            <div class="todo_card_container">
+                <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
+                <!-- <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index"> -->
+                    <todo-card-component
+                        :title    ="todoTitleObject.todoTitle"
+                        :weeklyKey="$route.params.path"
+                        :inputId="index + '_input'"
+                        :todoCardListKey="index"
+                    />
+                </div>
             </div>
+            <template v-if="isAddTodo">
+                <div class="add_todo_card_container">
+                    <input autofocus type="text"
+                        placeholder="リストのタイトルを入力"
+                        id="test"
+                        :class="validAnimation" 
+                        v-model="todoValue"
+                        @keydown.enter="addTodo($event.keyCode)"
+                    >
+                    <div class="btn_area">
+                        <div>
+                            <button class="done_btn" @click="addTodo()">
+                                追加
+                            </button>
+                        </div>
+                        <div>
+                            <button class="cancel_btn" @click="cancelTodo()">
+                                <font-awesome-icon class="cancel_icon" icon="times"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
         </div>
     </div>
 </template>
@@ -27,6 +55,9 @@ export default {
     components: { draggable },
     data() {
         return {
+            isAddTodo: false,
+            todoValue: null,
+            validAnimation: null,
             todoTitleObjects: [
                 {todoTitle: 'するべきこと'},
                 {todoTitle: '作業中'},
@@ -89,19 +120,34 @@ export default {
         }
     },
     methods: {
-        addTodo() {
+        showTodo() {
+            this.isAddTodo = true
+            this.$nextTick(() => document.getElementById('test').focus())
+        },
+        addTodo(keyCode) {
+            if (keyCode !== 13) return
+
             const weeklyKey   = this.$route.params.path
             let weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
 
             let list = this.localStorageList.todoCardList
             const newKey = "list_" + Object.keys(list).length
-            weeklyObjects.todoCardList[newKey] = { listId: newKey, todoTitle: 'test',  taskList: [] }
-            this.$set(this.localStorageList.todoCardList, newKey, { listId: newKey, todoTitle: 'test',  taskList: [] },)
+            weeklyObjects.todoCardList[newKey] = { listId: newKey, todoTitle: this.todoValue,  taskList: [] }
+            this.$set(this.localStorageList.todoCardList, newKey, { listId: newKey, todoTitle: this.todoValue,  taskList: [] },)
 
             console.log(weeklyObjects);
             
             this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects))
-        }
+            this.isAddTodo = false
+            this.todoValueInit()
+        },
+        cancelTodo() {
+            this.isAddTodo = false
+        },
+        todoValueInit() {
+            this.todoValue = null
+        },
+
     }
 }
 </script>
@@ -114,7 +160,65 @@ export default {
     font-weight: bold;
     color: $text_color;
 }
-.todo_card_container{
+.add_todo_btn_container{
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    button{
+        width: 210px;
+        color: $white;
+        padding: 5px 15px;
+        background: $success_btn_bg;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        .plus_icon{
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+}
+.todo_container{
     display: flex;
+    .todo_card_container{
+        display: flex;
+    }
+    .add_todo_card_container{
+        width: 280px;
+        height: 104px;
+        padding: 10px;
+        margin-right: 30px;
+        border: 1px solid  #707070;
+        border-radius: 10px;
+        background: $todo_card_bg;
+        transition: .5s all;
+        input{
+            width: 258px;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            font-size: 1.6rem;
+        }
+        .btn_area{
+            display: flex;
+            button{
+                width: 70px;
+                padding: 0;
+                color: $white;
+                font-size: 1.6rem;
+                border: none;
+                border-radius: 50px;
+                outline: none;
+            }
+            .done_btn{
+                background: $success_btn_bg;
+                margin-right: 10px;
+            }
+            .cancel_btn{
+                background: $cancel_btn_bg;
+            }
+        }
+    }
 }
 </style>
