@@ -125,7 +125,7 @@ export default {
             this.isAddTask = false
             this.$nextTick(() => document.getElementById(inputId).focus());
         },
-        cancelTask(){
+        cancelTask() {
             this.isDisplay = false
             this.isAddTask = true
         },
@@ -161,7 +161,7 @@ export default {
                 this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyJson))
 
                 // 次のinputタグにautofocousする
-                this.$nextTick(() => document.getElementById(todoCardListKey).focus());
+                this.$nextTick(() => document.getElementById(todoCardListKey).focus())
 
                 this.taskValueInit()
             }

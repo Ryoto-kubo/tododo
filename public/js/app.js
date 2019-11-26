@@ -11636,6 +11636,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
 //
 //
 //
@@ -11655,6 +11660,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
@@ -11668,8 +11674,31 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         todoTitle: '完了'
       }],
+      hoge: {
+        todoCardList: {
+          list_0: {
+            listId: 'list_0',
+            todoTitle: 'するべきこと',
+            taskList: []
+          },
+          list_1: {
+            listId: 'list_1',
+            todoTitle: '作業中',
+            taskList: []
+          },
+          list_2: {
+            listId: 'list_2',
+            todoTitle: '完了',
+            taskList: []
+          }
+        }
+      },
       localStorageList: {
-        todoCardList: {}
+        todoCardList: {
+          list_0: [],
+          list_1: [],
+          list_2: []
+        }
       }
     };
   },
@@ -11715,6 +11744,11 @@ __webpack_require__.r(__webpack_exports__);
           return '日曜日';
           break;
       }
+    }
+  },
+  methods: {
+    addTodo: function addTodo() {
+      console.log('hello');
     }
   }
 });
@@ -52604,6 +52638,18 @@ var render = function() {
     _c("p", { staticClass: "weekly" }, [
       _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
     ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.addTodo()
+          }
+        }
+      },
+      [_vm._v("\n        追加\n    ")]
+    ),
     _vm._v(" "),
     _c(
       "div",

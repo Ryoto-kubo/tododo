@@ -3,6 +3,9 @@
         <p class="weekly">
             {{path}}
         </p>
+        <button @click="addTodo()">
+            追加
+        </button>
         <div class="todo_card_container">
             <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index">
                 <todo-card-component
@@ -18,6 +21,7 @@
 
 <script>
 import draggable from 'vuedraggable'
+import { log } from 'util';
 export default {
     components: { draggable },
     data() {
@@ -27,8 +31,19 @@ export default {
                 {todoTitle: '作業中'},
                 {todoTitle: '完了'},
             ],
+            hoge: {
+                todoCardList: {
+                    list_0: { listId: 'list_0', todoTitle: 'するべきこと',  taskList: [] },
+                    list_1: { listId: 'list_1', todoTitle: '作業中',  taskList: [] },
+                    list_2: { listId: 'list_2', todoTitle: '完了',  taskList: [] },
+                }
+            },
             localStorageList: {
-                todoCardList: {}
+                todoCardList: {
+                    list_0: [],
+                    list_1: [],
+                    list_2: [],
+                }
             }
         }
     },
@@ -68,6 +83,12 @@ export default {
                     return '日曜日';
                 break;
             }
+        }
+    },
+    methods: {
+        addTodo() {
+            console.log('hello');
+            
         }
     }
 }
