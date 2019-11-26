@@ -4,7 +4,7 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="onEnd">
+            <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
                     {{task.taskTitle}}
                 </div>
@@ -19,7 +19,7 @@
                     @keydown.enter="addTask(todoCardListKey, $event.keyCode)">
                 <div class="btn_area">
                     <div>
-                        <button class="done_btn" @click="addTask(todoCardListKey)">
+                        <button class="done_btn" @click="addTask(todoCardListKey, 13)">
                             追加
                         </button>
                     </div>
@@ -40,6 +40,7 @@
 
 <script>
 import draggable from 'vuedraggable'
+import { log } from 'util'
 export default {
     components: { draggable },
     data() {
@@ -53,7 +54,6 @@ export default {
             isAddTask: true,
             taskValue: null,
             validAnimation: null,
-            todoObject: {},
             tasks: []
         }
     },
@@ -63,7 +63,7 @@ export default {
         todoCardListKey: String,
     },
     created() {
-        let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+        let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))        
         if (weeklyObjects) {
             let reslut = weeklyObjects['todoCardList'][this.todoCardListKey]
             if(reslut) {
@@ -75,50 +75,49 @@ export default {
         }
     },
     methods: {
-        onEnd(originalEvent) {
+        uodateLocalStorage(originalEvent) {
             // listを持ったが動かさなかった場合
-            const moveBeforeCurrentId = originalEvent.from.id
+            const moveBeforeParentId = originalEvent.from.id
             const moveAfterParentId   = originalEvent.to.id
-            if (moveBeforeCurrentId === moveAfterParentId) {
+            if (moveBeforeParentId === moveAfterParentId) {
                 return 
             }
 
             // listを持って動かした場合
-            if (moveBeforeCurrentId !== moveAfterParentId) {
+            if (moveBeforeParentId !== moveAfterParentId) {
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+
+                // localStorageから移動させた要素を削除
+                let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]
+                const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
+                getArray.splice(index, 1)
+
                 const key = weeklyObjects['todoCardList'][moveAfterParentId]
 
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
                 if(key) {
 
-                    //localStorageから削除
-                    let hoge = weeklyObjects['todoCardList'][moveBeforeCurrentId]
-                    console.log(hoge);
-                    const index = hoge.findIndex((v) => v.taskTitle === originalEvent.item.innerText)
-                    const removedUser = hoge.splice(index, 1)
-                    // console.log(removedUser);
-                    
-
                     // listの親IDをkeyとしてlocalStorageに保存
-                    // const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    // weeklyObjects['todoCardList'][moveAfterParentId].push(object)
-                    // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
+                    weeklyObjects['todoCardList'][moveAfterParentId].push(object)
 
-
+                    // localStorageに保存
+                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
 
                 } else {
-                    console.log('まだ登録されてないよ！');
+                    
+                    // listの親IDをkeyとしたオブジェクトを作成
+                    weeklyObjects['todoCardList'][moveAfterParentId] = []
+                    
+                    //　作成したオブジェクトに移動させた要素を追加
+                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
+                    weeklyObjects['todoCardList'][moveAfterParentId].push(object)
+
+                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                     
                 }
                 
             }
-            // console.log(originalEvent.item.innerText)
-            // console.log(originalEvent.item.parentNode.id)
-
-            // const taskTitle   = originalEvent.item.innerText
-            // const index       = this.tasks.findIndex((v) => v.taskTitle === taskTitle)
-            // const removedUser = this.tasks.splice(index, 1)
-            // this.tasks.push({taskTitle: originalEvent.item.innerText})
         },
         showTaskInput(todoCardListKey) {
             this.isDisplay = true
@@ -146,7 +145,6 @@ export default {
 
                 // dataにpush
                 this.tasks.push({taskTitle: this.taskValue})
-                this.$set(this.todoObject, 'name', this.taskValue)
     
                 // localStorageのdataを取得し、todoCardListKeyが無ければ追加
                 let weeklyJson   = JSON.parse(this.$localStorage.get(this.weeklyKey))
