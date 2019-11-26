@@ -11815,16 +11815,40 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     onEnd: function onEnd(originalEvent) {
       // listを持ったが動かさなかった場合
-      // listを持って動かした場合
-      // listの親IDがkeyとしてlocalStorageに保存されている場合
-      // 保存されていない場合
-      var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey)); // console.log(weeklyObjects['todoCardList'][this.todoCardListKey])
+      var moveBeforeCurrentId = originalEvent.from.id;
+      var moveAfterParentId = originalEvent.to.id;
 
-      console.log(originalEvent.item.innerText);
-      console.log(originalEvent.item.parentNode.id); // const taskTitle   = originalEvent.item.innerText
+      if (moveBeforeCurrentId === moveAfterParentId) {
+        return;
+      } // listを持って動かした場合
+
+
+      if (moveBeforeCurrentId !== moveAfterParentId) {
+        var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
+        var key = weeklyObjects['todoCardList'][moveAfterParentId]; // listの親IDがkeyとしてlocalStorageに保存されている場合
+
+        if (key) {
+          //localStorageから削除
+          var hoge = weeklyObjects['todoCardList'][moveBeforeCurrentId];
+          console.log(hoge);
+          var index = hoge.findIndex(function (v) {
+            return v.taskTitle === originalEvent.item.innerText;
+          });
+          var removedUser = hoge.splice(index, 1); // console.log(removedUser);
+          // listの親IDをkeyとしてlocalStorageに保存
+          // const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
+          // weeklyObjects['todoCardList'][moveAfterParentId].push(object)
+          // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+        } else {
+          console.log('まだ登録されてないよ！');
+        }
+      } // console.log(originalEvent.item.innerText)
+      // console.log(originalEvent.item.parentNode.id)
+      // const taskTitle   = originalEvent.item.innerText
       // const index       = this.tasks.findIndex((v) => v.taskTitle === taskTitle)
       // const removedUser = this.tasks.splice(index, 1)
       // this.tasks.push({taskTitle: originalEvent.item.innerText})
+
     },
     showTaskInput: function showTaskInput(todoCardListKey) {
       this.isDisplay = true;

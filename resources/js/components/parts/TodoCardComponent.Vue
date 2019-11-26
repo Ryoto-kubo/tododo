@@ -77,18 +77,43 @@ export default {
     methods: {
         onEnd(originalEvent) {
             // listを持ったが動かさなかった場合
+            const moveBeforeCurrentId = originalEvent.from.id
+            const moveAfterParentId   = originalEvent.to.id
+            if (moveBeforeCurrentId === moveAfterParentId) {
+                return 
+            }
 
             // listを持って動かした場合
+            if (moveBeforeCurrentId !== moveAfterParentId) {
+                let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+                const key = weeklyObjects['todoCardList'][moveAfterParentId]
 
-            // listの親IDがkeyとしてlocalStorageに保存されている場合
+                // listの親IDがkeyとしてlocalStorageに保存されている場合
+                if(key) {
 
-            // 保存されていない場合
+                    //localStorageから削除
+                    let hoge = weeklyObjects['todoCardList'][moveBeforeCurrentId]
+                    console.log(hoge);
+                    const index = hoge.findIndex((v) => v.taskTitle === originalEvent.item.innerText)
+                    const removedUser = hoge.splice(index, 1)
+                    // console.log(removedUser);
+                    
+
+                    // listの親IDをkeyとしてlocalStorageに保存
+                    // const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
+                    // weeklyObjects['todoCardList'][moveAfterParentId].push(object)
+                    // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
 
 
-            let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
-            // console.log(weeklyObjects['todoCardList'][this.todoCardListKey])
-            console.log(originalEvent.item.innerText)
-            console.log(originalEvent.item.parentNode.id)
+
+                } else {
+                    console.log('まだ登録されてないよ！');
+                    
+                }
+                
+            }
+            // console.log(originalEvent.item.innerText)
+            // console.log(originalEvent.item.parentNode.id)
 
             // const taskTitle   = originalEvent.item.innerText
             // const index       = this.tasks.findIndex((v) => v.taskTitle === taskTitle)
