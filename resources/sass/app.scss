@@ -6,3 +6,27 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+    
+html{
+    font-size: 62.5%; // fontsizeを10pxにするための設定
+}
+body{
+    // font-size: 1.6rem; // 16px
+    line-height: 2;
+}
+input{
+    outline: none;
+    border: none;
+}
+main{
+    width: 90%;
+    margin: auto;
+}
+.header{
+    padding: 15px;
+    text-align: center;
+    font-size: 30px;
+    background: $base_bg;
+}
+
+
