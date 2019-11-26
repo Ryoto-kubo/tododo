@@ -8,6 +8,7 @@
                 <todo-card-component
                     :title    ="todoTitleObject.todoTitle"
                     :weeklyKey="$route.params.path"
+                    :inputId="'list_input' + index"
                     :todoCardListKey="'list_' + index"
                 />
             </div>

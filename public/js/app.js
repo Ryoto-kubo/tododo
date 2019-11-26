@@ -11653,6 +11653,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -11796,6 +11797,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     title: String,
     weeklyKey: String,
+    inputId: String,
     todoCardListKey: String
   },
   created: function created() {
@@ -11857,11 +11859,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
-    showTaskInput: function showTaskInput(todoCardListKey) {
+    showTaskInput: function showTaskInput(inputId) {
       this.isDisplay = true;
       this.isAddTask = false;
       this.$nextTick(function () {
-        return document.getElementById(todoCardListKey).focus();
+        return document.getElementById(inputId).focus();
       });
     },
     cancelTask: function cancelTask() {
@@ -52615,6 +52617,7 @@ var render = function() {
               attrs: {
                 title: todoTitleObject.todoTitle,
                 weeklyKey: _vm.$route.params.path,
+                inputId: "list_input" + index,
                 todoCardListKey: "list_" + index
               }
             })
@@ -52704,7 +52707,7 @@ var render = function() {
                   }
                 ],
                 class: _vm.validAnimation,
-                attrs: { autofocus: "", type: "text", id: _vm.todoCardListKey },
+                attrs: { autofocus: "", type: "text", id: _vm.inputId },
                 domProps: { value: _vm.taskValue },
                 on: {
                   keydown: function($event) {
@@ -52777,7 +52780,7 @@ var render = function() {
               staticClass: "todo_card_add_container",
               on: {
                 click: function($event) {
-                  return _vm.showTaskInput(_vm.todoCardListKey)
+                  return _vm.showTaskInput(_vm.inputId)
                 }
               }
             },
@@ -71998,6 +72001,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

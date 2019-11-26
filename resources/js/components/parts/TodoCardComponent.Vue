@@ -13,7 +13,7 @@
         <template v-if="isDisplay">
             <div class="todo_card_input_container">
                 <input autofocus type="text"
-                    :id="todoCardListKey"
+                    :id="inputId"
                     :class="validAnimation" 
                     v-model="taskValue" 
                     @keydown.enter="addTask(todoCardListKey, $event.keyCode)">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </template>
-        <div v-if="isAddTask" class="todo_card_add_container" @click="showTaskInput(todoCardListKey)">
+        <div v-if="isAddTask" class="todo_card_add_container" @click="showTaskInput(inputId)">
             <font-awesome-icon class="plus_icon" icon="plus"/>
             <div class="add_text">タスクを追加</div>
         </div>
@@ -60,6 +60,7 @@ export default {
     props: {
         title: String,
         weeklyKey: String,
+        inputId: String,
         todoCardListKey: String,
     },
     created() {
@@ -119,10 +120,10 @@ export default {
                 
             }
         },
-        showTaskInput(todoCardListKey) {
+        showTaskInput(inputId) {
             this.isDisplay = true
             this.isAddTask = false
-            this.$nextTick(() => document.getElementById(todoCardListKey).focus());
+            this.$nextTick(() => document.getElementById(inputId).focus());
         },
         cancelTask(){
             this.isDisplay = false
