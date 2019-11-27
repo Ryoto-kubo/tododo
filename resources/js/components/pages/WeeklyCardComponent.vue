@@ -1,6 +1,5 @@
 <template>
     <div>
-        <draggable :group="allOptions">
         <p class="weekly">
             {{path}}
         </p>
@@ -11,7 +10,7 @@
                 </button>
             </div>
             <div class="trash_container" style="height: 20px;">
-                <font-awesome-icon class="trash_icon" icon="trash-alt" :style="{transform: scaleUp}" />
+                <font-awesome-icon class="trash_icon" icon="trash-alt" :style="{transform: scaleUp}" @click="openTrashList()"/>
                 <draggable id="trash"
                     @add="addTrash"
                     :group="options"
@@ -22,13 +21,14 @@
         <div class="todo_container">
             <div class="todo_card_container">
                 <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
-                <!-- <div v-for="(todoTitleObject, index) in todoTitleObjects" :key="index"> -->
                     <todo-card-component
-                        :title    ="todoTitleObject.todoTitle"
+                        ref="todo"
+                        :title="todoTitleObject.todoTitle"
                         :weeklyKey="$route.params.path"
                         :inputId="index + '_input'"
                         :todoCardListKey="index"
                         @addTrash="addTrash"
+                        @trashScaleDown="trashScaleDown"
                     />
                 </div>
             </div>
@@ -36,14 +36,14 @@
                 <div class="add_todo_card_container">
                     <input autofocus type="text"
                         placeholder="リストのタイトルを入力"
-                        id="test"
+                        id="add_list"
                         :class="validAnimation" 
                         v-model="todoValue"
                         @keydown.enter="addTodo($event.keyCode)"
                     >
                     <div class="btn_area">
                         <div>
-                            <button class="done_btn" @click="addTodo()">
+                            <button class="done_btn" @click="addTodo(13)">
                                 追加
                             </button>
                         </div>
@@ -56,13 +56,13 @@
                 </div>
             </template>
         </div>
-        </draggable>
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import { log } from 'util';
+import { setTimeout } from 'timers';
 export default {
     components: { draggable },
     data() {
@@ -88,13 +88,7 @@ export default {
                 name: "myGroup",
                 animation: 400,
                 put: () => {                    
-                    return this.onChoose()
-                },
-            },
-            allOptions: {
-                animation: 400,
-                put: () => {                    
-                    return this.onUnChoose()
+                    return this.trashScaleUp()
                 },
             },
         }
@@ -109,7 +103,6 @@ export default {
         }
         const jsonList = JSON.stringify(this.localStorageList)
         this.$localStorage.set(weeklyKey, jsonList)
-
     },
     computed: {
         path() {
@@ -140,27 +133,27 @@ export default {
         }
     },
     methods: {
-        onChoose() {
-            console.log('hello');
-            
-            this.scaleUp = 'scale(1.4)'
+        trashScaleUp() {
+            this.scaleUp = 'scale(1.5)'
         },
-        onUnChoose() {
-            console.log('all');
-            
+        trashScaleDown() {
             this.scaleUp = 'scale(1)'
         },
-        addTrash(originalEvent) {
+        openTrashList() {
+            console.log('hello');
+        },
+        addTrash(originalEvent) {            
             // 動かしたタスクのDOMを取得しdisplay: none;を付与
             let addDOM = originalEvent.item.style
-            addDOM['display'] = 'none'
-            
+            this.trashArray.push(originalEvent.item)
+            addDOM['display'] = 'none'  
         },
         showTodo() {
             this.isAddTodo = true
-            this.$nextTick(() => document.getElementById('test').focus())
+            this.$nextTick(() => document.getElementById('add_list').focus())
         },
         addTodo(keyCode) {
+            
             if (keyCode !== 13) return
 
             const weeklyKey   = this.$route.params.path
@@ -174,6 +167,16 @@ export default {
             this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects))
             this.isAddTodo = false
             this.todoValueInit()
+
+            // todoを作成した後にaddTaskInputを開くs
+            const componentLength = this.$refs.todo.length            
+            const argumentString  = "list_" + componentLength + "_input"
+            const waitDuration = 1
+
+            // 少し時間を開けないとtodo-card-componentが作られない
+            setTimeout(() => {
+                this.$refs.todo[componentLength].showTaskInput(argumentString)
+            }, waitDuration)
         },
         cancelTodo() {
             this.isAddTodo = false
@@ -182,10 +185,11 @@ export default {
             this.todoValue = null
         },
     },
-    // watch: {
-    //     trashArray() {
-    //     }
-    // }
+    watch: {
+        trashArray() {
+            this.trashScaleDown()
+        }
+    }
 }
 </script>
 
@@ -222,11 +226,26 @@ export default {
         }
     }
     .trash_container{
+        position: relative;
         .trash_icon{
             width: 20px;
             height: 20px;
             transition: .2s all;
             z-index: 999;
+        }
+        &:hover{
+            .trash_icon{
+                transform: scale(1.5);
+            }
+        }
+        #trash{
+            width: 50px;
+            height: 50px;
+            opacity: 0.5;
+            // background: red;
+            position: absolute;
+            top: -15px;
+            left: -15px;
         }
     }
 }

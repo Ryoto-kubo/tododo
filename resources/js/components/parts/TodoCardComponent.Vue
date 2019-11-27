@@ -4,7 +4,7 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="uodateLocalStorage">
+            <draggable :id="todoCardListKey" :group="options" @start="drag=true" @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
                     <task-card-component
                         :taskTitle="task.taskTitle"
@@ -51,7 +51,7 @@ export default {
     data() {
         return {
             options: {
-                group: "myGroup",
+                name: "myGroup",
                 animation: 400,
             },
             isDisplay: false,
@@ -76,18 +76,15 @@ export default {
             if(result) {
                 let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]                
                 weeklyObject['taskList'].forEach((element) => {
-                    // console.log(element)
                     this.tasks.push(element)
                 });
             }
         }
     },
     methods: {
-        onChoose() {
-            console.log('hello');
-            
-        },
         uodateLocalStorage(originalEvent) {
+            this.$emit('trashScaleDown')
+            
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id
             const moveAfterParentId   = originalEvent.to.id
@@ -108,7 +105,6 @@ export default {
 
                 if (moveAfterParentId === 'trash') {                    
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
-                    // this.$emit('addTrash', originalEvent);
                     return 
                 }
 
@@ -141,6 +137,8 @@ export default {
             }
         },
         showTaskInput(inputId) {
+            console.log(inputId);
+            
             this.isDisplay = true
             this.isAddTask = false
             this.$nextTick(() => document.getElementById(inputId).focus());
@@ -148,6 +146,9 @@ export default {
         cancelTask() {
             this.isDisplay = false
             this.isAddTask = true
+        },
+        test() {
+            console.log('test');
         },
         addTask(todoCardListKey, keyCode) {
             if (keyCode !== 13) return
@@ -218,7 +219,7 @@ export default {
         padding: 5px 10px;
         background: #fff;
         font-size: 16px;
-        border-radius: 10px;
+        // border-radius: 10px;
         transition: .2s all;
         &:hover{
             cursor: grab;
