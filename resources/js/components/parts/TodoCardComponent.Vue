@@ -8,17 +8,8 @@
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
                     <task-card-component
                         :taskTitle="task.taskTitle"
-                        :taskIndex='index'
+                        :taskIndex="index"
                     />
-                    <!-- <div>
-                        <input type="checkbox" @click="showMenu()">
-                        {{task.taskTitle}}
-                    </div>
-                    <button v-if="isShowMenu" class="menu_trigger" :class="[isOpenMenu ? active : '']" @click="openMenu()">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button> -->
                 </div>
             </draggable>
         </template>

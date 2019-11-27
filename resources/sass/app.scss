@@ -96,7 +96,7 @@ main{
     }
     span:nth-of-type(2) {
         top: 50%;
-        transform: translate(0, -40%);
+        transform: translate(0, -58%);
     }
     span:nth-of-type(3) {
         bottom: 0;
@@ -108,8 +108,8 @@ main{
     // -webkit-transform: rotate(360deg);
     // transform: rotate(360deg);
     span:nth-of-type(1) {
-        -webkit-transform: translateY(8px) rotate(-45deg);
-        transform: translateY(8px) rotate(-45deg);
+        -webkit-transform: translateY(9px) rotate(-45deg);
+        transform: translateY(9px) rotate(-45deg);
     }
     span:nth-of-type(2) {
         -webkit-transform: translateY(0) rotate(45deg);

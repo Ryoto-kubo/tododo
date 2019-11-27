@@ -36,6 +36,7 @@ Vue.component('weekly-card-component', require('./components/pages/WeeklyCardCom
 
 Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
 Vue.component('task-card-component',   require('./components/parts/TaskCardComponent.vue').default);
+Vue.component('menu-component',        require('./components/parts/MenuComponent.vue').default);
 
 /**s
  * Next, we will create a fresh Vue application instance and attach it to

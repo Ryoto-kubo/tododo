@@ -3,10 +3,15 @@
         <p class="weekly">
             {{path}}
         </p>
-        <div class="add_todo_btn_container">
-            <button @click="showTodo()">
-                <font-awesome-icon class="plus_icon" icon="plus"/>新しくリストを作る
-            </button>
+        <div class="edit_container">
+            <div class="add_todo_btn_container">
+                <button @click="showTodo()">
+                    <font-awesome-icon class="plus_icon" icon="plus"/>新しくリストを作る
+                </button>
+            </div>
+            <div class="trash_container">
+                <font-awesome-icon class="trash_icon" icon="trash-alt"/>
+            </div>
         </div>
         <div class="todo_container">
             <div class="todo_card_container">
@@ -43,7 +48,6 @@
                     </div>
                 </div>
             </template>
-
         </div>
     </div>
 </template>
@@ -70,13 +74,6 @@ export default {
                     list_2: { listId: 'list_2', todoTitle: '完了',  taskList: [] },
                 }
             },
-            // localStorageList: {
-            //     todoCardList: {
-            //         list_0: [],
-            //         list_1: [],
-            //         list_2: [],
-            //     }
-            // }
         }
     },
     created() {
@@ -158,23 +155,34 @@ export default {
     font-weight: bold;
     color: $text_color;
 }
-.add_todo_btn_container{
+.edit_container{
     margin-bottom: 20px;
-    font-size: 1.6rem;
-    button{
-        width: 210px;
-        color: $white;
-        padding: 5px 15px;
-        background: $success_btn_bg;
-        outline: none;
-        border: none;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        .plus_icon{
+    display: flex;
+    align-items: center;
+    .add_todo_btn_container{
+        margin-right: 20px;
+        font-size: 1.6rem;
+        button{
+            width: 210px;
+            color: $white;
+            padding: 5px 15px;
+            background: $success_btn_bg;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            .plus_icon{
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+        }
+    }
+    .trash_container{
+        .trash_icon{
             width: 20px;
             height: 20px;
-            margin-right: 10px;
         }
     }
 }
