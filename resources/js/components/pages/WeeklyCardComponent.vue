@@ -134,8 +134,6 @@ export default {
             const newKey = "list_" + Object.keys(list).length
             weeklyObjects.todoCardList[newKey] = { listId: newKey, todoTitle: this.todoValue,  taskList: [] }
             this.$set(this.localStorageList.todoCardList, newKey, { listId: newKey, todoTitle: this.todoValue,  taskList: [] },)
-
-            console.log(weeklyObjects);
             
             this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects))
             this.isAddTodo = false

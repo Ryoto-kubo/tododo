@@ -6,7 +6,19 @@
         <template v-if="isShowTask">
             <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
-                    {{task.taskTitle}}
+                    <task-card-component
+                        :taskTitle="task.taskTitle"
+                        :taskIndex='index'
+                    />
+                    <!-- <div>
+                        <input type="checkbox" @click="showMenu()">
+                        {{task.taskTitle}}
+                    </div>
+                    <button v-if="isShowMenu" class="menu_trigger" :class="[isOpenMenu ? active : '']" @click="openMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button> -->
                 </div>
             </draggable>
         </template>
@@ -65,7 +77,7 @@ export default {
     },
     created() {
         let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
-              
+
         if (weeklyObjects) {
             let result = weeklyObjects['todoCardList'][this.todoCardListKey]
             if(result) {
@@ -196,11 +208,6 @@ export default {
     border-radius: 10px;
     background: $todo_card_bg;
     transition: .5s all;
-    // position: relative;
-    // &:hover{
-    //     transform: translate(0, -5px);
-    //     box-shadow: 0px 7px 10px 0px #707070;
-    // }
     .todo_card_title{
         font-size: 2.0rem;
     }
@@ -253,8 +260,6 @@ export default {
         display: flex;
         align-items: center;
         transition: .5s all;
-        // position: relative;
-        // bottom: 10px;
         cursor: pointer;
         .add_text{
             margin-left: 10px;

@@ -33,7 +33,9 @@ Vue.component('the-header-component',  require('./components/globals/TheHeaderCo
 Vue.component('the-footer-component',  require('./components/globals/TheFooterComponent.vue').default);
 
 Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
+
 Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
+Vue.component('task-card-component',   require('./components/parts/TaskCardComponent.vue').default);
 
 /**s
  * Next, we will create a fresh Vue application instance and attach it to
