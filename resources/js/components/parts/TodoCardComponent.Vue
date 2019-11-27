@@ -43,6 +43,7 @@
 
 <script>
 import draggable from 'vuedraggable'
+// import Sortable from 'sortablejs'
 import { log } from 'util'
 import { longStackSupport } from 'q'
 export default {
@@ -51,7 +52,7 @@ export default {
         return {
             options: {
                 group: "myGroup",
-                animation: 400
+                animation: 400,
             },
             isDisplay: false,
             isShowTask: true,
@@ -82,6 +83,10 @@ export default {
         }
     },
     methods: {
+        onChoose() {
+            console.log('hello');
+            
+        },
         uodateLocalStorage(originalEvent) {
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id

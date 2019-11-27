@@ -11543,6 +11543,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -11555,9 +11557,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
+  components: {
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
+    var _this = this;
+
     return {
       weeks: [{
         path: 'mon',
@@ -11580,7 +11591,14 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         path: 'sun',
         week: '日'
-      }]
+      }],
+      options: {
+        name: "myGroup",
+        animation: 400,
+        put: function put() {
+          return _this.onChoose();
+        }
+      }
     };
   }
 });
@@ -11707,7 +11725,10 @@ __webpack_require__.r(__webpack_exports__);
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
+    var _this = this;
+
     return {
+      scaleUp: null,
       isAddTodo: false,
       todoValue: null,
       validAnimation: null,
@@ -11739,8 +11760,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       options: {
-        group: "myGroup",
-        animation: 400
+        name: "myGroup",
+        animation: 400,
+        put: function put() {
+          return _this.onChoose();
+        }
+      },
+      allOptions: {
+        animation: 400,
+        put: function put() {
+          return _this.onUnChoose();
+        }
       }
     };
   },
@@ -11791,8 +11821,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onChoose: function onChoose() {
+      console.log('hello');
+      this.scaleUp = 'scale(1.4)';
+    },
+    onUnChoose: function onUnChoose() {
+      console.log('all');
+      this.scaleUp = 'scale(1)';
+    },
     addTrash: function addTrash(originalEvent) {
-      console.log(originalEvent);
+      // 動かしたタスクのDOMを取得しdisplay: none;を付与
+      var addDOM = originalEvent.item.style;
+      addDOM['display'] = 'none';
     },
     showTodo: function showTodo() {
       this.isAddTodo = true;
@@ -11971,6 +12011,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+ // import Sortable from 'sortablejs'
 
 
 
@@ -12016,6 +12057,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    onChoose: function onChoose() {
+      console.log('hello');
+    },
     uodateLocalStorage: function uodateLocalStorage(originalEvent) {
       // listを持ったが動かさなかった場合
       var moveBeforeParentId = originalEvent.from.id;
@@ -16625,7 +16669,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.edit_container[data-v-c260a4b4] {\n  margin-bottom: 20px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container[data-v-c260a4b4] {\n  margin-right: 20px;\n  font-size: 1.6rem;\n}\n.edit_container .add_todo_btn_container button[data-v-c260a4b4] {\n  width: 210px;\n  color: #ffffff;\n  padding: 5px 15px;\n  background: #60BD4F;\n  outline: none;\n  border: none;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container button .plus_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n}\n.edit_container .trash_container .trash_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n}\n.todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
+exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.edit_container[data-v-c260a4b4] {\n  margin-bottom: 20px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container[data-v-c260a4b4] {\n  margin-right: 20px;\n  font-size: 1.6rem;\n}\n.edit_container .add_todo_btn_container button[data-v-c260a4b4] {\n  width: 210px;\n  color: #ffffff;\n  padding: 5px 15px;\n  background: #60BD4F;\n  outline: none;\n  border: none;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container button .plus_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n}\n.edit_container .trash_container .trash_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n  z-index: 999;\n}\n.todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
 
 // exports
 
@@ -54963,174 +55007,182 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("p", { staticClass: "weekly" }, [
-      _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "edit_container" }, [
-      _c("div", { staticClass: "add_todo_btn_container" }, [
-        _c(
-          "button",
-          {
-            on: {
-              click: function($event) {
-                return _vm.showTodo()
-              }
-            }
-          },
-          [
-            _c("font-awesome-icon", {
-              staticClass: "plus_icon",
-              attrs: { icon: "plus" }
-            }),
-            _vm._v("新しくリストを作る\n            ")
-          ],
-          1
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "trash_container", staticStyle: { height: "20px" } },
-        [
-          _c("font-awesome-icon", {
-            staticClass: "trash_icon",
-            attrs: { icon: "trash-alt" }
-          }),
-          _vm._v(" "),
-          _c("draggable", {
-            staticStyle: { display: "none" },
-            attrs: { id: "trash", options: _vm.options, group: "myGroup" },
-            on: {
-              add: function($event) {
-                return _vm.addTrash()
-              }
-            }
-          })
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "todo_container" },
-      [
-        _c(
-          "div",
-          { staticClass: "todo_card_container" },
-          _vm._l(_vm.localStorageList.todoCardList, function(
-            todoTitleObject,
-            index
-          ) {
-            return _c(
-              "div",
-              { key: index },
+  return _c(
+    "div",
+    [
+      _c("draggable", { attrs: { group: _vm.allOptions } }, [
+        _c("p", { staticClass: "weekly" }, [
+          _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "edit_container" }, [
+          _c("div", { staticClass: "add_todo_btn_container" }, [
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.showTodo()
+                  }
+                }
+              },
               [
-                _c("todo-card-component", {
-                  attrs: {
-                    title: todoTitleObject.todoTitle,
-                    weeklyKey: _vm.$route.params.path,
-                    inputId: index + "_input",
-                    todoCardListKey: index
-                  },
-                  on: { addTrash: _vm.addTrash }
-                })
+                _c("font-awesome-icon", {
+                  staticClass: "plus_icon",
+                  attrs: { icon: "plus" }
+                }),
+                _vm._v("新しくリストを作る\n            ")
               ],
               1
             )
-          }),
-          0
-        ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "trash_container", staticStyle: { height: "20px" } },
+            [
+              _c("font-awesome-icon", {
+                staticClass: "trash_icon",
+                style: { transform: _vm.scaleUp },
+                attrs: { icon: "trash-alt" }
+              }),
+              _vm._v(" "),
+              _c("draggable", {
+                attrs: { id: "trash", group: _vm.options },
+                on: { add: _vm.addTrash }
+              })
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
-        _vm.isAddTodo
-          ? [
-              _c("div", { staticClass: "add_todo_card_container" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.todoValue,
-                      expression: "todoValue"
-                    }
+        _c(
+          "div",
+          { staticClass: "todo_container" },
+          [
+            _c(
+              "div",
+              { staticClass: "todo_card_container" },
+              _vm._l(_vm.localStorageList.todoCardList, function(
+                todoTitleObject,
+                index
+              ) {
+                return _c(
+                  "div",
+                  { key: index },
+                  [
+                    _c("todo-card-component", {
+                      attrs: {
+                        title: todoTitleObject.todoTitle,
+                        weeklyKey: _vm.$route.params.path,
+                        inputId: index + "_input",
+                        todoCardListKey: index
+                      },
+                      on: { addTrash: _vm.addTrash }
+                    })
                   ],
-                  class: _vm.validAnimation,
-                  attrs: {
-                    autofocus: "",
-                    type: "text",
-                    placeholder: "リストのタイトルを入力",
-                    id: "test"
-                  },
-                  domProps: { value: _vm.todoValue },
-                  on: {
-                    keydown: function($event) {
-                      if (
-                        !$event.type.indexOf("key") &&
-                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                      ) {
-                        return null
-                      }
-                      return _vm.addTodo($event.keyCode)
-                    },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.todoValue = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "btn_area" }, [
-                  _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "done_btn",
-                        on: {
-                          click: function($event) {
-                            return _vm.addTodo()
-                          }
+                  1
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm.isAddTodo
+              ? [
+                  _c("div", { staticClass: "add_todo_card_container" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.todoValue,
+                          expression: "todoValue"
                         }
-                      },
-                      [
-                        _vm._v(
-                          "\n                            追加\n                        "
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "cancel_btn",
-                        on: {
-                          click: function($event) {
-                            return _vm.cancelTodo()
-                          }
-                        }
-                      },
-                      [
-                        _c("font-awesome-icon", {
-                          staticClass: "cancel_icon",
-                          attrs: { icon: "times" }
-                        })
                       ],
-                      1
-                    )
+                      class: _vm.validAnimation,
+                      attrs: {
+                        autofocus: "",
+                        type: "text",
+                        placeholder: "リストのタイトルを入力",
+                        id: "test"
+                      },
+                      domProps: { value: _vm.todoValue },
+                      on: {
+                        keydown: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.addTodo($event.keyCode)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.todoValue = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "btn_area" }, [
+                      _c("div", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "done_btn",
+                            on: {
+                              click: function($event) {
+                                return _vm.addTodo()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            追加\n                        "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "cancel_btn",
+                            on: {
+                              click: function($event) {
+                                return _vm.cancelTodo()
+                              }
+                            }
+                          },
+                          [
+                            _c("font-awesome-icon", {
+                              staticClass: "cancel_icon",
+                              attrs: { icon: "times" }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
                   ])
-                ])
-              ])
-            ]
-          : _vm._e()
-      ],
-      2
-    )
-  ])
+                ]
+              : _vm._e()
+          ],
+          2
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,5 +1,7 @@
 <template>
     <div class="weeklycard_container">
+      <!-- <draggable id="trash"
+          :group="options"> -->
         <div v-for="(week, index) in weeks" :key="index">
           <router-link class="weeklycard" :to="{ name : 'week', params : { path: week.path }}">
             <div class="weeklytext">
@@ -7,12 +9,15 @@
             </div>
           </router-link>
         </div>
+      <!-- </draggable>     -->
     </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 export default {
   name: 'App',
+  components: { draggable },
   data() {
     return {
       weeks: [
@@ -24,6 +29,13 @@ export default {
         {path: 'sat', week: '土'},
         {path: 'sun', week: '日'}
       ],
+      options: {
+        name: "myGroup",
+        animation: 400,
+        put: () => {                    
+            return this.onChoose()
+        },
+      },
     }
   },
 }

@@ -1,22 +1,21 @@
 <template>
     <div>
+        <draggable :group="allOptions">
         <p class="weekly">
             {{path}}
         </p>
         <div class="edit_container">
             <div class="add_todo_btn_container">
                 <button @click="showTodo()">
-                    <font-awesome-icon class="plus_icon" icon="plus"/>新しくリストを作る
+                    <font-awesome-icon class="plus_icon" icon="plus" />新しくリストを作る
                 </button>
             </div>
             <div class="trash_container" style="height: 20px;">
-                <font-awesome-icon class="trash_icon" icon="trash-alt"/>
+                <font-awesome-icon class="trash_icon" icon="trash-alt" :style="{transform: scaleUp}" />
                 <draggable id="trash"
-                    @add="addTrash()"
-                    :options="options"
-                    group="myGroup"
-                    style="display: none;"
-                    >
+                    @add="addTrash"
+                    :group="options"
+                >
                 </draggable>    
             </div>
         </div>
@@ -57,6 +56,7 @@
                 </div>
             </template>
         </div>
+        </draggable>
     </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
     components: { draggable },
     data() {
         return {
+            scaleUp: null,
             isAddTodo: false,
             todoValue: null,
             validAnimation: null,
@@ -84,10 +85,18 @@ export default {
                 }
             },
             options: {
-                group: "myGroup",
-                animation: 400
+                name: "myGroup",
+                animation: 400,
+                put: () => {                    
+                    return this.onChoose()
+                },
             },
-
+            allOptions: {
+                animation: 400,
+                put: () => {                    
+                    return this.onUnChoose()
+                },
+            },
         }
     },
     created() {
@@ -131,8 +140,20 @@ export default {
         }
     },
     methods: {
+        onChoose() {
+            console.log('hello');
+            
+            this.scaleUp = 'scale(1.4)'
+        },
+        onUnChoose() {
+            console.log('all');
+            
+            this.scaleUp = 'scale(1)'
+        },
         addTrash(originalEvent) {
-            console.log(originalEvent);
+            // 動かしたタスクのDOMを取得しdisplay: none;を付与
+            let addDOM = originalEvent.item.style
+            addDOM['display'] = 'none'
             
         },
         showTodo() {
@@ -204,6 +225,8 @@ export default {
         .trash_icon{
             width: 20px;
             height: 20px;
+            transition: .2s all;
+            z-index: 999;
         }
     }
 }
