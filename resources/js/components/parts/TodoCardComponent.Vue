@@ -44,13 +44,14 @@
 <script>
 import draggable from 'vuedraggable'
 import { log } from 'util'
+import { longStackSupport } from 'q'
 export default {
     components: { draggable },
     data() {
         return {
             options: {
                 group: "myGroup",
-                animation: 200
+                animation: 400
             },
             isDisplay: false,
             isShowTask: true,
@@ -88,21 +89,26 @@ export default {
             if (moveBeforeParentId === moveAfterParentId) {
                 return 
             }
-
+            
             // listを持って動かした場合
             if (moveBeforeParentId !== moveAfterParentId) {
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
                 // localStorageから移動させた要素を削除
                 let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']
-                console.log(getArray);
+                // console.log(getArray);
                 
                 const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
                 getArray.splice(index, 1)
 
+                if (moveAfterParentId === 'trash') {                    
+                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+                    // this.$emit('addTrash', originalEvent);
+                    return 
+                }
+
                 const key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']
-                console.log(key);
-                
+
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
                 if(key) {
 

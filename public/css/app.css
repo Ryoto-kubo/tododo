@@ -11116,7 +11116,7 @@ button {
   outline: none;
 }
 
-*:focus {
+button:focus {
   outline: none;
 }
 

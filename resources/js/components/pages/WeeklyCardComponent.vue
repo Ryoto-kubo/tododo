@@ -9,8 +9,15 @@
                     <font-awesome-icon class="plus_icon" icon="plus"/>新しくリストを作る
                 </button>
             </div>
-            <div class="trash_container">
+            <div class="trash_container" style="height: 20px;">
                 <font-awesome-icon class="trash_icon" icon="trash-alt"/>
+                <draggable id="trash"
+                    @add="addTrash()"
+                    :options="options"
+                    group="myGroup"
+                    style="display: none;"
+                    >
+                </draggable>    
             </div>
         </div>
         <div class="todo_container">
@@ -22,6 +29,7 @@
                         :weeklyKey="$route.params.path"
                         :inputId="index + '_input'"
                         :todoCardListKey="index"
+                        @addTrash="addTrash"
                     />
                 </div>
             </div>
@@ -62,6 +70,7 @@ export default {
             isAddTodo: false,
             todoValue: null,
             validAnimation: null,
+            trashArray: [],
             todoTitleObjects: [
                 {todoTitle: 'するべきこと'},
                 {todoTitle: '作業中'},
@@ -74,6 +83,11 @@ export default {
                     list_2: { listId: 'list_2', todoTitle: '完了',  taskList: [] },
                 }
             },
+            options: {
+                group: "myGroup",
+                animation: 400
+            },
+
         }
     },
     created() {
@@ -117,6 +131,10 @@ export default {
         }
     },
     methods: {
+        addTrash(originalEvent) {
+            console.log(originalEvent);
+            
+        },
         showTodo() {
             this.isAddTodo = true
             this.$nextTick(() => document.getElementById('test').focus())
@@ -142,8 +160,11 @@ export default {
         todoValueInit() {
             this.todoValue = null
         },
-
-    }
+    },
+    // watch: {
+    //     trashArray() {
+    //     }
+    // }
 }
 </script>
 

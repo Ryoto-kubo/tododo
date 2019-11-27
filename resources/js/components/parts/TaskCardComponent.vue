@@ -1,10 +1,10 @@
 <template>
     <div class="task_body">
         <div>
-            <input type="checkbox" @click="showMenu()">
+            <!-- <input type="checkbox" @click="showMenu()"> -->
             {{taskTitle}}
         </div>
-        <div style="position: relative; top: 2px;">
+        <!-- <div style="position: relative; top: 2px;">
             <button v-if="isShowMenu"
                 onfocus="this.blur();"
                 class="menu_trigger" 
@@ -18,7 +18,7 @@
             <template v-if="isOpenMenu">
                 <menu-component />
             </template>
-        </div>
+        </div> -->
     </div>
 </template>
 
