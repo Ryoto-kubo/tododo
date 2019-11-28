@@ -5,6 +5,7 @@
         </p>
         <template v-if="isShowTask">
             <draggable 
+                :list="tasks"
                 :id="todoCardListKey"
                 :animation="400"
                 :group="taskOptions" 
@@ -87,25 +88,30 @@ export default {
     methods: {
         uodateLocalStorage(originalEvent) {
             this.$emit('trashScaleDown')
+
             
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id
             const moveAfterParentId   = originalEvent.to.id
             if (moveBeforeParentId === moveAfterParentId) {
+
+                // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+                // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                 return 
             }
             
             // listを持って動かした場合
             if (moveBeforeParentId !== moveAfterParentId) {
+
+                // localStorageからdata取得
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
                 // localStorageから移動させた要素を削除
                 let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']
-                // console.log(getArray);
-                
                 const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
                 getArray.splice(index, 1)
 
+                // 移動先がtrashなら削除したままreturnする
                 if (moveAfterParentId === 'trash') {                    
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                     return 
@@ -115,26 +121,17 @@ export default {
 
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
                 if(key) {
-
+                    
+                    console.log(this.tasks);
+                    
                     // listの親IDをkeyとしてlocalStorageに保存
                     const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
                     weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object)
+                    // weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = this.tasks
 
                     // localStorageに保存
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
 
-                } else {
-                    console.log('jello');
-                    
-                    // listの親IDをkeyとしたオブジェクトを作成
-                    weeklyObjects['todoCardList'][moveAfterParentId] = []
-                    
-                    // 作成したオブジェクトに移動させた要素を追加
-                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    weeklyObjects['todoCardList'][moveAfterParentId].push(object)
-
-                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
-                    
                 }
                 
             }
@@ -278,4 +275,3 @@ export default {
     }
 }
 </style>
-

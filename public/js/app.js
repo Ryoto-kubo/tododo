@@ -12001,6 +12001,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
  // import Sortable from 'sortablejs'
 
 
@@ -12052,19 +12053,21 @@ __webpack_require__.r(__webpack_exports__);
       var moveAfterParentId = originalEvent.to.id;
 
       if (moveBeforeParentId === moveAfterParentId) {
+        // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+        // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
         return;
       } // listを持って動かした場合
 
 
       if (moveBeforeParentId !== moveAfterParentId) {
+        // localStorageからdata取得
         var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey)); // localStorageから移動させた要素を削除
 
-        var getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']; // console.log(getArray);
-
+        var getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'];
         var index = getArray.findIndex(function (array) {
           return array.taskTitle === originalEvent.item.innerText;
         });
-        getArray.splice(index, 1);
+        getArray.splice(index, 1); // 移動先がtrashなら削除したままreturnする
 
         if (moveAfterParentId === 'trash') {
           this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
@@ -12074,24 +12077,15 @@ __webpack_require__.r(__webpack_exports__);
         var key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']; // listの親IDがkeyとしてlocalStorageに保存されている場合
 
         if (key) {
-          // listの親IDをkeyとしてlocalStorageに保存
+          console.log(this.tasks); // listの親IDをkeyとしてlocalStorageに保存
+
           var object = {
             listId: moveAfterParentId,
             taskTitle: originalEvent.item.innerText
           };
-          weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object); // localStorageに保存
+          weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object); // weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = this.tasks
+          // localStorageに保存
 
-          this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
-        } else {
-          console.log('jello'); // listの親IDをkeyとしたオブジェクトを作成
-
-          weeklyObjects['todoCardList'][moveAfterParentId] = []; // 作成したオブジェクトに移動させた要素を追加
-
-          var _object = {
-            listId: moveAfterParentId,
-            taskTitle: originalEvent.item.innerText
-          };
-          weeklyObjects['todoCardList'][moveAfterParentId].push(_object);
           this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
         }
       }
@@ -55271,6 +55265,7 @@ var render = function() {
               "draggable",
               {
                 attrs: {
+                  list: _vm.tasks,
                   id: _vm.todoCardListKey,
                   animation: 400,
                   group: _vm.taskOptions
