@@ -1,7 +1,6 @@
 <template>
     <div class="task_body">
         <div>
-            <!-- <input type="checkbox" @click="showMenu()"> -->
             {{taskTitle}}
         </div>
     </div>

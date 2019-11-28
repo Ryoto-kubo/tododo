@@ -11850,7 +11850,7 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.$localStorage.set(weeklyKey, JSON.stringify(weeklyObjects));
       this.isAddTodo = false;
-      this.todoValueInit(); // todoを作成した後にaddTaskInputを開くs
+      this.todoValueInit(); // todoを作成した後にaddTaskInputを開く
 
       var componentLength = this.$refs.todo.length;
       var argumentString = "list_" + componentLength + "_input";
@@ -11914,7 +11914,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -11954,6 +11953,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var q__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! q */ "./node_modules/q/q.js");
 /* harmony import */ var q__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(q__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -12052,40 +12052,45 @@ __webpack_require__.r(__webpack_exports__);
       var moveAfterParentId = originalEvent.to.id;
 
       if (moveBeforeParentId === moveAfterParentId) {
-        // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
-        // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+        var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
+        weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks;
+        this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
         return;
       } // listを持って動かした場合
 
 
       if (moveBeforeParentId !== moveAfterParentId) {
-        // localStorageからdata取得
-        var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey)); // localStorageから移動させた要素を削除
+        console.log('hello'); // localStorageからdata取得
 
-        var getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'];
+        var _weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey)); // localStorageから移動させた要素を削除
+
+
+        var getArray = _weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'];
         var index = getArray.findIndex(function (array) {
           return array.taskTitle === originalEvent.item.innerText;
         });
         getArray.splice(index, 1); // 移動先がtrashなら削除したままreturnする
 
         if (moveAfterParentId === 'trash') {
-          this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
+          this.$localStorage.set(this.weeklyKey, JSON.stringify(_weeklyObjects));
           return;
         }
 
-        var key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']; // listの親IDがkeyとしてlocalStorageに保存されている場合
+        var key = _weeklyObjects['todoCardList'][moveAfterParentId]['listId'];
+        console.log(key); // listの親IDがkeyとしてlocalStorageに保存されている場合
 
         if (key) {
-          console.log(this.tasks); // listの親IDをkeyとしてlocalStorageに保存
-
+          // listの親IDをkeyとしてlocalStorageに保存
           var object = {
             listId: moveAfterParentId,
             taskTitle: originalEvent.item.innerText
           };
-          weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object); // weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = this.tasks
+
+          _weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object); // weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = this.tasks
           // localStorageに保存
 
-          this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
+
+          this.$localStorage.set(this.weeklyKey, JSON.stringify(_weeklyObjects));
         }
       }
     },
@@ -16651,7 +16656,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.edit_container[data-v-c260a4b4] {\n  margin-bottom: 20px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container[data-v-c260a4b4] {\n  margin-right: 20px;\n  font-size: 1.6rem;\n}\n.edit_container .add_todo_btn_container button[data-v-c260a4b4] {\n  width: 210px;\n  color: #ffffff;\n  padding: 5px 15px;\n  background: #60BD4F;\n  outline: none;\n  border: none;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container button .plus_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n}\n.edit_container .trash_container[data-v-c260a4b4] {\n  position: relative;\n}\n.edit_container .trash_container .trash_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n  z-index: 999;\n}\n.edit_container .trash_container:hover .trash_icon[data-v-c260a4b4] {\n  -webkit-transform: scale(1.5);\n          transform: scale(1.5);\n}\n.edit_container .trash_container #trash[data-v-c260a4b4] {\n  width: 50px;\n  height: 50px;\n  opacity: 0.5;\n  position: absolute;\n  top: -15px;\n  left: -15px;\n}\n.todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
+exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.edit_container[data-v-c260a4b4] {\n  margin-bottom: 50px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container[data-v-c260a4b4] {\n  margin-right: 20px;\n  font-size: 1.6rem;\n}\n.edit_container .add_todo_btn_container button[data-v-c260a4b4] {\n  width: 210px;\n  color: #ffffff;\n  padding: 5px 15px;\n  background: #60BD4F;\n  outline: none;\n  border: none;\n  border-radius: 10px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.edit_container .add_todo_btn_container button .plus_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  margin-right: 10px;\n}\n.edit_container .trash_container[data-v-c260a4b4] {\n  position: relative;\n}\n.edit_container .trash_container .trash_icon[data-v-c260a4b4] {\n  width: 20px;\n  height: 20px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n  z-index: 999;\n}\n.edit_container .trash_container:hover .trash_icon[data-v-c260a4b4] {\n  -webkit-transform: scale(1.5);\n          transform: scale(1.5);\n}\n.edit_container .trash_container #trash[data-v-c260a4b4] {\n  width: 50px;\n  height: 50px;\n  opacity: 0.5;\n  position: absolute;\n  top: -15px;\n  left: -15px;\n}\n.todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
 
 // exports
 
@@ -55264,6 +55269,7 @@ var render = function() {
               "draggable",
               {
                 attrs: {
+                  list: _vm.tasks,
                   id: _vm.todoCardListKey,
                   animation: 400,
                   group: _vm.taskOptions

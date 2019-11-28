@@ -5,6 +5,7 @@
         </p>
         <template v-if="isShowTask">
             <draggable
+                :list="tasks"
                 :id="todoCardListKey"
                 :animation="400"
                 :group="taskOptions" 
@@ -94,14 +95,16 @@ export default {
             const moveAfterParentId   = originalEvent.to.id
             if (moveBeforeParentId === moveAfterParentId) {
 
-                // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
-                // this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+                let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+                weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+                this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                 return 
             }
             
             // listを持って動かした場合
             if (moveBeforeParentId !== moveAfterParentId) {
-
+                console.log('hello');
+                
                 // localStorageからdata取得
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
@@ -118,11 +121,10 @@ export default {
 
                 const key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']
 
+                console.log(key);
+                
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
-                if(key) {
-                    
-                    console.log(this.tasks);
-                    
+                if(key) {                    
                     // listの親IDをkeyとしてlocalStorageに保存
                     const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
                     weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object)
@@ -130,7 +132,6 @@ export default {
 
                     // localStorageに保存
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
-
                 }
                 
             }

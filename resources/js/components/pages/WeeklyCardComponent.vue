@@ -173,7 +173,7 @@ export default {
             this.isAddTodo = false
             this.todoValueInit()
 
-            // todoを作成した後にaddTaskInputを開くs
+            // todoを作成した後にaddTaskInputを開く
             const componentLength = this.$refs.todo.length            
             const argumentString  = "list_" + componentLength + "_input"
             const waitDuration = 1
@@ -207,7 +207,7 @@ export default {
     color: $text_color;
 }
 .edit_container{
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     display: flex;
     align-items: center;
     .add_todo_btn_container{
