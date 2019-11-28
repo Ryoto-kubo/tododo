@@ -4,7 +4,11 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <draggable :id="todoCardListKey" :group="options" @start="drag=true" @end="uodateLocalStorage">
+            <draggable 
+                :id="todoCardListKey"
+                :animation="400"
+                :group="taskOptions" 
+                @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
                     <task-card-component
                         :taskTitle="task.taskTitle"
@@ -50,9 +54,8 @@ export default {
     components: { draggable },
     data() {
         return {
-            options: {
-                name: "myGroup",
-                animation: 400,
+            taskOptions: {
+                name: "task",
             },
             isDisplay: false,
             isShowTask: true,
@@ -201,7 +204,6 @@ export default {
     height: 20px;
     vertical-align: 0;
 }
-
 .todo_card_body{
     width: 280px;
     height: auto;
@@ -211,6 +213,13 @@ export default {
     border-radius: 10px;
     background: $todo_card_bg;
     transition: .5s all;
+    &:hover{
+        cursor: grab;
+    }
+    &:active {
+        cursor: grabbing;
+        box-shadow: 0px 4px 10px 0px #707070;
+    }
     .todo_card_title{
         font-size: 2.0rem;
     }
@@ -218,12 +227,9 @@ export default {
         margin-bottom: 10px;
         padding: 5px 10px;
         background: #fff;
-        font-size: 16px;
-        // border-radius: 10px;
-        transition: .2s all;
+        font-size: 1.6rem;
         &:hover{
             cursor: grab;
-            transform: translate(0, -2px);
             box-shadow: 0px 4px 10px 0px #707070;
         }
         &:active {

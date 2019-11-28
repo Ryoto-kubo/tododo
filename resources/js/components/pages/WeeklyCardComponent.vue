@@ -6,7 +6,7 @@
         <div class="edit_container">
             <div class="add_todo_btn_container">
                 <button @click="showTodo()">
-                    <font-awesome-icon class="plus_icon" icon="plus" />新しくリストを作る
+                    <font-awesome-icon class="plus_icon" icon="plus" />新しくTODOを追加
                 </button>
             </div>
             <div class="trash_container" style="height: 20px;">
@@ -19,7 +19,9 @@
             </div>
         </div>
         <div class="todo_container">
-            <div class="todo_card_container">
+            <draggable class="todo_card_container" 
+                :group="weeklyOptions"
+                :animation="400">
                 <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
                     <todo-card-component
                         ref="todo"
@@ -31,7 +33,7 @@
                         @trashScaleDown="trashScaleDown"
                     />
                 </div>
-            </div>
+            </draggable>
             <template v-if="isAddTodo">
                 <div class="add_todo_card_container">
                     <input autofocus type="text"
@@ -85,12 +87,15 @@ export default {
                 }
             },
             options: {
-                name: "myGroup",
-                animation: 400,
+                name: "task",
                 put: () => {                    
                     return this.trashScaleUp()
                 },
             },
+            weeklyOptions: {
+                name: "weekly",
+            },
+
         }
     },
     created() {

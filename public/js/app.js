@@ -11557,9 +11557,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
@@ -11567,8 +11564,6 @@ __webpack_require__.r(__webpack_exports__);
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
-    var _this = this;
-
     return {
       weeks: [{
         path: 'mon',
@@ -11591,14 +11586,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         path: 'sun',
         week: '日'
-      }],
-      options: {
-        name: "myGroup",
-        animation: 400,
-        put: function put() {
-          return _this.onChoose();
-        }
-      }
+      }]
     };
   }
 });
@@ -11719,6 +11707,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -11762,11 +11752,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       },
       options: {
-        name: "myGroup",
-        animation: 400,
+        name: "task",
         put: function put() {
           return _this.trashScaleUp();
         }
+      },
+      weeklyOptions: {
+        name: "weekly"
       }
     };
   },
@@ -11923,21 +11915,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -12020,6 +11997,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
  // import Sortable from 'sortablejs'
 
 
@@ -12030,9 +12011,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      options: {
-        name: "myGroup",
-        animation: 400
+      taskOptions: {
+        name: "task"
       },
       isDisplay: false,
       isShowTask: true,
@@ -16716,7 +16696,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".task_body[data-v-7d781084] {\n  height: 32px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n}\n.task_body input[data-v-7d781084] {\n  margin-right: 3px;\n  -webkit-transform: scale(1.2);\n          transform: scale(1.2);\n}", ""]);
+exports.push([module.i, ".task_body[data-v-7d781084] {\n  height: 32px;\n}", ""]);
 
 // exports
 
@@ -16735,7 +16715,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 20px;\n  vertical-align: 0;\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 16px;\n  -webkit-transition: 0.2s all;\n  transition: 0.2s all;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  -webkit-transform: translate(0, -2px);\n          transform: translate(0, -2px);\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
+exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 20px;\n  vertical-align: 0;\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n.todo_card_body[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -55037,7 +55017,7 @@ var render = function() {
               staticClass: "plus_icon",
               attrs: { icon: "plus" }
             }),
-            _vm._v("新しくリストを作る\n            ")
+            _vm._v("新しくTODOを追加\n            ")
           ],
           1
         )
@@ -55072,8 +55052,11 @@ var render = function() {
       { staticClass: "todo_container" },
       [
         _c(
-          "div",
-          { staticClass: "todo_card_container" },
+          "draggable",
+          {
+            staticClass: "todo_card_container",
+            attrs: { group: _vm.weeklyOptions, animation: 400 }
+          },
           _vm._l(_vm.localStorageList.todoCardList, function(
             todoTitleObject,
             index
@@ -55287,13 +55270,12 @@ var render = function() {
             _c(
               "draggable",
               {
-                attrs: { id: _vm.todoCardListKey, group: _vm.options },
-                on: {
-                  start: function($event) {
-                    _vm.drag = true
-                  },
-                  end: _vm.uodateLocalStorage
-                }
+                attrs: {
+                  id: _vm.todoCardListKey,
+                  animation: 400,
+                  group: _vm.taskOptions
+                },
+                on: { end: _vm.uodateLocalStorage }
               },
               _vm._l(_vm.tasks, function(task, index) {
                 return _c(
@@ -74796,8 +74778,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
