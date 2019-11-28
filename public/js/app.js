@@ -12001,7 +12001,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
  // import Sortable from 'sortablejs'
 
 
@@ -55265,7 +55264,6 @@ var render = function() {
               "draggable",
               {
                 attrs: {
-                  list: _vm.tasks,
                   id: _vm.todoCardListKey,
                   animation: 400,
                   group: _vm.taskOptions

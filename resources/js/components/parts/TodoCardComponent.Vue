@@ -4,8 +4,7 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <draggable 
-                :list="tasks"
+            <draggable
                 :id="todoCardListKey"
                 :animation="400"
                 :group="taskOptions" 
