@@ -41,6 +41,7 @@ export default {
   .weeklycard{
     margin-top: 10px;
     width: 180px;
+    // height: 100px;
     padding: 30px;
     display: block;
     text-decoration: none;
@@ -49,7 +50,8 @@ export default {
     border: 1px solid  #707070;
     border-radius: 10px;
     // font-size: calc(2rem + ((1.5vw - 0.64rem) * 0.7143)); // 20px~24pxで可変
-    font-size: 2.5rem;
+    font-size: 25px;
+    // font-size: 2.5rem;
     font-weight: bold;
     transition: .5s all;
     &:hover{
