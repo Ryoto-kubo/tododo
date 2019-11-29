@@ -40,7 +40,7 @@ export default {
   flex-wrap:wrap;
   .weeklycard{
     margin-top: 10px;
-    width: 150px;
+    width: 180px;
     padding: 30px;
     display: block;
     text-decoration: none;
