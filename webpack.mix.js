@@ -1,4 +1,6 @@
-const mix = require('laravel-mix');
+const mix  = require('laravel-mix');
+require('laravel-mix-alias');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +13,31 @@ const mix = require('laravel-mix');
  |
  */
 
+// mix.js('resources/js/app.js', 'public/js')
+//    .sass('resources/sass/app.scss', 'public/css');
+
+// mix.webpackConfig({
+//   resolve: {
+//       extensions : [ '.js', '.vue', '.json' ],
+//       alias: {
+//           '@': __dirname + '/resources/js'
+//       },
+//   },
+// });
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .browserSync({ // ここから
+      proxy: {
+        target: "localhost" // 最後に/は不要
+      },
+      browser: "google chrome",
+      files: [ // チェックするファイルは下記で十分ではないかな。
+        './resources/**/*',
+        './app/**/*',
+        './config/**/*',
+        './routes/**/*',
+        './public/**/*.*'
+      ],
+      open: true,
+      reloadOnRestart: true //BrowserSync起動時にブラウザにリロード命令おくる
+});
