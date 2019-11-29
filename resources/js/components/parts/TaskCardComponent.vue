@@ -20,13 +20,6 @@ export default {
         taskIndex: Number,
     },
     methods: {
-        showMenu() {
-            this.isShowMenu = !this.isShowMenu
-        },
-        openMenu() {
-            this.isOpenMenu = !this.isOpenMenu
-        },
-
     }
 }
 </script>
@@ -34,8 +27,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .task_body{
-    height: 32px;
-    
+    height: auto;
 }
 
 </style>

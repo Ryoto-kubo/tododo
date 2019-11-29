@@ -11929,14 +11929,7 @@ __webpack_require__.r(__webpack_exports__);
     taskTitle: String,
     taskIndex: Number
   },
-  methods: {
-    showMenu: function showMenu() {
-      this.isShowMenu = !this.isShowMenu;
-    },
-    openMenu: function openMenu() {
-      this.isOpenMenu = !this.isOpenMenu;
-    }
-  }
+  methods: {}
 });
 
 /***/ }),
@@ -16707,7 +16700,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".task_body[data-v-7d781084] {\n  height: 32px;\n}", ""]);
+exports.push([module.i, ".task_body[data-v-7d781084] {\n  height: auto;\n}", ""]);
 
 // exports
 
