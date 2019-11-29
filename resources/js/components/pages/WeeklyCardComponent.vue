@@ -21,7 +21,8 @@
         <div class="todo_container">
             <draggable class="todo_card_container" 
                 :group="weeklyOptions"
-                :animation="400">
+                :animation="100"
+                >
                 <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
                     <todo-card-component
                         ref="todo"
@@ -94,6 +95,7 @@ export default {
             },
             weeklyOptions: {
                 name: "weekly",
+                animation: "100"
             },
 
         }

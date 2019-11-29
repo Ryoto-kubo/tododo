@@ -7,8 +7,9 @@
             <draggable
                 :list="tasks"
                 :id="todoCardListKey"
-                :animation="400"
-                :group="taskOptions" 
+                :animation="100"
+                :group="taskOptions"
+                @start="drag=true"
                 @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
                     <task-card-component
@@ -57,6 +58,7 @@ export default {
         return {
             taskOptions: {
                 name: "task",
+                animation: "100" 
             },
             isDisplay: false,
             isShowTask: true,
@@ -89,12 +91,11 @@ export default {
         uodateLocalStorage(originalEvent) {
             this.$emit('trashScaleDown')
 
-            
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id
             const moveAfterParentId   = originalEvent.to.id
             if (moveBeforeParentId === moveAfterParentId) {
-
+                                
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
                 weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
                 this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
@@ -103,15 +104,14 @@ export default {
             
             // listを持って動かした場合
             if (moveBeforeParentId !== moveAfterParentId) {
-                console.log('hello');
-                
+
                 // localStorageからdata取得
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
                 // localStorageから移動させた要素を削除
                 let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']
-                const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
-                getArray.splice(index, 1)
+                const removeIndex = originalEvent.oldIndex
+                getArray.splice(removeIndex, 1)
 
                 // 移動先がtrashなら削除したままreturnする
                 if (moveAfterParentId === 'trash') {                    
@@ -120,15 +120,18 @@ export default {
                 }
 
                 const key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']
-
-                console.log(key);
                 
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
-                if(key) {                    
-                    // listの親IDをkeyとしてlocalStorageに保存
-                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object)
-                    // weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = this.tasks
+                if(key) {
+
+                    var object = []
+                    let moveAfterParentArray = originalEvent.to.childNodes                    
+                    moveAfterParentArray.forEach((element, index) => {
+                        object[index] = {listId: moveAfterParentId, taskTitle: element.innerText}
+                    })
+                    
+                    const taskInnerText = originalEvent.clone.childNodes[0].innerText
+                    weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = object
 
                     // localStorageに保存
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
@@ -152,7 +155,7 @@ export default {
         },
         addTask(todoCardListKey, keyCode) {
             if (keyCode !== 13) return
-            
+
             if (!this.taskValue) {
                 let removeClassDuration = 500
                 this.isDisplay = true
@@ -231,6 +234,8 @@ export default {
         }
         &:active {
             cursor: grabbing;
+            color: $white;
+            background: $base_bg;
             // transform: rotate(5deg);
         }
     }
