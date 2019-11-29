@@ -11,8 +11,10 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 export default {
   name: 'App',
+  components: { draggable },
   data() {
     return {
       weeks: [

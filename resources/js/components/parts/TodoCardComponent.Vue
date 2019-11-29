@@ -4,9 +4,17 @@
             {{title}}
         </p>
         <template v-if="isShowTask">
-            <draggable :id="todoCardListKey" :options="options" group="myGroup" @start="drag=true" @end="uodateLocalStorage">
+            <draggable
+                :id="todoCardListKey"
+                :animation="200"
+                :group="taskOptions"
+                @start="drag=true"
+                @end="uodateLocalStorage">
                 <div class="todo_card_task" v-for="(task, index) in tasks" :key="index">
-                    {{task.taskTitle}}
+                    <task-card-component
+                        :taskTitle="task.taskTitle"
+                        :taskIndex="index"
+                    />
                 </div>
             </draggable>
         </template>
@@ -40,14 +48,16 @@
 
 <script>
 import draggable from 'vuedraggable'
+// import Sortable from 'sortablejs'
 import { log } from 'util'
+import { longStackSupport } from 'q'
 export default {
     components: { draggable },
     data() {
         return {
-            options: {
-                group: "myGroup",
-                animation: 200
+            taskOptions: {
+                name: "task",
+                delay: 50,
             },
             isDisplay: false,
             isShowTask: true,
@@ -65,13 +75,12 @@ export default {
     },
     created() {
         let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
-              
+
         if (weeklyObjects) {
             let result = weeklyObjects['todoCardList'][this.todoCardListKey]
             if(result) {
                 let weeklyObject = weeklyObjects['todoCardList'][this.todoCardListKey]                
                 weeklyObject['taskList'].forEach((element) => {
-                    // console.log(element)
                     this.tasks.push(element)
                 });
             }
@@ -79,54 +88,69 @@ export default {
     },
     methods: {
         uodateLocalStorage(originalEvent) {
+            this.$emit('trashScaleDown')
+
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id
-            const moveAfterParentId   = originalEvent.to.id
+            const moveAfterParentId  = originalEvent.to.id
+
             if (moveBeforeParentId === moveAfterParentId) {
+
+                // console.log(originalEvent);
+                
+                var object = []
+                let moveAfterParentArray = originalEvent.to.childNodes                    
+                moveAfterParentArray.forEach((element, index) => {
+                    object[index] = {listId: moveAfterParentId, taskTitle: element.innerText}
+                })
+
+                let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
+                weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = object
+                // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+                this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                 return 
             }
-
+            
             // listを持って動かした場合
             if (moveBeforeParentId !== moveAfterParentId) {
+
+                // localStorageからdata取得
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
 
                 // localStorageから移動させた要素を削除
                 let getArray = weeklyObjects['todoCardList'][moveBeforeParentId]['taskList']
-                console.log(getArray);
-                
-                const index = getArray.findIndex((array) => array.taskTitle === originalEvent.item.innerText)
-                getArray.splice(index, 1)
+                const removeIndex = originalEvent.oldIndex
+                getArray.splice(removeIndex, 1)
+
+                // 移動先がtrashなら削除したままreturnする
+                if (moveAfterParentId === 'trash') {                    
+                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
+                    return 
+                }
 
                 const key = weeklyObjects['todoCardList'][moveAfterParentId]['listId']
-                console.log(key);
                 
                 // listの親IDがkeyとしてlocalStorageに保存されている場合
                 if(key) {
 
-                    // listの親IDをkeyとしてlocalStorageに保存
-                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    weeklyObjects['todoCardList'][moveAfterParentId]['taskList'].push(object)
+                    var object = []
+                    let moveAfterParentArray = originalEvent.to.childNodes                    
+                    moveAfterParentArray.forEach((element, index) => {
+                        object[index] = {listId: moveAfterParentId, taskTitle: element.innerText}
+                    })
+                    
+                    const taskInnerText = originalEvent.clone.childNodes[0].innerText
+                    weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = object
 
                     // localStorageに保存
                     this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
-
-                } else {
-                    console.log('jello');
-                    
-                    // listの親IDをkeyとしたオブジェクトを作成
-                    weeklyObjects['todoCardList'][moveAfterParentId] = []
-                    
-                    // 作成したオブジェクトに移動させた要素を追加
-                    const object = {listId: moveAfterParentId, taskTitle: originalEvent.item.innerText}
-                    weeklyObjects['todoCardList'][moveAfterParentId].push(object)
-
-                    this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
-                    
                 }
                 
             }
         },
         showTaskInput(inputId) {
+            console.log(inputId);
+            
             this.isDisplay = true
             this.isAddTask = false
             this.$nextTick(() => document.getElementById(inputId).focus());
@@ -135,9 +159,12 @@ export default {
             this.isDisplay = false
             this.isAddTask = true
         },
+        test() {
+            console.log('test');
+        },
         addTask(todoCardListKey, keyCode) {
             if (keyCode !== 13) return
-            
+
             if (!this.taskValue) {
                 let removeClassDuration = 500
                 this.isDisplay = true
@@ -183,47 +210,8 @@ export default {
 @import '../../../sass/variables';
 .plus_icon{
     width: 20px;
-    height: 25px;
+    height: 20px;
     vertical-align: 0;
-}
-
-.valid_shake{
-    animation: shake 1.5s 1;
-}
-@keyframes shake {
-    0% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    2% {
-        transform: translate(2px, 2px) rotateZ(2deg)
-    }
-    4% {
-        transform: translate(0px, 2px) rotateZ(0deg)
-    }
-    6% {
-        transform: translate(2px, 0px) rotateZ(-2deg)
-    }
-    8% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    10% {
-        transform: translate(2px, 2px) rotateZ(2deg)
-    }
-    12% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    14% {
-        transform: translate(2px, 0px) rotateZ(-2deg)
-    }
-    16% {
-        transform: translate(0px, 2px) rotateZ(0deg)
-    }
-    18% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
-    100% {
-        transform: translate(0px, 0px) rotateZ(0deg)
-    }
 }
 .todo_card_body{
     width: 280px;
@@ -234,11 +222,13 @@ export default {
     border-radius: 10px;
     background: $todo_card_bg;
     transition: .5s all;
-    // position: relative;
-    // &:hover{
-    //     transform: translate(0, -5px);
-    //     box-shadow: 0px 7px 10px 0px #707070;
-    // }
+    &:hover{
+        cursor: grab;
+    }
+    &:active {
+        cursor: grabbing;
+        box-shadow: 0px 4px 10px 0px #707070;
+    }
     .todo_card_title{
         font-size: 2.0rem;
     }
@@ -246,16 +236,15 @@ export default {
         margin-bottom: 10px;
         padding: 5px 10px;
         background: #fff;
-        font-size: 16px;
-        border-radius: 10px;
-        transition: .2s all;
+        font-size: 1.6rem;
         &:hover{
             cursor: grab;
-            transform: translate(0, -2px);
             box-shadow: 0px 4px 10px 0px #707070;
         }
         &:active {
             cursor: grabbing;
+            color: $white;
+            background: $base_bg;
             // transform: rotate(5deg);
         }
     }
@@ -291,8 +280,6 @@ export default {
         display: flex;
         align-items: center;
         transition: .5s all;
-        // position: relative;
-        // bottom: 10px;
         cursor: pointer;
         .add_text{
             margin-left: 10px;
@@ -302,4 +289,3 @@ export default {
     }
 }
 </style>
-
