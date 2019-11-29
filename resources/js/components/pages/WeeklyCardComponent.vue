@@ -21,7 +21,7 @@
         <div class="todo_container">
             <draggable class="todo_card_container" 
                 :group="weeklyOptions"
-                :animation="100"
+                :animation="200"
                 >
                 <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
                     <todo-card-component
@@ -89,13 +89,14 @@ export default {
             },
             options: {
                 name: "task",
+                animation: 200,
                 put: () => {                    
                     return this.trashScaleUp()
                 },
             },
             weeklyOptions: {
                 name: "weekly",
-                animation: "100"
+                delay: 50,
             },
 
         }

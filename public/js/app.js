@@ -11754,13 +11754,14 @@ __webpack_require__.r(__webpack_exports__);
       },
       options: {
         name: "task",
+        animation: 200,
         put: function put() {
           return _this.trashScaleUp();
         }
       },
       weeklyOptions: {
         name: "weekly",
-        animation: "100"
+        delay: 50
       }
     };
   },
@@ -12003,7 +12004,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
  // import Sortable from 'sortablejs'
 
 
@@ -12016,7 +12016,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       taskOptions: {
         name: "task",
-        animation: "100"
+        delay: 50
       },
       isDisplay: false,
       isShowTask: true,
@@ -12056,8 +12056,18 @@ __webpack_require__.r(__webpack_exports__);
       var moveAfterParentId = originalEvent.to.id;
 
       if (moveBeforeParentId === moveAfterParentId) {
+        // console.log(originalEvent);
+        var object = [];
+        var moveAfterParentArray = originalEvent.to.childNodes;
+        moveAfterParentArray.forEach(function (element, index) {
+          object[index] = {
+            listId: moveAfterParentId,
+            taskTitle: element.innerText
+          };
+        });
         var weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey));
-        weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks;
+        weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = object; // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+
         this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects));
         return;
       } // listを持って動かした場合
@@ -12081,13 +12091,15 @@ __webpack_require__.r(__webpack_exports__);
 
         if (key) {
           var object = [];
-          var moveAfterParentArray = originalEvent.to.childNodes;
-          moveAfterParentArray.forEach(function (element, index) {
+          var _moveAfterParentArray = originalEvent.to.childNodes;
+
+          _moveAfterParentArray.forEach(function (element, index) {
             object[index] = {
               listId: moveAfterParentId,
               taskTitle: element.innerText
             };
           });
+
           var taskInnerText = originalEvent.clone.childNodes[0].innerText;
           _weeklyObjects['todoCardList'][moveAfterParentId]['taskList'] = object; // localStorageに保存
 
@@ -55054,7 +55066,7 @@ var render = function() {
           "draggable",
           {
             staticClass: "todo_card_container",
-            attrs: { group: _vm.weeklyOptions, animation: 100 }
+            attrs: { group: _vm.weeklyOptions, animation: 200 }
           },
           _vm._l(_vm.localStorageList.todoCardList, function(
             todoTitleObject,
@@ -55270,9 +55282,8 @@ var render = function() {
               "draggable",
               {
                 attrs: {
-                  list: _vm.tasks,
                   id: _vm.todoCardListKey,
-                  animation: 100,
+                  animation: 200,
                   group: _vm.taskOptions
                 },
                 on: {
@@ -74783,8 +74794,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

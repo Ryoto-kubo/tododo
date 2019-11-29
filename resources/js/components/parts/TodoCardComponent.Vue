@@ -5,9 +5,8 @@
         </p>
         <template v-if="isShowTask">
             <draggable
-                :list="tasks"
                 :id="todoCardListKey"
-                :animation="100"
+                :animation="200"
                 :group="taskOptions"
                 @start="drag=true"
                 @end="uodateLocalStorage">
@@ -58,7 +57,7 @@ export default {
         return {
             taskOptions: {
                 name: "task",
-                animation: "100" 
+                delay: 50,
             },
             isDisplay: false,
             isShowTask: true,
@@ -93,11 +92,21 @@ export default {
 
             // listを持ったが動かさなかった場合
             const moveBeforeParentId = originalEvent.from.id
-            const moveAfterParentId   = originalEvent.to.id
+            const moveAfterParentId  = originalEvent.to.id
+
             if (moveBeforeParentId === moveAfterParentId) {
-                                
+
+                // console.log(originalEvent);
+                
+                var object = []
+                let moveAfterParentArray = originalEvent.to.childNodes                    
+                moveAfterParentArray.forEach((element, index) => {
+                    object[index] = {listId: moveAfterParentId, taskTitle: element.innerText}
+                })
+
                 let weeklyObjects = JSON.parse(this.$localStorage.get(this.weeklyKey))
-                weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
+                weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = object
+                // weeklyObjects['todoCardList'][moveBeforeParentId]['taskList'] = this.tasks
                 this.$localStorage.set(this.weeklyKey, JSON.stringify(weeklyObjects))
                 return 
             }
