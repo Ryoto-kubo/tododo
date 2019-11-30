@@ -41,7 +41,7 @@
         </template>
         <div v-if="isAddTask" class="todo_card_add_container" @click="showTaskInput(inputId)">
             <font-awesome-icon class="plus_icon" icon="plus"/>
-            <div class="add_text">タスクを追加</div>
+            <div class="add_text">リストを追加</div>
         </div>
     </div>
 </template>

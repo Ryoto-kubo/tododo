@@ -11767,12 +11767,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     var weeklyKey = this.$route.params.path;
-    var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey)); // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
+    var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey)); // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
+    // 大枠のtodoCardListを増やした場合リアクティブに表示させるために必要。
 
-    if (weeklyObjects) {
-      this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
-    }
-
+    this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
     var jsonList = JSON.stringify(this.localStorageList);
     this.$localStorage.set(weeklyKey, jsonList);
   },
@@ -55021,7 +55019,7 @@ var render = function() {
               staticClass: "plus_icon",
               attrs: { icon: "plus" }
             }),
-            _vm._v("新しくTODOを追加\n            ")
+            _vm._v("新しくカードを追加\n            ")
           ],
           1
         )
@@ -55399,7 +55397,7 @@ var render = function() {
                 attrs: { icon: "plus" }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "add_text" }, [_vm._v("タスクを追加")])
+              _c("div", { staticClass: "add_text" }, [_vm._v("リストを追加")])
             ],
             1
           )

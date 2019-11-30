@@ -6,7 +6,7 @@
         <div class="edit_container">
             <div class="add_todo_btn_container">
                 <button @click="showTodo()">
-                    <font-awesome-icon class="plus_icon" icon="plus" />新しくTODOを追加
+                    <font-awesome-icon class="plus_icon" icon="plus" />新しくカードを追加
                 </button>
             </div>
             <div class="trash_container" style="height: 20px;">
@@ -104,11 +104,10 @@ export default {
     created() {
         const weeklyKey     = this.$route.params.path
         const weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
-        
-        // localStorageに、指定した曜日のkeyが登録されていなければweeklyKeyをkeyに登録
-        if(weeklyObjects) {
-            this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
-        }
+                
+        // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
+        // 大枠のtodoCardListを増やした場合リアクティブに表示させるために必要。
+        this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
         const jsonList = JSON.stringify(this.localStorageList)
         this.$localStorage.set(weeklyKey, jsonList)
     },
