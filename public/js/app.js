@@ -11768,7 +11768,6 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var weeklyKey = this.$route.params.path;
     var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey)); // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
-    // 大枠のtodoCardListを増やした場合リアクティブに表示させるために必要。
 
     this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
     var jsonList = JSON.stringify(this.localStorageList);

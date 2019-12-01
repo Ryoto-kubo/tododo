@@ -106,7 +106,6 @@ export default {
         const weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
                 
         // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
-        // 大枠のtodoCardListを増やした場合リアクティブに表示させるために必要。
         this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
         const jsonList = JSON.stringify(this.localStorageList)
         this.$localStorage.set(weeklyKey, jsonList)
