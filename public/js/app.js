@@ -11769,7 +11769,10 @@ __webpack_require__.r(__webpack_exports__);
     var weeklyKey = this.$route.params.path;
     var weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey)); // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
 
-    this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
+    if (weeklyObjects) {
+      this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList);
+    }
+
     var jsonList = JSON.stringify(this.localStorageList);
     this.$localStorage.set(weeklyKey, jsonList);
   },
