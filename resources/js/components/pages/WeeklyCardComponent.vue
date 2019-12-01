@@ -107,7 +107,6 @@ export default {
         const weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
                 
         // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
-
         if (weeklyObjects) {
             this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
         }

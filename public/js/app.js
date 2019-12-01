@@ -11919,18 +11919,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      isShowMenu: false,
-      isOpenMenu: false,
-      active: 'active'
-    };
-  },
   props: {
-    taskTitle: String,
-    taskIndex: Number
-  },
-  methods: {}
+    taskTitle: String
+  }
 });
 
 /***/ }),
@@ -11998,7 +11989,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // import Sortable from 'sortablejs'
 
 
 
