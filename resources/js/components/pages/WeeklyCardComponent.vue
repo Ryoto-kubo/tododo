@@ -22,6 +22,7 @@
             <draggable class="todo_card_container" 
                 :group="weeklyOptions"
                 :animation="200"
+                :delay="200"
                 >
                 <div v-for="(todoTitleObject, index) in localStorageList.todoCardList" :key="index">
                     <todo-card-component
@@ -106,6 +107,7 @@ export default {
         const weeklyObjects = JSON.parse(this.$localStorage.get(weeklyKey))
                 
         // this.localStorageList.todoCardListへ、取得したweeklyObjects.todoCardListを$setします。
+
         if (weeklyObjects) {
             this.$set(this.localStorageList, "todoCardList", weeklyObjects.todoCardList)
         }

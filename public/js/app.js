@@ -11710,6 +11710,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -55059,7 +55060,7 @@ var render = function() {
           "draggable",
           {
             staticClass: "todo_card_container",
-            attrs: { group: _vm.weeklyOptions, animation: 200 }
+            attrs: { group: _vm.weeklyOptions, animation: 200, delay: 200 }
           },
           _vm._l(_vm.localStorageList.todoCardList, function(
             todoTitleObject,
