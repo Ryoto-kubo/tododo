@@ -3,21 +3,12 @@
         <p class="weekly">
             {{path}}
         </p>
-        <div class="edit_container">
-            <div class="add_todo_btn_container">
-                <button @click="showTodo()">
-                    <font-awesome-icon class="plus_icon" icon="plus" />新しくカードを追加
-                </button>
-            </div>
-            <div class="trash_container" style="height: 20px;">
-                <font-awesome-icon class="trash_icon" icon="trash-alt" :style="{transform: scaleUp}" @click="openTrashList()"/>
-                <draggable id="trash"
-                    @add="addTrash"
-                    :group="options"
-                >
-                </draggable>    
-            </div>
-        </div>
+        <edit-container 
+            :scaleUp="scaleUp"
+            :options="options"
+            @showTodo="showTodo"
+            @addTrash="addTrash"
+        />
         <div class="todo_container">
             <draggable class="todo_card_container" 
                 :group="weeklyOptions"
@@ -65,10 +56,14 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { log } from 'util';
-import { setTimeout } from 'timers';
+import { log } from 'util'
+import { setTimeout } from 'timers'
+import EditContainer from '../parts/EditContainerComponent'
 export default {
-    components: { draggable },
+    components: { 
+        draggable,
+        EditContainer,
+    },
     data() {
         return {
             scaleUp: null,
@@ -76,11 +71,6 @@ export default {
             todoValue: null,
             validAnimation: null,
             trashArray: [],
-            todoTitleObjects: [
-                {todoTitle: 'するべきこと'},
-                {todoTitle: '作業中'},
-                {todoTitle: '完了'},
-            ],
             localStorageList: {
                 todoCardList: {
                     list_0: { listId: 'list_0', todoTitle: 'するべきこと',  taskList: [] },
@@ -148,14 +138,11 @@ export default {
         trashScaleDown() {
             this.scaleUp = 'scale(1)'
         },
-        openTrashList() {
-            console.log('hello');
-        },
-        addTrash(originalEvent) {            
+        addTrash(originalObject) {
             // 動かしたタスクのDOMを取得しdisplay: none;を付与
-            let addDOM = originalEvent.item.style
-            this.trashArray.push(originalEvent.item)
-            addDOM['display'] = 'none'  
+            // let addDOM = originalEvent.item.style
+            this.trashArray.push(originalObject.item)
+            originalObject.dom['display'] = 'none'  
         },
         showTodo() {
             this.isAddTodo = true
@@ -209,54 +196,6 @@ export default {
     font-size: 3rem;
     font-weight: bold;
     color: $text_color;
-}
-.edit_container{
-    margin-bottom: 50px;
-    display: flex;
-    align-items: center;
-    .add_todo_btn_container{
-        margin-right: 20px;
-        font-size: 1.6rem;
-        button{
-            width: 210px;
-            color: $white;
-            padding: 5px 15px;
-            background: $success_btn_bg;
-            outline: none;
-            border: none;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            .plus_icon{
-                width: 20px;
-                height: 20px;
-                margin-right: 10px;
-            }
-        }
-    }
-    .trash_container{
-        position: relative;
-        .trash_icon{
-            width: 20px;
-            height: 20px;
-            transition: .2s all;
-            z-index: 999;
-        }
-        &:hover{
-            .trash_icon{
-                transform: scale(1.5);
-            }
-        }
-        #trash{
-            width: 50px;
-            height: 50px;
-            opacity: 0.5;
-            // background: red;
-            position: absolute;
-            top: -15px;
-            left: -15px;
-        }
-    }
 }
 .todo_container{
     display: flex;
