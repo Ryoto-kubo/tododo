@@ -39,11 +39,12 @@ export default {
     }
   },
   created() {
-
     // DBからインフォメーションデータを取得
     const hostname    = location.protocol + '//' + location.hostname
     const request_url = hostname + '/api/getInformation'
-    axios.get(request_url)
+    axios.get(request_url, {
+      headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
+    })
     .then(response => {
         const informationObject = response.data.information_object
         informationObject.forEach(element => {
@@ -52,10 +53,7 @@ export default {
       })
       .catch(error => {
           console.log(error);
-      });
-
-    console.log(this.informationArray);
-    
+      });    
     }
   }
 </script>

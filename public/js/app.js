@@ -11604,7 +11604,11 @@ __webpack_require__.r(__webpack_exports__);
     // DBからインフォメーションデータを取得
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getInformation';
-    axios.get(request_url).then(function (response) {
+    axios.get(request_url, {
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      }
+    }).then(function (response) {
       var informationObject = response.data.information_object;
       informationObject.forEach(function (element) {
         _this.informationArray.push(element);
@@ -11612,7 +11616,6 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       console.log(error);
     });
-    console.log(this.informationArray);
   }
 });
 
@@ -55465,9 +55468,9 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "information_title" }, [
               _vm._v(
-                "\n                    【" +
+                "\n                    -" +
                   _vm._s(information.title) +
-                  "】\n                "
+                  "-\n                "
               )
             ]),
             _vm._v(" "),
