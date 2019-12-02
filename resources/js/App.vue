@@ -28,7 +28,20 @@ export default {
       ],
     }
   },
-}
+  created() {
+
+    // DBからインフォメーションデータを取得
+    let hostname    = location.protocol + '//' + location.hostname
+    let request_url = hostname + '/api/getInformation'
+    axios.get(request_url)
+    .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+          console.log(error);
+      });
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

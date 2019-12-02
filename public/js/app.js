@@ -11588,6 +11588,16 @@ __webpack_require__.r(__webpack_exports__);
         week: '日'
       }]
     };
+  },
+  created: function created() {
+    // DBからインフォメーションデータを取得
+    var hostname = location.protocol + '//' + location.hostname;
+    var request_url = hostname + '/api/getInformation';
+    axios.get(request_url).then(function (response) {
+      console.log(response);
+    })["catch"](function (error) {
+      console.log(error);
+    });
   }
 });
 
