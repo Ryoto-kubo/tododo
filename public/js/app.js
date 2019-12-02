@@ -11933,6 +11933,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     informationArray: Array
@@ -16743,7 +16746,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "p[data-v-6cdec8aa] {\n  margin: 0;\n}\n.information_wraper[data-v-6cdec8aa] {\n  text-align: center;\n}\n.information_wraper .title[data-v-6cdec8aa] {\n  margin-bottom: 24px;\n  font-size: 32px;\n  font-weight: bold;\n}\n.information_wraper .information_container[data-v-6cdec8aa] {\n  width: 60%;\n  height: 280px;\n  margin: auto;\n  padding: 20px;\n  overflow: scroll;\n  border: 4px solid #448888;\n  border-radius: 10px;\n}\n.information_wraper .information_container .information_child[data-v-6cdec8aa] {\n  margin-bottom: 30px;\n}\n.information_wraper .information_container .information_child .information_contents[data-v-6cdec8aa] {\n  padding: 0 10px;\n  -moz-text-align-last: left;\n       text-align-last: left;\n}\n.information_wraper .information_container .information_child .information_contents .information_create_time[data-v-6cdec8aa] {\n  font-size: 16px;\n}\n.information_wraper .information_container .information_child .information_contents .information_title[data-v-6cdec8aa] {\n  font-size: 20px;\n}\n.information_wraper .information_container .information_child hr[data-v-6cdec8aa] {\n  margin: 0;\n}", ""]);
+exports.push([module.i, "p[data-v-6cdec8aa] {\n  margin: 0;\n}\n.information_wraper[data-v-6cdec8aa] {\n  text-align: center;\n}\n.information_wraper .title[data-v-6cdec8aa] {\n  margin-bottom: 24px;\n  font-size: 32px;\n  font-weight: bold;\n}\n.information_wraper .information_container[data-v-6cdec8aa] {\n  width: 60%;\n  height: 280px;\n  margin: auto;\n  padding: 20px;\n  overflow: scroll;\n  border: 4px solid #448888;\n  border-radius: 10px;\n}\n.information_wraper .information_container .information_child[data-v-6cdec8aa] {\n  margin-bottom: 30px;\n}\n.information_wraper .information_container .information_child .information_contents[data-v-6cdec8aa] {\n  padding: 0 10px;\n  -moz-text-align-last: left;\n       text-align-last: left;\n}\n.information_wraper .information_container .information_child .information_contents .information_create_time[data-v-6cdec8aa] {\n  font-size: 16px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_title[data-v-6cdec8aa] {\n  font-size: 20px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_detail[data-v-6cdec8aa] {\n  font-size: 16px;\n}\n.information_wraper .information_container .information_child hr[data-v-6cdec8aa] {\n  margin: 0;\n}", ""]);
 
 // exports
 
@@ -55343,8 +55346,16 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "information_title" }, [
               _vm._v(
-                "\n                    " +
+                "\n                    【" +
                   _vm._s(information.title) +
+                  "】\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "information_detail" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(information.detail) +
                   "\n                "
               )
             ])

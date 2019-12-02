@@ -8,7 +8,10 @@
                         {{information.created_at}}
                     </p>
                     <p class="information_title">
-                        {{information.title}}
+                        【{{information.title}}】
+                    </p>
+                    <p class="information_detail">
+                        {{information.detail}}
                     </p>
                 </div>
                 <hr>
@@ -50,13 +53,16 @@ p{
             .information_contents{
                 padding: 0 10px;
                 text-align-last: left;
-                // display: flex;
-                // justify-content: center;
                 .information_create_time{
                     font-size: 16px;
+                    font-weight: bold;
                 }
                 .information_title{
                     font-size: 20px;
+                    font-weight: bold;
+                }
+                .information_detail{
+                    font-size: 16px;
                 }
             }
             hr{
