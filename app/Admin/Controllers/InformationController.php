@@ -15,7 +15,7 @@ class InformationController extends AdminController
      *
      * @var string
      */
-    protected $title = 'App\Models\Information';
+    protected $title = 'Information';
 
     /**
      * Make a grid builder.
