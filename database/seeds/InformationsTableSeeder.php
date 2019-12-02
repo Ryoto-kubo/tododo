@@ -13,7 +13,7 @@ class InformationsTableSeeder extends Seeder
     {
         // ownersテーブルにインサートする.
         DB::table("informations")->insert([
-            "id" => 1,
+            "id" => 2,
             "title" => "バグを直しました",
             "detail"=> "テスト",
             "created_at" => new DateTime(),
