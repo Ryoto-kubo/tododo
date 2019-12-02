@@ -26,20 +26,27 @@ export default {
         {path: 'sat', week: '土'},
         {path: 'sun', week: '日'}
       ],
+      informationArray:[]
     }
   },
   created() {
 
     // DBからインフォメーションデータを取得
-    let hostname    = location.protocol + '//' + location.hostname
-    let request_url = hostname + '/api/getInformation'
+    const hostname    = location.protocol + '//' + location.hostname
+    const request_url = hostname + '/api/getInformation'
     axios.get(request_url)
     .then(response => {
-        console.log(response);
+        const informationObject = response.data.information_object
+        informationObject.forEach(element => {
+          this.informationArray.push(element)
+        });
       })
       .catch(error => {
           console.log(error);
       });
+
+    console.log(this.informationArray);
+    
     }
   }
 </script>

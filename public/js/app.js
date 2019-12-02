@@ -11586,18 +11586,25 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         path: 'sun',
         week: '日'
-      }]
+      }],
+      informationArray: []
     };
   },
   created: function created() {
+    var _this = this;
+
     // DBからインフォメーションデータを取得
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getInformation';
     axios.get(request_url).then(function (response) {
-      console.log(response);
+      var informationObject = response.data.information_object;
+      informationObject.forEach(function (element) {
+        _this.informationArray.push(element);
+      });
     })["catch"](function (error) {
       console.log(error);
     });
+    console.log(this.informationArray);
   }
 });
 

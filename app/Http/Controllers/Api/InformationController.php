@@ -11,7 +11,7 @@ class InformationController extends Controller
     public function getInformation()
     {
         $payload = [];
-        $payload['infomation_object'] = Information::get();
+        $payload['information_object'] = Information::orderBy('id', 'desc')->get();
         return response()->json($payload);
     }
 }
