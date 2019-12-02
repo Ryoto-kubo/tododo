@@ -35,6 +35,7 @@ p{
 }
 .information_wraper{
     text-align: center;
+    color: $text_color;
     .title{
         margin-bottom: 24px;
         font-size: 32px;
