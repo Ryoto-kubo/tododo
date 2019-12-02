@@ -15,7 +15,7 @@ const routes = [
         path: '/:path',
         name: 'week',
         component: Weekly
-    }
+    },
 ]
 
 const router = new VueRouter({
@@ -24,5 +24,3 @@ const router = new VueRouter({
 })
 
 export default router
-
-  
