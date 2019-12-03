@@ -7,6 +7,7 @@
 
   gtag('config', 'UA-124580210-3');
 </script>
+<script data-ad-client="ca-pub-5904530219444732" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
