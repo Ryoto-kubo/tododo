@@ -11125,13 +11125,6 @@ main {
   margin: auto;
 }
 
-.header {
-  padding: 15px;
-  text-align: center;
-  font-size: 30px;
-  background: #448888;
-}
-
 .valid_shake {
   -webkit-animation: shake 1.5s 1;
           animation: shake 1.5s 1;

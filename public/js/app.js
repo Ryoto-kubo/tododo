@@ -16644,7 +16644,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "a[data-v-e74f89ae] {\n  color: #ffffff;\n  display: block;\n  text-decoration: none;\n}", ""]);
+exports.push([module.i, ".header[data-v-e74f89ae] {\n  padding: 15px;\n  text-align: center;\n  font-size: 30px;\n  background: #448888;\n}\na[data-v-e74f89ae] {\n  color: #ffffff;\n  display: block;\n  text-decoration: none;\n}", ""]);
 
 // exports
 
