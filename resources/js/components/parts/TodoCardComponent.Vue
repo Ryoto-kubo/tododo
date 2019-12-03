@@ -48,7 +48,6 @@
 
 <script>
 import draggable from 'vuedraggable'
-// import Sortable from 'sortablejs'
 import { log } from 'util'
 import { longStackSupport } from 'q'
 export default {
