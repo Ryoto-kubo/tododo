@@ -33,6 +33,7 @@ Vue.component('the-header-component',  require('./components/globals/TheHeaderCo
 Vue.component('the-footer-component',  require('./components/globals/TheFooterComponent.vue').default);
 
 Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
+// Vue.component('request-page-component', require('./components/pages/RequestPageComponent.vue').default);
 
 Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
 Vue.component('task-card-component',   require('./components/parts/TaskCardComponent.vue').default);
@@ -50,3 +51,8 @@ const app = new Vue({
     localStorage: {        
     },
 });
+
+// alert(document.readyState); // -> 初回 'loading'
+// document.addEventListener('readystatechange', function () {   
+//     alert(document.readyState); // -> 2回目 'interactive'、 3回目 'complate'
+// });

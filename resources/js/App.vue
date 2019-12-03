@@ -7,11 +7,11 @@
               {{week.week}}曜日
             </div>
           </router-link>
-      </div>
         </div>
-        <information-component 
-          :informationArray="informationArray"
-        />
+      </div>
+      <information-component 
+        :informationArray="informationArray"
+      />
     </div>
 </template>
 
