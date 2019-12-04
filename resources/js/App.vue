@@ -42,9 +42,7 @@ export default {
     // DBからインフォメーションデータを取得
     const hostname    = location.protocol + '//' + location.hostname
     const request_url = hostname + '/api/getInformation'
-    axios.get(request_url, {
-      headers: {'Access-Control-Allow-Origin': 'http://localhost:3000'}
-    })
+    axios.get(request_url)
     .then(response => {
         const informationObject = response.data.information_object
         informationObject.forEach(element => {
