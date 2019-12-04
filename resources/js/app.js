@@ -51,8 +51,3 @@ const app = new Vue({
     localStorage: {        
     },
 });
-
-// alert(document.readyState); // -> 初回 'loading'
-// document.addEventListener('readystatechange', function () {   
-//     alert(document.readyState); // -> 2回目 'interactive'、 3回目 'complate'
-// });

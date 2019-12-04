@@ -15,6 +15,10 @@ const routes = [
         component: NotFound
     },
     {
+        path: '/404', 
+        component: NotFound
+    },
+    {
         path: '/',
         component: App,
     },
@@ -26,7 +30,16 @@ const routes = [
     {
         path: '/:path',
         name: 'week',
-        component: Weekly
+        component: Weekly,
+        beforeEnter: (to, from, next) => {
+            const weekArray = ['mon','tue','wed','thu','fri','sat','sun']
+            const week      = to.params.path
+            if (weekArray.indexOf(week) >= 0) {
+                next()
+            } else {
+                next('/404')
+            }
+        }
     },
 ]
 

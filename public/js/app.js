@@ -11546,6 +11546,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_parts_InformationComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/parts/InformationComponent */ "./resources/js/components/parts/InformationComponent.vue");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
+/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -11563,6 +11565,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11601,7 +11604,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    // DBからインフォメーションデータを取得
+    // DBからインフォメーションデータを取得    
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getInformation';
     axios.get(request_url, {
@@ -74591,10 +74594,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   localStorage: {}
-}); // alert(document.readyState); // -> 初回 'loading'
-// document.addEventListener('readystatechange', function () {   
-//     alert(document.readyState); // -> 2回目 'interactive'、 3回目 'complate'
-// });
+});
 
 /***/ }),
 
@@ -75487,6 +75487,9 @@ var routes = [{
   path: '*',
   component: _components_pages_NotFoundComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
+  path: '/404',
+  component: _components_pages_NotFoundComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
   path: '/',
   component: _App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
@@ -75496,7 +75499,17 @@ var routes = [{
 }, {
   path: '/:path',
   name: 'week',
-  component: _components_pages_WeeklyCardComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _components_pages_WeeklyCardComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    var weekArray = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    var week = to.params.path;
+
+    if (weekArray.indexOf(week) >= 0) {
+      next();
+    } else {
+      next('/404');
+    }
+  }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
