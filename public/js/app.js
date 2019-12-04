@@ -55225,24 +55225,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "header" }, [
-    _c("a", { attrs: { href: "/" } }, [_vm._v("TODOdo?")]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "request_link_container" },
-      [
-        _c(
-          "router-link",
-          { staticClass: "request_link", attrs: { to: "/request" } },
-          [_vm._v("\n            ご意見・ご要望\n        ")]
-        )
-      ],
-      1
-    )
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header" }, [
+      _c("a", { attrs: { href: "/" } }, [_vm._v("TODOdo?")])
+    ])
+  }
+]
 render._withStripped = true
 
 
