@@ -8,19 +8,9 @@
 
 <script>
 export default {
-    data() {
-        return {
-            isShowMenu: false,
-            isOpenMenu: false,
-            active: 'active',
-        }
-    },
     props: {
         taskTitle: String,
-        taskIndex: Number,
     },
-    methods: {
-    }
 }
 </script>
 

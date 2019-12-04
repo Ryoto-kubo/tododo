@@ -39,7 +39,6 @@ export default {
     }
   },
   created() {
-
     // DBからインフォメーションデータを取得
     const hostname    = location.protocol + '//' + location.hostname
     const request_url = hostname + '/api/getInformation'
@@ -52,10 +51,7 @@ export default {
       })
       .catch(error => {
           console.log(error);
-      });
-
-    console.log(this.informationArray);
-    
+      });    
     }
   }
 </script>

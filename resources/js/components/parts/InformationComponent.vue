@@ -8,7 +8,7 @@
                         {{information.created_at}}
                     </p>
                     <p class="information_title">
-                        【{{information.title}}】
+                        -{{information.title}}-
                     </p>
                     <p class="information_detail">
                         {{information.detail}}
