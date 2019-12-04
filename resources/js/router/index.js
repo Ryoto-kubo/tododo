@@ -11,7 +11,7 @@ import NotFound from '../components/pages/NotFoundComponent.vue' // Not Found(40
 
 const routes = [
     {
-        path: '*', 
+        path: '*',
         component: NotFound
     },
     {
