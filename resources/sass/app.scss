@@ -28,13 +28,6 @@ main{
     width: 90%;
     margin: auto;
 }
-.header{
-    padding: 15px;
-    text-align: center;
-    font-size: 30px;
-    background: $base_bg;
-}
-
 .valid_shake{
     animation: shake 1.5s 1;
 }

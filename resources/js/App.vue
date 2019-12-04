@@ -7,17 +7,18 @@
               {{week.week}}曜日
             </div>
           </router-link>
-      </div>
         </div>
-        <information-component 
-          :informationArray="informationArray"
-        />
+      </div>
+      <information-component 
+        :informationArray="informationArray"
+      />
     </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import InformationComponent from './components/parts/InformationComponent'
+import { log } from 'util';
 export default {
   name: 'App',
   components: {
@@ -39,7 +40,7 @@ export default {
     }
   },
   created() {
-    // DBからインフォメーションデータを取得
+    // DBからインフォメーションデータを取得    
     const hostname    = location.protocol + '//' + location.hostname
     const request_url = hostname + '/api/getInformation'
     axios.get(request_url, {

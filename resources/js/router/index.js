@@ -5,16 +5,41 @@ Vue.use(VueRouter)
 
 import App from    '../App.vue'
 import Weekly from '../components/pages/WeeklyCardComponent.vue'
+import Request from '../components/pages/RequestPageComponent.vue'
+import NotFound from '../components/pages/NotFoundComponent.vue' // Not Found(404)画面
+
 
 const routes = [
+    {
+        path: '*', 
+        component: NotFound
+    },
+    {
+        path: '/404', 
+        component: NotFound
+    },
     {
         path: '/',
         component: App,
     },
     {
+        path: '/request',
+        name: 'request',
+        component: Request
+    },
+    {
         path: '/:path',
         name: 'week',
-        component: Weekly
+        component: Weekly,
+        beforeEnter: (to, from, next) => {
+            const weekArray = ['mon','tue','wed','thu','fri','sat','sun']
+            const week      = to.params.path
+            if (weekArray.indexOf(week) >= 0) {
+                next()
+            } else {
+                next('/404')
+            }
+        }
     },
 ]
 
