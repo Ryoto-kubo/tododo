@@ -11607,11 +11607,7 @@ __webpack_require__.r(__webpack_exports__);
     // DBからインフォメーションデータを取得    
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getInformation';
-    axios.get(request_url, {
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-      }
-    }).then(function (response) {
+    axios.get(request_url).then(function (response) {
       var informationObject = response.data.information_object;
       informationObject.forEach(function (element) {
         _this.informationArray.push(element);
@@ -75531,8 +75527,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Applications/Project/Laravel/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/r.kubo/onlife/tododo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
