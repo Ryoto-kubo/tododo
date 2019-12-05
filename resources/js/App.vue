@@ -60,7 +60,6 @@ export default {
 <style lang="scss" scoped>
 @import '../sass/variables';
 .app_body{
-  margin-top: 50px;
   .weekly_card_container{
     margin-bottom: 100px;
     display: flex;
