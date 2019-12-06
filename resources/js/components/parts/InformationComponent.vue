@@ -43,6 +43,7 @@ p{
     }
     .information_container{
         width: 60%;
+        min-width: 400px;
         height: 280px;
         margin: auto;
         padding: 20px;

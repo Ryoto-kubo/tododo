@@ -212,6 +212,10 @@ export default {
     height: 20px;
     vertical-align: 0;
 }
+input{
+    // outline: none;
+    border: none;
+}
 .todo_card_body{
     width: 280px;
     height: auto;

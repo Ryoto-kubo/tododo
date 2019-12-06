@@ -20,11 +20,11 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .request_container{
+    color: $text_color;
     .request_title_container{
         margin-bottom: 50px;
         text-align: center;
         h2{
-            
             font-size: 25px;
         }
     }

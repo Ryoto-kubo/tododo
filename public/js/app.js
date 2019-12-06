@@ -12087,7 +12087,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      inputValue: null,
+      textValue: null
+    };
+  },
+  methods: {
+    postForm: function postForm() {
+      console.log('hello');
+    }
+  }
+});
 
 /***/ }),
 
@@ -16843,7 +16865,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".request_container .request_title_container[data-v-2c0b5016] {\n  margin-bottom: 50px;\n  text-align: center;\n}\n.request_container .request_title_container h2[data-v-2c0b5016] {\n  font-size: 25px;\n}", ""]);
+exports.push([module.i, ".request_container[data-v-2c0b5016] {\n  color: #505E7A;\n}\n.request_container .request_title_container[data-v-2c0b5016] {\n  margin-bottom: 50px;\n  text-align: center;\n}\n.request_container .request_title_container h2[data-v-2c0b5016] {\n  font-size: 25px;\n}", ""]);
 
 // exports
 
@@ -16900,7 +16922,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "p[data-v-6cdec8aa] {\n  margin: 0;\n}\n.information_wraper[data-v-6cdec8aa] {\n  text-align: center;\n  color: #505E7A;\n}\n.information_wraper .title[data-v-6cdec8aa] {\n  margin-bottom: 24px;\n  font-size: 32px;\n  font-weight: bold;\n}\n.information_wraper .information_container[data-v-6cdec8aa] {\n  width: 60%;\n  height: 280px;\n  margin: auto;\n  padding: 20px;\n  overflow: scroll;\n  border: 4px solid #448888;\n  border-radius: 10px;\n}\n.information_wraper .information_container .information_child[data-v-6cdec8aa] {\n  margin-bottom: 30px;\n}\n.information_wraper .information_container .information_child .information_contents[data-v-6cdec8aa] {\n  padding: 0 10px;\n  -moz-text-align-last: left;\n       text-align-last: left;\n}\n.information_wraper .information_container .information_child .information_contents .information_create_time[data-v-6cdec8aa] {\n  font-size: 16px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_title[data-v-6cdec8aa] {\n  font-size: 20px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_detail[data-v-6cdec8aa] {\n  font-size: 16px;\n}\n.information_wraper .information_container .information_child hr[data-v-6cdec8aa] {\n  margin: 0;\n}", ""]);
+exports.push([module.i, "p[data-v-6cdec8aa] {\n  margin: 0;\n}\n.information_wraper[data-v-6cdec8aa] {\n  text-align: center;\n  color: #505E7A;\n}\n.information_wraper .title[data-v-6cdec8aa] {\n  margin-bottom: 24px;\n  font-size: 32px;\n  font-weight: bold;\n}\n.information_wraper .information_container[data-v-6cdec8aa] {\n  width: 60%;\n  min-width: 400px;\n  height: 280px;\n  margin: auto;\n  padding: 20px;\n  overflow: scroll;\n  border: 4px solid #448888;\n  border-radius: 10px;\n}\n.information_wraper .information_container .information_child[data-v-6cdec8aa] {\n  margin-bottom: 30px;\n}\n.information_wraper .information_container .information_child .information_contents[data-v-6cdec8aa] {\n  padding: 0 10px;\n  -moz-text-align-last: left;\n       text-align-last: left;\n}\n.information_wraper .information_container .information_child .information_contents .information_create_time[data-v-6cdec8aa] {\n  font-size: 16px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_title[data-v-6cdec8aa] {\n  font-size: 20px;\n  font-weight: bold;\n}\n.information_wraper .information_container .information_child .information_contents .information_detail[data-v-6cdec8aa] {\n  font-size: 16px;\n}\n.information_wraper .information_container .information_child hr[data-v-6cdec8aa] {\n  margin: 0;\n}", ""]);
 
 // exports
 
@@ -16938,7 +16960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".request_form_container[data-v-8d2e0f78] {\n  text-align: center;\n}", ""]);
+exports.push([module.i, ".request_form_container[data-v-8d2e0f78] {\n  color: #505E7A;\n  text-align: center;\n}\n.request_form_container .request_form[data-v-8d2e0f78] {\n  width: 40%;\n  min-width: 400px;\n  margin: auto;\n}\n.request_form_container .request_form .request_title_container[data-v-8d2e0f78] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_title_container .request_title[data-v-8d2e0f78] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_title_container .input_title[data-v-8d2e0f78] {\n  width: 100%;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .request_content_container[data-v-8d2e0f78] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_content_container .request_content[data-v-8d2e0f78] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_content_container .input_content[data-v-8d2e0f78] {\n  width: 100%;\n  height: 200px;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .submit_button_container .btn[data-v-8d2e0f78] {\n  width: 150px;\n  height: 40px;\n  font-size: 16px;\n  border-radius: 10px;\n  color: #ffffff;\n  background: #E3BD71;\n}", ""]);
 
 // exports
 
@@ -16976,7 +16998,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 20px;\n  vertical-align: 0;\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n.todo_card_body[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n  color: #ffffff;\n  background: #448888;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
+exports.push([module.i, ".plus_icon[data-v-71697f1d] {\n  width: 20px;\n  height: 20px;\n  vertical-align: 0;\n}\ninput[data-v-71697f1d] {\n  border: none;\n}\n.todo_card_body[data-v-71697f1d] {\n  width: 280px;\n  height: auto;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.todo_card_body[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n.todo_card_body[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_title[data-v-71697f1d] {\n  font-size: 2rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d] {\n  margin-bottom: 10px;\n  padding: 5px 10px;\n  background: #fff;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:hover {\n  cursor: -webkit-grab;\n  cursor: grab;\n  box-shadow: 0px 4px 10px 0px #707070;\n}\n.todo_card_body .todo_card_task[data-v-71697f1d]:active {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n  color: #ffffff;\n  background: #448888;\n}\n.todo_card_body .todo_card_input_container[data-v-71697f1d] {\n  margin-bottom: 10px;\n}\n.todo_card_body .todo_card_input_container input[data-v-71697f1d] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.todo_card_body .todo_card_input_container .btn_area[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n}\n.todo_card_body .todo_card_input_container .btn_area button[data-v-71697f1d] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.todo_card_body .todo_card_input_container .btn_area .done_btn[data-v-71697f1d] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.todo_card_body .todo_card_input_container .btn_area .cancel_btn[data-v-71697f1d] {\n  background: #f08080;\n}\n.todo_card_body .todo_card_add_container[data-v-71697f1d] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n  cursor: pointer;\n}\n.todo_card_body .todo_card_add_container .add_text[data-v-71697f1d] {\n  margin-left: 10px;\n  margin-bottom: 0;\n  font-size: 1.6rem;\n}", ""]);
 
 // exports
 
@@ -55804,20 +55826,75 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "request_form_container" }, [
-      _c("div", { staticClass: "request_form" }, [
-        _c("form", { attrs: { action: "#" } })
+  return _c("div", { staticClass: "request_form_container" }, [
+    _c("div", { staticClass: "request_form" }, [
+      _c("form", { attrs: { action: "#" } }, [
+        _c("div", { staticClass: "request_title_container" }, [
+          _c("p", { staticClass: "request_title" }, [_vm._v("件名")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.inputValue,
+                expression: "inputValue"
+              }
+            ],
+            staticClass: "input_title",
+            attrs: {
+              name: "title",
+              type: "text",
+              placeholder: "件名を入力してください"
+            },
+            domProps: { value: _vm.inputValue },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.inputValue = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "request_content_container" }, [
+          _c("p", { staticClass: "request_content" }, [_vm._v("件名")]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.textValue,
+                expression: "textValue"
+              }
+            ],
+            staticClass: "input_content",
+            attrs: { name: "content", placeholder: "内容を入力してください" },
+            domProps: { value: _vm.textValue },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.textValue = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "submit_button_container" }, [
+          _c("button", { staticClass: "btn", on: { click: _vm.postForm } }, [
+            _vm._v("送信")
+          ])
+        ])
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
