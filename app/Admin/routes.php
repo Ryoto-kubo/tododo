@@ -10,6 +10,9 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index')->name('admin.home');
-    $router->resource('auth/information', InformationController::class);
+    $router->get('/',                'HomeController@index')->name('admin.home');
+    $router->get('auth/information', 'InformationController@index');
+    $router->get('auth/request',     'RequestController@index');
+    $router->get('auth/comment',     'CommentController@index');
+
 });
