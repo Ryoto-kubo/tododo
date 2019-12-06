@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class InformationsTableSeeder extends Seeder
+class RequestsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,11 +11,11 @@ class InformationsTableSeeder extends Seeder
      */
     public function run()
     {
-        // informationsテーブルにインサートする.
-        DB::table("informations")->insert([
+        // Requestssテーブルにインサートする.
+        DB::table("Requests")->insert([
             "id" => 1,
-            "title" => "バグを直しました",
-            "detail"=> "テスト",
+            "title"=> "タイトルです",
+            "contents"=> "内容です",
             "created_at" => new DateTime(),
             "updated_at" => new DateTime(),
             "deleted_at" => null,
