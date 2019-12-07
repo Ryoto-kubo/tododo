@@ -24,7 +24,7 @@ class Comment extends Model
 
     // 子から親のデータを引っ張ってくる
     //「１対１」→ メソッド名は単数形
-    Public function request()
+    Public function message()
     {
         return $this->belongsTo('App\Models\Message');
     }

@@ -26,7 +26,7 @@ class Message extends Model
     //「１対１」→ メソッド名は単数形
     public function comment()
     {
-        // Profileモデルのデータを引っ張てくる
+        // Commentモデルのデータを引っ張てくる
         return $this->hasOne('App\Models\Comment');
     }
 

@@ -7,7 +7,7 @@
                 </router-link>
             </h1>
             <div class="request_link_container">
-                <router-link class="request_link" to="/request">
+                <router-link class="request_link" to="/message">
                     ご意見・ご要望
                 </router-link>
             </div>

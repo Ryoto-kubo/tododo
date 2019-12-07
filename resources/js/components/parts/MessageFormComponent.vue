@@ -1,7 +1,7 @@
 <template>
     <div class="request_form_container">
         <div class="request_form">
-            <form action="#">
+            <!-- <form action="/api/postForm" method="post"> -->
                 <div class="request_title_container">
                     <p class="request_title">件名</p>
                     <input class="input_title" name="title" type="text" v-model="titleValue" placeholder="件名を入力してください">
@@ -13,7 +13,7 @@
                 <div class="submit_button_container">
                     <button class="btn" @click="postForm">送信</button>
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </template>
@@ -35,7 +35,7 @@ export default {
             request_object['title']    = this.titleValue
             request_object['contents'] = this.contentsValue
 
-            axios.post('request_url', request_object)
+            axios.post(request_url, request_object)
             .then(function(response){
                 console.log(response)
             })
