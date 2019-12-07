@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Request;
+use App\Models\Message;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class RequestController extends AdminController
+class MessageController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'App\Models\Request';
+    protected $title = 'App\Models\Message';
 
     /**
      * Make a grid builder.
@@ -24,7 +24,7 @@ class RequestController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Request);
+        $grid = new Grid(new Message);
 
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
@@ -44,7 +44,7 @@ class RequestController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Request::findOrFail($id));
+        $show = new Show(Message::findOrFail($id));
 
         $show->field('id', __('Id'));
         $show->field('title', __('Title'));
@@ -63,7 +63,7 @@ class RequestController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Request);
+        $form = new Form(new Message);
 
         $form->text('title', __('Title'));
         $form->text('contents', __('Contents'));

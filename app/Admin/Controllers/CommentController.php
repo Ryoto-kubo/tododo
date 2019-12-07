@@ -27,7 +27,7 @@ class CommentController extends AdminController
         $grid = new Grid(new Comment);
 
         $grid->column('id', __('Id'));
-        $grid->column('request_id', __('Request id'));
+        $grid->column('message_id', __('Message id'));
         $grid->column('comment', __('Comment'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -47,7 +47,7 @@ class CommentController extends AdminController
         $show = new Show(Comment::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('request_id', __('Request id'));
+        $show->field('message_id', __('Message id'));
         $show->field('comment', __('Comment'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
@@ -65,7 +65,7 @@ class CommentController extends AdminController
     {
         $form = new Form(new Comment);
 
-        $form->number('request_id', __('Request id'));
+        $form->number('message_id', __('Message id'));
         $form->text('comment', __('Comment'));
 
         return $form;

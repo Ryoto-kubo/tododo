@@ -4,11 +4,11 @@
             <form action="#">
                 <div class="request_title_container">
                     <p class="request_title">件名</p>
-                    <input class="input_title" name="title" type="text" v-model="inputValue" placeholder="件名を入力してください">
+                    <input class="input_title" name="title" type="text" v-model="titleValue" placeholder="件名を入力してください">
                 </div>
                 <div class="request_content_container">
                     <p class="request_content">件名</p>
-                    <textarea class="input_content" name="content" v-model="textValue" placeholder="内容を入力してください"></textarea>
+                    <textarea class="input_content" name="contents" v-model="contentsValue" placeholder="内容を入力してください"></textarea>
                 </div>
                 <div class="submit_button_container">
                     <button class="btn" @click="postForm">送信</button>
@@ -22,14 +22,26 @@
 export default {
     data() {
         return {
-            inputValue: null,
-            textValue: null
+            titleValue: null,
+            contentsValue: null
         }
     },
     methods: {
         postForm() {
-            console.log('hello');
-            
+            const hostname    = location.protocol + '//' + location.hostname
+            const request_url = hostname + '/api/postForm'
+
+            let request_object = {}
+            request_object['title']    = this.titleValue
+            request_object['contents'] = this.contentsValue
+
+            axios.post('request_url', request_object)
+            .then(function(response){
+                console.log(response)
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
         }
     }
 }

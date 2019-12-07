@@ -15,15 +15,15 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('request_id')->unsigned();
+            $table->integer('message_id')->unsigned();
             $table->char('comment', 255);
             $table->timestamps();
             $table->softDeletes();
 
             // 外部キー
-            $table->foreign('request_id')
+            $table->foreign('message_id')
                 ->references('id')
-                ->on('requests');
+                ->on('messages');
 
         });
     }

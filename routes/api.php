@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->group(function () {
     Route::get('/getInformation', 'InformationController@getInformation');
+    Route::post('/postForm',      'RequestController@postForm');
 
 });

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Request extends Model
+class Message extends Model
 {
     /**
      * モデルと関連しているテーブル
      *
      * @var string
      */
-    protected $table = 'requests';
+    protected $table = 'messages';
 
     use SoftDeletes;
 

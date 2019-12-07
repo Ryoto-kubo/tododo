@@ -12100,13 +12100,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      inputValue: null,
-      textValue: null
+      titleValue: null,
+      contentsValue: null
     };
   },
   methods: {
     postForm: function postForm() {
-      console.log('hello');
+      var hostname = location.protocol + '//' + location.hostname;
+      var request_url = hostname + '/api/postForm';
+      var request_object = {};
+      request_object['title'] = this.titleValue;
+      request_object['contents'] = this.contentsValue;
+      axios.post('request_url', request_object).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
   }
 });
@@ -55837,8 +55846,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.inputValue,
-                expression: "inputValue"
+                value: _vm.titleValue,
+                expression: "titleValue"
               }
             ],
             staticClass: "input_title",
@@ -55847,13 +55856,13 @@ var render = function() {
               type: "text",
               placeholder: "件名を入力してください"
             },
-            domProps: { value: _vm.inputValue },
+            domProps: { value: _vm.titleValue },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.inputValue = $event.target.value
+                _vm.titleValue = $event.target.value
               }
             }
           })
@@ -55867,19 +55876,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.textValue,
-                expression: "textValue"
+                value: _vm.contentsValue,
+                expression: "contentsValue"
               }
             ],
             staticClass: "input_content",
-            attrs: { name: "content", placeholder: "内容を入力してください" },
-            domProps: { value: _vm.textValue },
+            attrs: { name: "contents", placeholder: "内容を入力してください" },
+            domProps: { value: _vm.contentsValue },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.textValue = $event.target.value
+                _vm.contentsValue = $event.target.value
               }
             }
           })

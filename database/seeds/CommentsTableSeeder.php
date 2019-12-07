@@ -11,10 +11,10 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Commentsテーブルにインサートする.
-        DB::table("Comments")->insert([
+        // commentsテーブルにインサートする.
+        DB::table("comments")->insert([
             "id" => 1,
-            "request_id"=> 1,
+            "message_id"=> 1,
             "comment"=> "テスト",
             "created_at" => new DateTime(),
             "updated_at" => new DateTime(),

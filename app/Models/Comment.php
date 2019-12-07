@@ -26,7 +26,7 @@ class Comment extends Model
     //「１対１」→ メソッド名は単数形
     Public function request()
     {
-        return $this->belongsTo('App\Models\Request');
+        return $this->belongsTo('App\Models\Message');
     }
 
 }
