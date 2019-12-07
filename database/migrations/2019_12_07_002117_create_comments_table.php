@@ -24,7 +24,6 @@ class CreateCommentsTable extends Migration
             $table->foreign('message_id')
                 ->references('id')
                 ->on('messages');
-
         });
     }
 

@@ -11705,17 +11705,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
     // DBからインフォメーションデータを取得    
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getMessage';
     axios.get(request_url).then(function (response) {
-      console.log(response);
-      var messageObjects = response.data.message_objects;
-      messageObjects.forEach(function (element) {
-        _this.messageArray.push(element);
-      });
+      console.log(response.data); //     const messageObjects = response.data.message_objects
+      //     messageObjects.forEach(element => {
+      //     this.messageArray.push(element)
+      // });
     })["catch"](function (error) {
       console.log(error);
     });

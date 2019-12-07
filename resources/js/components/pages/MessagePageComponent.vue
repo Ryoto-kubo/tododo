@@ -30,11 +30,11 @@ export default {
         const request_url = hostname + '/api/getMessage'
         axios.get(request_url)
         .then(response => {
-            console.log(response);
-            const messageObjects = response.data.message_objects
-            messageObjects.forEach(element => {
-            this.messageArray.push(element)
-        });
+            console.log(response.data);
+        //     const messageObjects = response.data.message_objects
+        //     messageObjects.forEach(element => {
+        //     this.messageArray.push(element)
+        // });
         })
         .catch(error => {
             console.log(error);

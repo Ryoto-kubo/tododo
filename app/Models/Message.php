@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Comment;
 
 class Message extends Model
 {
@@ -27,6 +28,7 @@ class Message extends Model
     public function comment()
     {
         // Commentモデルのデータを引っ張てくる
+        // return $this->hasOne(Comment::class);
         return $this->hasOne('App\Models\Comment');
     }
 
