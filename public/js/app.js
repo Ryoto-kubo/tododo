@@ -11694,6 +11694,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -11705,14 +11707,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    // DBからインフォメーションデータを取得    
+    var _this = this;
+
+    // DBからmessageデータを取得    
     var hostname = location.protocol + '//' + location.hostname;
     var request_url = hostname + '/api/getMessage';
     axios.get(request_url).then(function (response) {
-      console.log(response.data); //     const messageObjects = response.data.message_objects
-      //     messageObjects.forEach(element => {
-      //     this.messageArray.push(element)
-      // });
+      console.log(response.data);
+      var messageObjects = response.data.message_objects;
+      messageObjects.forEach(function (element) {
+        _this.messageArray.push(element);
+      });
     })["catch"](function (error) {
       console.log(error);
     });
@@ -55473,10 +55478,12 @@ var render = function() {
       _vm._l(_vm.messageArray, function(message, index) {
         return _c("div", { key: index }, [
           _vm._v(
-            "\n        " +
+            "\n        タイトル" +
               _vm._s(message.title) +
-              "\n        " +
+              "\n        内容" +
               _vm._s(message.contents) +
+              "\n\n        返信" +
+              _vm._s(message.reply) +
               "\n    "
           )
         ])

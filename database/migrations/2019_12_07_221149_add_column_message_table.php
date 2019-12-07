@@ -15,7 +15,7 @@ class AddColumnMessageTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             // カラム追加
-            $table->char('comment', 255);
+            $table->char('reply', 255)->nullable();
 
         });
     }

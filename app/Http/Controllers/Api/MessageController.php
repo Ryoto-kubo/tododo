@@ -34,10 +34,7 @@ class MessageController extends Controller
     public function getMessage()
     {
         $payload = [];
-        $payload['message_objects'] = Message::get();
-        // \Log::debug($payload);
-        // print_r($payload);
-        // $payload['message_objects'] = Message::orderBy('id', 'desc')->get()->comment;
+        $payload['message_objects'] = Message::orderBy('id', 'desc')->get();
         return response()->json($payload);
 
     }

@@ -32,6 +32,7 @@ class MessageController extends AdminController
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->column('deleted_at', __('Deleted at'));
+        $grid->column('reply', __('Reply'));
 
         return $grid;
     }
@@ -52,6 +53,7 @@ class MessageController extends AdminController
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
+        $show->field('reply', __('Reply'));
 
         return $show;
     }
@@ -67,6 +69,7 @@ class MessageController extends AdminController
 
         $form->text('title', __('Title'));
         $form->text('contents', __('Contents'));
+        $form->text('reply', __('Reply'));
 
         return $form;
     }
