@@ -15,6 +15,7 @@
                 </div>
             <!-- </form> -->
         </div>
+        <hr>
     </div>
 </template>
 
@@ -50,12 +51,13 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .request_form_container{
+    // margin-bottom: 50px;
     color: $text_color;
     text-align: center;
     .request_form{
         width: 40%;
         min-width: 400px;
-        margin: auto;
+        margin: 0 auto 50px auto;
         .request_title_container{
             margin-bottom: 30px;
             .request_title{
@@ -95,6 +97,13 @@ export default {
                 background: #E3BD71;
             }
         }
+    }
+    hr{
+        width: 60%;
+        height: 3px;
+        border: none;
+        background: #448888;
+        border-radius: 50px;
     }
 }
 </style>

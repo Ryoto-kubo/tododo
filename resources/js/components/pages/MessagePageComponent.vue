@@ -7,19 +7,23 @@
             <message-form-component />
         </template>
         <div v-for="(message, index) in messageArray" :key="index">
-            タイトル{{message.title}}
-            内容{{message.contents}}
-
-            返信{{message.reply}}
+            <message-view-component
+                :title="message.title"
+                :contents="message.contents"
+                :reply="message.reply"
+                :createdAt="message.created_at"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import MessageFormComponent from "../parts/MessageFormComponent";
+import MessageViewComponent from "../parts/MessageViewComponent";
 export default {
     components: {
-        MessageFormComponent
+        MessageFormComponent,
+        MessageViewComponent
     },
     data() {
         return {
@@ -32,7 +36,6 @@ export default {
         const request_url = hostname + '/api/getMessage'
         axios.get(request_url)
         .then(response => {
-            console.log(response.data);
             const messageObjects = response.data.message_objects
             messageObjects.forEach(element => {
             this.messageArray.push(element)
@@ -48,6 +51,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .request_container{
+    margin-bottom: 50px;
     color: $text_color;
     .request_title_container{
         margin-bottom: 50px;
