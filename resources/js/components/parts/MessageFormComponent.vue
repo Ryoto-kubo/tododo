@@ -2,17 +2,23 @@
     <div class="request_form_container">
         <div class="request_form">
             <!-- <form action="/api/postForm" method="post"> -->
-                <div class="request_title_container">
-                    <p class="request_title">件名</p>
-                    <input class="input_title" name="title" type="text" v-model="titleValue" placeholder="件名を入力してください">
+            <div class="request_title_container">
+                <p class="request_title">件名</p>
+                <input class="input_title" name="title" type="text" v-model="titleValue" placeholder="件名を入力してください">
+                <div class="text_right" :style="{color: alertTitleColor}">
+                    {{titleValue.length}}/20
                 </div>
-                <div class="request_content_container">
-                    <p class="request_content">件名</p>
-                    <textarea class="input_content" name="contents" v-model="contentsValue" placeholder="内容を入力してください"></textarea>
+            </div>
+            <div class="request_content_container">
+                <p class="request_content">ご意見・ご要望</p>
+                <textarea class="input_content" name="contents" v-model="contentsValue" placeholder="ご意見・ご要望をご入力してください"></textarea>
+                <div class="text_right" :style="{color: alertContentsColor}">
+                    {{contentsValue.length}}/140
                 </div>
-                <div class="submit_button_container">
-                    <button class="btn" @click="postForm">送信</button>
-                </div>
+            </div>
+            <div class="submit_button_container">
+                <button class="btn" @click="postForm" :disabled="!isSubmit">送信</button>
+            </div>
             <!-- </form> -->
         </div>
         <hr>
@@ -23,16 +29,51 @@
 export default {
     data() {
         return {
-            titleValue: null,
-            contentsValue: null
+            titleValue: '',
+            contentsValue: '',
+        }
+    },
+    computed: {
+        alertTitleColor() {
+            let titleLength = this.titleValue.length
+            if (titleLength > 20) {
+                return 'red'
+            }
+        },
+        alertContentsColor() {
+            let contentsLength = this.contentsValue.length
+            if (contentsLength > 140) {
+                return 'red'
+            }
+        },
+        isSubmit() {
+            let titleLength    = this.titleValue.length
+            let contentsLength = this.contentsValue.length
+            // タイトルと意見どちらかが0文字ならdisabled
+            if (titleLength === 0 || contentsLength === 0) {
+                return false
+            }
+
+            if (titleLength >=1 && titleLength <= 20) {
+                return true
+            } else {
+                return false
+            }
+
+            if (contentsLength >=1 && contentsLength <= 140) {
+                return true
+            } else {
+                return false
+            }
+
         }
     },
     methods: {
         postForm() {
-            const hostname    = location.protocol + '//' + location.hostname
-            const request_url = hostname + '/api/postForm'
+            const hostname             = location.protocol + '//' + location.hostname
+            const request_url          = hostname + '/api/postForm'
 
-            let request_object = {}
+            let request_object         = {}
             request_object['title']    = this.titleValue
             request_object['contents'] = this.contentsValue
 
@@ -44,12 +85,34 @@ export default {
                 console.log(error)
             })
         }
-    }
+    },
+    // watch: {
+    //     titleValue(value) {
+    //         let titleLength = value.length
+    //         console.log(titleLength);
+
+    //     },
+    //     contentsValue(value) {
+    //         let contentsLength = value.length
+    //         console.log(contentsLength);
+            
+    //         if (contentsLength >=1 && contentsLength <= 140) {
+    //             this.isSubmit = true
+    //         } else {
+    //             this.isSubmit = false
+    //         }
+            
+    //     }
+    // }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../../sass/variables';
+.text_right{
+    text-align: right;
+    font-size: 16px;
+}
 .request_form_container{
     // margin-bottom: 50px;
     color: $text_color;

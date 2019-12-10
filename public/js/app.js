@@ -12131,12 +12131,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      titleValue: null,
-      contentsValue: null
+      titleValue: '',
+      contentsValue: ''
     };
+  },
+  computed: {
+    alertTitleColor: function alertTitleColor() {
+      var titleLength = this.titleValue.length;
+
+      if (titleLength > 20) {
+        return 'red';
+      }
+    },
+    alertContentsColor: function alertContentsColor() {
+      var contentsLength = this.contentsValue.length;
+
+      if (contentsLength > 140) {
+        return 'red';
+      }
+    },
+    isSubmit: function isSubmit() {
+      var titleLength = this.titleValue.length;
+      var contentsLength = this.contentsValue.length; // タイトルと意見どちらかが0文字ならdisabled
+
+      if (titleLength === 0 || contentsLength === 0) {
+        return false;
+      }
+
+      if (titleLength >= 1 && titleLength <= 20) {
+        return true;
+      } else {
+        return false;
+      }
+
+      if (contentsLength >= 1 && contentsLength <= 140) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   methods: {
     postForm: function postForm() {
@@ -12151,7 +12193,22 @@ __webpack_require__.r(__webpack_exports__);
         console.log(error);
       });
     }
-  }
+  } // watch: {
+  //     titleValue(value) {
+  //         let titleLength = value.length
+  //         console.log(titleLength);
+  //     },
+  //     contentsValue(value) {
+  //         let contentsLength = value.length
+  //         console.log(contentsLength);
+  //         if (contentsLength >=1 && contentsLength <= 140) {
+  //             this.isSubmit = true
+  //         } else {
+  //             this.isSubmit = false
+  //         }
+  //     }
+  // }
+
 });
 
 /***/ }),
@@ -17090,7 +17147,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".request_form_container[data-v-0baaec68] {\n  color: #505E7A;\n  text-align: center;\n}\n.request_form_container .request_form[data-v-0baaec68] {\n  width: 40%;\n  min-width: 400px;\n  margin: 0 auto 50px auto;\n}\n.request_form_container .request_form .request_title_container[data-v-0baaec68] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_title_container .request_title[data-v-0baaec68] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_title_container .input_title[data-v-0baaec68] {\n  width: 100%;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .request_content_container[data-v-0baaec68] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_content_container .request_content[data-v-0baaec68] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_content_container .input_content[data-v-0baaec68] {\n  width: 100%;\n  height: 200px;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .submit_button_container .btn[data-v-0baaec68] {\n  width: 150px;\n  height: 40px;\n  font-size: 16px;\n  border-radius: 10px;\n  color: #ffffff;\n  background: #E3BD71;\n}\n.request_form_container hr[data-v-0baaec68] {\n  width: 60%;\n  height: 3px;\n  border: none;\n  background: #448888;\n  border-radius: 50px;\n}", ""]);
+exports.push([module.i, ".text_right[data-v-0baaec68] {\n  text-align: right;\n  font-size: 16px;\n}\n.request_form_container[data-v-0baaec68] {\n  color: #505E7A;\n  text-align: center;\n}\n.request_form_container .request_form[data-v-0baaec68] {\n  width: 40%;\n  min-width: 400px;\n  margin: 0 auto 50px auto;\n}\n.request_form_container .request_form .request_title_container[data-v-0baaec68] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_title_container .request_title[data-v-0baaec68] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_title_container .input_title[data-v-0baaec68] {\n  width: 100%;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .request_content_container[data-v-0baaec68] {\n  margin-bottom: 30px;\n}\n.request_form_container .request_form .request_content_container .request_content[data-v-0baaec68] {\n  font-size: 16px;\n  text-align: left;\n}\n.request_form_container .request_form .request_content_container .input_content[data-v-0baaec68] {\n  width: 100%;\n  height: 200px;\n  padding: 10px;\n  font-size: 16px;\n  border: 1px solid #448888;\n  outline: none;\n}\n.request_form_container .request_form .submit_button_container .btn[data-v-0baaec68] {\n  width: 150px;\n  height: 40px;\n  font-size: 16px;\n  border-radius: 10px;\n  color: #ffffff;\n  background: #E3BD71;\n}\n.request_form_container hr[data-v-0baaec68] {\n  width: 60%;\n  height: 3px;\n  border: none;\n  background: #448888;\n  border-radius: 50px;\n}", ""]);
 
 // exports
 
@@ -56056,11 +56113,23 @@ var render = function() {
               _vm.titleValue = $event.target.value
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "text_right", style: { color: _vm.alertTitleColor } },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.titleValue.length) +
+                "/20\n            "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "request_content_container" }, [
-        _c("p", { staticClass: "request_content" }, [_vm._v("件名")]),
+        _c("p", { staticClass: "request_content" }, [_vm._v("ご意見・ご要望")]),
         _vm._v(" "),
         _c("textarea", {
           directives: [
@@ -56072,7 +56141,10 @@ var render = function() {
             }
           ],
           staticClass: "input_content",
-          attrs: { name: "contents", placeholder: "内容を入力してください" },
+          attrs: {
+            name: "contents",
+            placeholder: "ご意見・ご要望をご入力してください"
+          },
           domProps: { value: _vm.contentsValue },
           on: {
             input: function($event) {
@@ -56082,13 +56154,34 @@ var render = function() {
               _vm.contentsValue = $event.target.value
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "text_right",
+            style: { color: _vm.alertContentsColor }
+          },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.contentsValue.length) +
+                "/140\n            "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "submit_button_container" }, [
-        _c("button", { staticClass: "btn", on: { click: _vm.postForm } }, [
-          _vm._v("送信")
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn",
+            attrs: { disabled: !_vm.isSubmit },
+            on: { click: _vm.postForm }
+          },
+          [_vm._v("送信")]
+        )
       ])
     ]),
     _vm._v(" "),
