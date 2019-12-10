@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/variables';
+@import '../../../../sass/variables';
 .message_view_container{
     width: 60%;
     margin: auto;

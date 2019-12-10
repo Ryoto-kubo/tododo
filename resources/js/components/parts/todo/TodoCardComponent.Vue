@@ -206,7 +206,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/variables';
+@import '../../../../sass/variables';
 .plus_icon{
     width: 20px;
     height: 20px;

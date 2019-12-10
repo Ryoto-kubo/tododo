@@ -35,8 +35,8 @@ Vue.component('the-footer-component',  require('./components/globals/TheFooterCo
 Vue.component('weekly-card-component', require('./components/pages/WeeklyCardComponent.vue').default);
 // Vue.component('request-page-component', require('./components/pages/RequestPageComponent.vue').default);
 
-Vue.component('todo-card-component',   require('./components/parts/TodoCardComponent.vue').default);
-Vue.component('task-card-component',   require('./components/parts/TaskCardComponent.vue').default);
+Vue.component('todo-card-component',   require('./components/parts/todo/TodoCardComponent.vue').default);
+Vue.component('task-card-component',   require('./components/parts/todo/TaskCardComponent.vue').default);
 Vue.component('menu-component',        require('./components/parts/MenuComponent.vue').default);
 
 /**s

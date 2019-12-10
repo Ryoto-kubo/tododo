@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/variables';
+@import '../../../../sass/variables';
 p{
     margin: 0;
 }

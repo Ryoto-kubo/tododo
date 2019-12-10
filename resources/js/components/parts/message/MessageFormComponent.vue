@@ -80,41 +80,23 @@ export default {
             axios.post(request_url, request_object)
             .then(function(response){
                 console.log(response)
+                location.reload()
             })
             .catch(function(error) {
                 console.log(error)
             })
         }
     },
-    // watch: {
-    //     titleValue(value) {
-    //         let titleLength = value.length
-    //         console.log(titleLength);
-
-    //     },
-    //     contentsValue(value) {
-    //         let contentsLength = value.length
-    //         console.log(contentsLength);
-            
-    //         if (contentsLength >=1 && contentsLength <= 140) {
-    //             this.isSubmit = true
-    //         } else {
-    //             this.isSubmit = false
-    //         }
-            
-    //     }
-    // }
 }
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/variables';
+@import '../../../../sass/variables';
 .text_right{
     text-align: right;
     font-size: 16px;
 }
 .request_form_container{
-    // margin-bottom: 50px;
     color: $text_color;
     text-align: center;
     .request_form{

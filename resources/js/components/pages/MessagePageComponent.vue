@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import MessageFormComponent from "../parts/MessageFormComponent";
-import MessageViewComponent from "../parts/MessageViewComponent";
+import MessageFormComponent from "../parts/message/MessageFormComponent";
+import MessageViewComponent from "../parts/message/MessageViewComponent";
 export default {
     components: {
         MessageFormComponent,

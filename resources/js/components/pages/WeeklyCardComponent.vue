@@ -58,7 +58,7 @@
 import draggable from 'vuedraggable'
 import { log } from 'util'
 import { setTimeout } from 'timers'
-import EditContainer from '../parts/EditContainerComponent'
+import EditContainer from '../parts/todo/EditContainerComponent'
 export default {
     components: { 
         draggable,

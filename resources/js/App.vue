@@ -17,7 +17,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import InformationComponent from './components/parts/InformationComponent'
+import InformationComponent from './components/parts/home/InformationComponent'
 import { log } from 'util';
 export default {
   name: 'App',
