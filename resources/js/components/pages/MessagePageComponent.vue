@@ -1,29 +1,34 @@
 <template>
-    <div class="request_container">
-        <div class="request_title_container">
-            <h2>ご意見・ご要望</h2>
-        </div>
-        <template>
+    <div>
+        <transition name="flashMessage">
+            <flash-message-component />
+        </transition>
+        <div class="request_container">
+            <div class="request_title_container">
+                <h2>ご意見・ご要望</h2>
+            </div>
             <message-form-component />
-        </template>
-        <div v-for="(message, index) in messageArray" :key="index">
-            <message-view-component
-                :title="message.title"
-                :contents="message.contents"
-                :reply="message.reply"
-                :createdAt="message.created_at"
-            />
+            <div v-for="(message, index) in messageArray" :key="index">
+                <message-view-component
+                    :title="message.title"
+                    :contents="message.contents"
+                    :reply="message.reply"
+                    :createdAt="message.created_at"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import MessageFormComponent from "../parts/message/MessageFormComponent";
-import MessageViewComponent from "../parts/message/MessageViewComponent";
+import MessageFormComponent  from "../parts/message/MessageFormComponent";
+import MessageViewComponent  from "../parts/message/MessageViewComponent";
+import FlashMessageComponent from "../parts/flashMessage/FlashMessageComponent";
 export default {
     components: {
         MessageFormComponent,
-        MessageViewComponent
+        MessageViewComponent,
+        FlashMessageComponent
     },
     data() {
         return {
@@ -51,6 +56,8 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .request_container{
+    width: 90%;
+    margin: auto;
     margin-bottom: 50px;
     color: $text_color;
     .request_title_container{
