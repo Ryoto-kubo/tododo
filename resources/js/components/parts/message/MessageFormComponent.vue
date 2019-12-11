@@ -27,6 +27,7 @@
 
 <script>
 import { setTimeout } from 'timers';
+import { scrypt } from 'crypto';
 export default {
     data() {
         return {
@@ -81,15 +82,20 @@ export default {
 
             axios.post(request_url, request_object)
             .then(function(response){
-                this.titleValue    = ''
-                this.contentsValue = ''
-                // flashMessageを出すために状態をstoreに保存
-                this.isFlashMessage = true
-                this.$store.dispatch('app/successForm', { isFlashMessage: this.isFlashMessage })
-
-                // setTimeout(() => {
-                //     location.href = '/';
-                // }, 2500)
+                if (response.data.result) {
+                    this.titleValue    = ''
+                    this.contentsValue = ''
+                    
+                    // flashMessageを出すために状態をstoreに保存
+                    this.isFlashMessage = true
+                    this.$store.dispatch('app/successForm', { isFlashMessage: this.isFlashMessage })
+    
+                    setTimeout(() => {
+                        location.reload()
+                    }, 2000)
+                } else {
+                    alert('サーバエラーが発生しました。時間を置いてやり直してください。')
+                }
             }.bind(this))
             .catch(function(error) {
                 console.log(error)
