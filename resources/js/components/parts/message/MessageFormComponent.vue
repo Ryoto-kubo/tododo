@@ -26,11 +26,13 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
     data() {
         return {
             titleValue: '',
             contentsValue: '',
+            isFlashMessage: false,
         }
     },
     computed: {
@@ -79,9 +81,16 @@ export default {
 
             axios.post(request_url, request_object)
             .then(function(response){
-                console.log(response)
-                location.reload()
-            })
+                this.titleValue    = ''
+                this.contentsValue = ''
+                // flashMessageを出すために状態をstoreに保存
+                this.isFlashMessage = true
+                this.$store.dispatch('app/successForm', { isFlashMessage: this.isFlashMessage })
+
+                // setTimeout(() => {
+                //     location.href = '/';
+                // }, 2500)
+            }.bind(this))
             .catch(function(error) {
                 console.log(error)
             })

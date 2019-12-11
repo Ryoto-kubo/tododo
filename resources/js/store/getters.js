@@ -1,5 +1,5 @@
 const getters = {
-    prevForm: state => state.status.prevState,
+    successForm: state => state.app.successForm,
   }
   export default getters
   

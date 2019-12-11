@@ -11702,6 +11702,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -11715,6 +11716,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       messageArray: []
     };
+  },
+  computed: {
+    isFlashMessage: function isFlashMessage() {
+      return this.$store.state.app.isFlashMessage;
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -12023,7 +12029,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    isFlashMessage: Boolean
+  },
+  computed: {
+    opacity: function opacity() {
+      if (this.isFlashMessage) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+});
 
 /***/ }),
 
@@ -12075,6 +12096,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! timers */ "./node_modules/timers-browserify/main.js");
+/* harmony import */ var timers__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(timers__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -12102,11 +12125,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       titleValue: '',
-      contentsValue: ''
+      contentsValue: '',
+      isFlashMessage: false
     };
   },
   computed: {
@@ -12153,9 +12178,16 @@ __webpack_require__.r(__webpack_exports__);
       request_object['title'] = this.titleValue;
       request_object['contents'] = this.contentsValue;
       axios.post(request_url, request_object).then(function (response) {
-        console.log(response);
-        location.reload();
-      })["catch"](function (error) {
+        this.titleValue = '';
+        this.contentsValue = ''; // flashMessageを出すために状態をstoreに保存
+
+        this.isFlashMessage = true;
+        this.$store.dispatch('app/successForm', {
+          isFlashMessage: this.isFlashMessage
+        }); // setTimeout(() => {
+        //     location.href = '/';
+        // }, 2500)
+      }.bind(this))["catch"](function (error) {
         console.log(error);
       });
     }
@@ -17119,7 +17151,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".flash_message_container[data-v-a1758230] {\n  padding: 10px 0px;\n  position: relative;\n  top: -50px;\n  z-index: -1;\n  font-size: 16px;\n  text-align: center;\n  color: #ffffff;\n  background: #E3BD71;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}", ""]);
+exports.push([module.i, ".flash_message_container[data-v-a1758230] {\n  padding: 10px 0px;\n  position: relative;\n  top: -50px;\n  z-index: -1;\n  font-size: 16px;\n  text-align: center;\n  color: #ffffff;\n  background: #E3BD71;\n  -webkit-transition: 1s all;\n  transition: 1s all;\n}", ""]);
 
 // exports
 
@@ -55730,7 +55762,11 @@ var render = function() {
       _c(
         "transition",
         { attrs: { name: "flashMessage" } },
-        [_c("flash-message-component")],
+        [
+          _c("flash-message-component", {
+            attrs: { isFlashMessage: _vm.isFlashMessage }
+          })
+        ],
         1
       ),
       _vm._v(" "),
@@ -56026,9 +56062,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flash_message_container" }, [
-    _vm._v("\n    ありがとうございます。送信が完了しました。\n")
-  ])
+  return _c(
+    "div",
+    { staticClass: "flash_message_container", style: { opacity: _vm.opacity } },
+    [_vm._v("\n    ありがとうございます。送信が完了しました。\n    ")]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -76376,7 +76414,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/fontawesome-svg-core */ "./node_modules/@fortawesome/fontawesome-svg-core/index.es.js");
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
@@ -76428,6 +76466,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('menu-component', __webpack
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
   localStorage: {}
 });
 
@@ -77643,8 +77682,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var getters = {
-  prevForm: function prevForm(state) {
-    return state.status.prevState;
+  successForm: function successForm(state) {
+    return state.app.successForm;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
@@ -77665,17 +77704,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
 /* harmony import */ var _modules_app__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/app */ "./resources/js/store/modules/app.js");
-/* harmony import */ var _modules_app__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_modules_app__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
- // import status from './modules/status'
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    app: _modules_app__WEBPACK_IMPORTED_MODULE_3___default.a // status,
-
+    app: _modules_app__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   getters: _getters__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
@@ -77687,10 +77723,34 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*!*******************************************!*\
   !*** ./resources/js/store/modules/app.js ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  isFlashMessage: null
+};
+var mutations = {
+  SUCCESS_FORM: function SUCCESS_FORM(state, isFlashMessage) {
+    console.log(isFlashMessage);
+    console.log(state);
+    state.isFlashMessage = isFlashMessage;
+  }
+};
+var actions = {
+  successForm: function successForm(_ref, _ref2) {
+    var commit = _ref.commit;
+    var isFlashMessage = _ref2.isFlashMessage;
+    commit('SUCCESS_FORM', isFlashMessage);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 

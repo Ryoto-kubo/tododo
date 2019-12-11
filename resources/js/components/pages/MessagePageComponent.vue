@@ -1,7 +1,8 @@
 <template>
     <div>
         <transition name="flashMessage">
-            <flash-message-component />
+            <flash-message-component 
+            :isFlashMessage="isFlashMessage"/>
         </transition>
         <div class="request_container">
             <div class="request_title_container">
@@ -32,6 +33,11 @@ export default {
     data() {
         return {
             messageArray:[]
+        }
+    },
+    computed: {
+        isFlashMessage() {
+            return this.$store.state.app.isFlashMessage
         }
     },
     mounted() {

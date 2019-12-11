@@ -49,6 +49,7 @@ Vue.component('menu-component',        require('./components/parts/MenuComponent
 const app = new Vue({
     el: '#app',
     router: router,
+    store,
     localStorage: {        
     },
 });

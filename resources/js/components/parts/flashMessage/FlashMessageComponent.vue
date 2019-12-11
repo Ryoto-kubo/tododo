@@ -1,12 +1,25 @@
 <template>
-    <div class="flash_message_container">
+    <div class="flash_message_container" :style="{opacity: opacity}">
         ありがとうございます。送信が完了しました。
+        <!-- <br>
+        homeへ戻ります。 -->
     </div>
 </template>
 
 <script>
 export default {
-
+    props: {
+        isFlashMessage: Boolean
+    },
+    computed: {
+        opacity() {
+            if (this.isFlashMessage) {
+                return 1
+            } else {
+                return 0
+            }
+        }
+    }
 }
 </script>
 
@@ -21,6 +34,6 @@ export default {
     text-align: center;
     color: $white;
     background: #E3BD71;
-    transition: .5s all;
+    transition: 1s all;
 }
 </style>
