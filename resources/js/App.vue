@@ -1,23 +1,23 @@
 <template>
-    <div class="app_body">
-      <div class="weekly_card_container">
-        <div v-for="(week, index) in weeks" :key="index">
-          <router-link class="weekly_card" :to="{ name : 'week', params : { path: week.path }}">
-            <div class="weeklytext">
-              {{week.week}}曜日
-            </div>
-          </router-link>
-        </div>
+  <div class="app_body">
+    <div class="weekly_card_container">
+      <div v-for="(week, index) in weeks" :key="index">
+        <router-link class="weekly_card" :to="{ name : 'week', params : { path: week.path }}">
+          <div class="weeklytext">
+            {{week.week}}曜日
+          </div>
+        </router-link>
       </div>
-      <information-component 
-        :informationArray="informationArray"
-      />
     </div>
+    <information-component 
+      :informationArray="informationArray"
+    />
+  </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import InformationComponent from './components/parts/InformationComponent'
+import InformationComponent from './components/parts/home/InformationComponent'
 import { log } from 'util';
 export default {
   name: 'App',
@@ -39,7 +39,7 @@ export default {
       informationArray:[]
     }
   },
-  created() {
+  created() {    
     // DBからインフォメーションデータを取得    
     const hostname    = location.protocol + '//' + location.hostname
     const request_url = hostname + '/api/getInformation'
@@ -60,7 +60,8 @@ export default {
 <style lang="scss" scoped>
 @import '../sass/variables';
 .app_body{
-  margin-top: 50px;
+  width: 90%;
+  margin: auto;
   .weekly_card_container{
     margin-bottom: 100px;
     display: flex;

@@ -2,20 +2,20 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Information;
+use App\Models\Comment;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 
-class InformationController extends AdminController
+class CommentController extends AdminController
 {
     /**
      * Title for current resource.
      *
      * @var string
      */
-    protected $title = 'App\Models\Information';
+    protected $title = 'App\Models\Comment';
 
     /**
      * Make a grid builder.
@@ -24,11 +24,11 @@ class InformationController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Information);
+        $grid = new Grid(new Comment);
 
         $grid->column('id', __('Id'));
-        $grid->column('title', __('Title'));
-        $grid->column('detail', __('Detail'));
+        $grid->column('message_id', __('Message id'));
+        $grid->column('comment', __('Comment'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->column('deleted_at', __('Deleted at'));
@@ -44,11 +44,11 @@ class InformationController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Information::findOrFail($id));
+        $show = new Show(Comment::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('title', __('Title'));
-        $show->field('detail', __('Detail'));
+        $show->field('message_id', __('Message id'));
+        $show->field('comment', __('Comment'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
@@ -63,10 +63,10 @@ class InformationController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Information);
+        $form = new Form(new Comment);
 
-        $form->text('title', __('Title'));
-        $form->text('detail', __('Detail'));
+        $form->number('message_id', __('Message id'));
+        $form->text('comment', __('Comment'));
 
         return $form;
     }

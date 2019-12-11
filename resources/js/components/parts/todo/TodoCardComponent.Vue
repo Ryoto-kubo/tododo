@@ -206,11 +206,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/variables';
+@import '../../../../sass/variables';
 .plus_icon{
     width: 20px;
     height: 20px;
     vertical-align: 0;
+}
+input{
+    // outline: none;
+    border: none;
 }
 .todo_card_body{
     width: 280px;

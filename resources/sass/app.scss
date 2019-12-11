@@ -14,10 +14,6 @@ body{
     // font-size: 1.6rem; // 16px
     line-height: 2;
 }
-input{
-    // outline: none;
-    border: none;
-}
 button{
     outline: none;
 }
@@ -25,8 +21,6 @@ button:focus {
     outline: none;
 }
 main{
-    width: 90%;
-    margin: auto;
 }
 .valid_shake{
     animation: shake 1.5s 1;

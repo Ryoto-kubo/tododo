@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="weekly_page_container">
         <p class="weekly">
             {{path}}
         </p>
@@ -58,7 +58,7 @@
 import draggable from 'vuedraggable'
 import { log } from 'util'
 import { setTimeout } from 'timers'
-import EditContainer from '../parts/EditContainerComponent'
+import EditContainer from '../parts/todo/EditContainerComponent'
 export default {
     components: { 
         draggable,
@@ -196,43 +196,47 @@ export default {
     font-weight: bold;
     color: $text_color;
 }
-.todo_container{
-    display: flex;
-    .todo_card_container{
+.weekly_page_container{
+    width: 90%;
+    margin: auto;
+    .todo_container{
         display: flex;
-    }
-    .add_todo_card_container{
-        width: 280px;
-        height: 104px;
-        padding: 10px;
-        margin-right: 30px;
-        border: 1px solid  #707070;
-        border-radius: 10px;
-        background: $todo_card_bg;
-        transition: .5s all;
-        input{
-            width: 258px;
-            margin-bottom: 8px;
-            padding: 5px 10px;
-            font-size: 1.6rem;
-        }
-        .btn_area{
+        .todo_card_container{
             display: flex;
-            button{
-                width: 70px;
-                padding: 0;
-                color: $white;
+        }
+        .add_todo_card_container{
+            width: 280px;
+            height: 104px;
+            padding: 10px;
+            margin-right: 30px;
+            border: 1px solid  #707070;
+            border-radius: 10px;
+            background: $todo_card_bg;
+            transition: .5s all;
+            input{
+                width: 258px;
+                margin-bottom: 8px;
+                padding: 5px 10px;
                 font-size: 1.6rem;
-                border: none;
-                border-radius: 50px;
-                outline: none;
             }
-            .done_btn{
-                background: $success_btn_bg;
-                margin-right: 10px;
-            }
-            .cancel_btn{
-                background: $cancel_btn_bg;
+            .btn_area{
+                display: flex;
+                button{
+                    width: 70px;
+                    padding: 0;
+                    color: $white;
+                    font-size: 1.6rem;
+                    border: none;
+                    border-radius: 50px;
+                    outline: none;
+                }
+                .done_btn{
+                    background: $success_btn_bg;
+                    margin-right: 10px;
+                }
+                .cancel_btn{
+                    background: $cancel_btn_bg;
+                }
             }
         }
     }

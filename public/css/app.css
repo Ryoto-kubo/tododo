@@ -11108,21 +11108,12 @@ body {
   line-height: 2;
 }
 
-input {
-  border: none;
-}
-
 button {
   outline: none;
 }
 
 button:focus {
   outline: none;
-}
-
-main {
-  width: 90%;
-  margin: auto;
 }
 
 .valid_shake {
