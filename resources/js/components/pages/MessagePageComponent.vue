@@ -19,7 +19,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import MessageFormComponent  from "../parts/message/MessageFormComponent";
 import MessageViewComponent  from "../parts/message/MessageViewComponent";
