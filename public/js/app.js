@@ -13691,6 +13691,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -13704,6 +13707,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     return {
+      weeks: null,
       scaleUp: null,
       isAddTodo: false,
       todoValue: null,
@@ -13752,6 +13756,9 @@ __webpack_require__.r(__webpack_exports__);
     var jsonList = JSON.stringify(this.localStorageList);
     this.$localStorage.set(weeklyKey, jsonList);
   },
+  mounted: function mounted() {
+    this.weeks = this.$store.state.app.weeks;
+  },
   computed: {
     path: function path() {
       var week = this.$route.params.path;
@@ -13796,7 +13803,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addTrash: function addTrash(originalObject) {
       // 動かしたタスクのDOMを取得しdisplay: none;を付与
-      // let addDOM = originalEvent.item.style
       this.trashArray.push(originalObject.item);
       originalObject.dom['display'] = 'none';
     },
@@ -26865,7 +26871,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  color: #505E7A;\n}\n.weekly_page_container[data-v-c260a4b4] {\n  width: 90%;\n  margin: auto;\n}\n.weekly_page_container .todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.weekly_page_container .todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
+exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  margin-bottom: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  border-radius: 10px;\n  color: #505E7A;\n}\n.weekly_page_container[data-v-c260a4b4] {\n  width: 90%;\n  margin: auto;\n  padding: 0 20px;\n}\n.weekly_page_container .todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.weekly_page_container .todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
 
 // exports
 
@@ -78820,6 +78826,12 @@ var render = function() {
     "div",
     { staticClass: "weekly_page_container" },
     [
+      _vm._l(_vm.weeks, function(week, index) {
+        return _c("div", { key: index }, [
+          _vm._v("\n        " + _vm._s(week.week) + "\n    ")
+        ])
+      }),
+      _vm._v(" "),
       _c("p", { staticClass: "weekly" }, [
         _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
       ]),
@@ -78961,7 +78973,7 @@ var render = function() {
         2
       )
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -100688,12 +100700,32 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
-  isFlashMessage: null
+  isFlashMessage: null,
+  weeks: [{
+    path: 'mon',
+    week: '月'
+  }, {
+    path: 'tue',
+    week: '火'
+  }, {
+    path: 'wed',
+    week: '水'
+  }, {
+    path: 'thu',
+    week: '木'
+  }, {
+    path: 'fri',
+    week: '金'
+  }, {
+    path: 'sat',
+    week: '土'
+  }, {
+    path: 'sun',
+    week: '日'
+  }]
 };
 var mutations = {
   SUCCESS_FORM: function SUCCESS_FORM(state, isFlashMessage) {
-    console.log(isFlashMessage);
-    console.log(state);
     state.isFlashMessage = isFlashMessage;
   }
 };

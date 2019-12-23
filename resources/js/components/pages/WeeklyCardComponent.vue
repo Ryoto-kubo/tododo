@@ -1,5 +1,8 @@
 <template>
     <div class="weekly_page_container">
+        <div v-for="(week, index) in weeks" :key="index">
+            {{week.week}}
+        </div>
         <p class="weekly">
             {{path}}
         </p>
@@ -66,6 +69,7 @@ export default {
     },
     data() {
         return {
+            weeks: null,
             scaleUp: null,
             isAddTodo: false,
             todoValue: null,
@@ -101,6 +105,10 @@ export default {
         }
         const jsonList = JSON.stringify(this.localStorageList)
         this.$localStorage.set(weeklyKey, jsonList)
+    },
+    mounted() {
+        this.weeks = this.$store.state.app.weeks
+
     },
     computed: {
         path() {
@@ -139,7 +147,6 @@ export default {
         },
         addTrash(originalObject) {
             // 動かしたタスクのDOMを取得しdisplay: none;を付与
-            // let addDOM = originalEvent.item.style
             this.trashArray.push(originalObject.item)
             originalObject.dom['display'] = 'none'  
         },
@@ -191,14 +198,21 @@ export default {
 <style lang="scss" scoped>
 @import '../../../sass/variables';
 .weekly{
+    // width: 210px;
     margin-top: 30px;
+    margin-bottom: 30px;
+    // text-align: center;
     font-size: 3rem;
     font-weight: bold;
-    color: $text_color;
+    // color: $white;
+    border-radius: 10px;
+    color: #505E7A;
+    // background: $base_bg;
 }
 .weekly_page_container{
     width: 90%;
     margin: auto;
+    padding: 0 20px;
     .todo_container{
         display: flex;
         .todo_card_container{

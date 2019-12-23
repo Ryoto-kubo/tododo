@@ -2,7 +2,7 @@
     <div>
         <transition name="flashMessage">
             <flash-message-component 
-            :isFlashMessage="isFlashMessage"/>
+                :isFlashMessage="isFlashMessage"/>
         </transition>
         <div class="request_container">
             <div class="request_title_container">
