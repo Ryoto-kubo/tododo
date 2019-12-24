@@ -13694,6 +13694,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -13847,6 +13851,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     todoValueInit: function todoValueInit() {
       this.todoValue = null;
+    },
+    changeWeek: function changeWeek() {
+      this.$router.go({
+        path: this.$router.currentRoute.path,
+        force: true
+      });
     }
   },
   watch: {
@@ -26871,7 +26881,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  margin-bottom: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  border-radius: 10px;\n  color: #505E7A;\n}\n.weekly_page_container[data-v-c260a4b4] {\n  width: 90%;\n  margin: auto;\n  padding: 0 20px;\n}\n.weekly_page_container .todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.weekly_page_container .todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
+exports.push([module.i, "a[data-v-c260a4b4] {\n  color: #505E7A;\n  text-decoration: none;\n}\n.weekly[data-v-c260a4b4] {\n  margin-top: 30px;\n  margin-bottom: 30px;\n  font-size: 3rem;\n  font-weight: bold;\n  border-radius: 10px;\n  color: #505E7A;\n}\n.weekly_page_container[data-v-c260a4b4] {\n  width: 90%;\n  margin: auto;\n  padding: 0 20px;\n}\n.weekly_page_container .week_link_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .week_link_container .week_link[data-v-c260a4b4] {\n  margin-right: 20px;\n  font-size: 1.8rem;\n  font-weight: bold;\n  -webkit-transition: 0.3s all;\n  transition: 0.3s all;\n}\n.weekly_page_container .week_link_container .week_link[data-v-c260a4b4]:hover {\n  -webkit-transform: scale(2);\n          transform: scale(2);\n  cursor: pointer;\n}\n.weekly_page_container .todo_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .todo_card_container[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container[data-v-c260a4b4] {\n  width: 280px;\n  height: 104px;\n  padding: 10px;\n  margin-right: 30px;\n  border: 1px solid #707070;\n  border-radius: 10px;\n  background: #EBECF0;\n  -webkit-transition: 0.5s all;\n  transition: 0.5s all;\n}\n.weekly_page_container .todo_container .add_todo_card_container input[data-v-c260a4b4] {\n  width: 258px;\n  margin-bottom: 8px;\n  padding: 5px 10px;\n  font-size: 1.6rem;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area[data-v-c260a4b4] {\n  display: -webkit-box;\n  display: flex;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area button[data-v-c260a4b4] {\n  width: 70px;\n  padding: 0;\n  color: #ffffff;\n  font-size: 1.6rem;\n  border: none;\n  border-radius: 50px;\n  outline: none;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .done_btn[data-v-c260a4b4] {\n  background: #60BD4F;\n  margin-right: 10px;\n}\n.weekly_page_container .todo_container .add_todo_card_container .btn_area .cancel_btn[data-v-c260a4b4] {\n  background: #f08080;\n}", ""]);
 
 // exports
 
@@ -78826,11 +78836,35 @@ var render = function() {
     "div",
     { staticClass: "weekly_page_container" },
     [
-      _vm._l(_vm.weeks, function(week, index) {
-        return _c("div", { key: index }, [
-          _vm._v("\n        " + _vm._s(week.week) + "\n    ")
-        ])
-      }),
+      _c(
+        "div",
+        { staticClass: "week_link_container" },
+        _vm._l(_vm.weeks, function(week, index) {
+          return _c(
+            "div",
+            {
+              key: index,
+              staticClass: "week_link",
+              on: { click: _vm.changeWeek }
+            },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: { to: { name: "week", params: { path: week.path } } }
+                },
+                [
+                  _vm._v(
+                    "\n                " + _vm._s(week.week) + "\n            "
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
       _c("p", { staticClass: "weekly" }, [
         _vm._v("\n        " + _vm._s(_vm.path) + "\n    ")
@@ -78973,7 +79007,7 @@ var render = function() {
         2
       )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
