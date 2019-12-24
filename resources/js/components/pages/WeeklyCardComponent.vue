@@ -223,7 +223,7 @@ a{
         display: flex;
         .week_link{
             margin-right: 20px;
-            font-size: 1.8rem;
+            font-size: 18px;
             font-weight: bold;
             transition: .3s all;
             &:hover{
