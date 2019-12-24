@@ -1,5 +1,12 @@
 <template>
     <div class="weekly_page_container">
+        <div class="week_link_container">
+            <div class="week_link" v-for="(week, index) in weeks" :key="index" @click="changeWeek">
+                <router-link :to="{ name : 'week', params : { path: week.path }}">
+                    {{week.week}}
+                </router-link>
+            </div>
+        </div>
         <p class="weekly">
             {{path}}
         </p>
@@ -10,7 +17,7 @@
             @addTrash="addTrash"
         />
         <div class="todo_container">
-            <draggable class="todo_card_container" 
+            <draggable class="todo_card_container"
                 :group="weeklyOptions"
                 :animation="200"
                 :delay="200"
@@ -66,6 +73,7 @@ export default {
     },
     data() {
         return {
+            weeks: null,
             scaleUp: null,
             isAddTodo: false,
             todoValue: null,
@@ -101,6 +109,9 @@ export default {
         }
         const jsonList = JSON.stringify(this.localStorageList)
         this.$localStorage.set(weeklyKey, jsonList)
+    },
+    mounted() {
+        this.weeks = this.$store.state.app.weeks        
     },
     computed: {
         path() {
@@ -139,7 +150,6 @@ export default {
         },
         addTrash(originalObject) {
             // 動かしたタスクのDOMを取得しdisplay: none;を付与
-            // let addDOM = originalEvent.item.style
             this.trashArray.push(originalObject.item)
             originalObject.dom['display'] = 'none'  
         },
@@ -179,6 +189,9 @@ export default {
         todoValueInit() {
             this.todoValue = null
         },
+        changeWeek() {
+            this.$router.go({path: this.$router.currentRoute.path, force: true})
+        }
     },
     watch: {
         trashArray() {
@@ -190,15 +203,35 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../../sass/variables';
+a{
+    color: $text_color;
+    text-decoration: none;
+}
 .weekly{
     margin-top: 30px;
+    margin-bottom: 30px;
     font-size: 3rem;
     font-weight: bold;
-    color: $text_color;
+    border-radius: 10px;
+    color: #505E7A;
 }
 .weekly_page_container{
     width: 90%;
     margin: auto;
+    padding: 0 20px;
+    .week_link_container{
+        display: flex;
+        .week_link{
+            margin-right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            transition: .3s all;
+            &:hover{
+                transform: scale(2);
+                cursor: pointer;
+            }
+        }
+    }
     .todo_container{
         display: flex;
         .todo_card_container{
